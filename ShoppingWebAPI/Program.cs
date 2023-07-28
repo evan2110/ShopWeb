@@ -25,15 +25,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//add automapper
-var mapperConfig = new MapperConfiguration(mc =>
-{
-    mc.AddProfile(new MapperConfigs());
-});
-
-IMapper mapper = mapperConfig.CreateMapper();
-builder.Services.AddSingleton(mapper);
-
 //JWT auth config
 var secretKey = builder.Configuration["AppSettings:SecretKey"]; //de ma hoa va sinh ra JWT
 var secretKeyBytes = Encoding.UTF8.GetBytes(secretKey); //doi ra mang byte
