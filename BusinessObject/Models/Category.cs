@@ -6,6 +6,11 @@ namespace BusinessObject.Models;
 [Table("Category")]
 public class Category: BaseModel
 {
+    public Category()
+    {
+        Blogs = new HashSet<Blog>();
+        Products = new HashSet<Product>();
+    }
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Column("category_id")]
     public int CategoryId { get; set; }
@@ -21,6 +26,6 @@ public class Category: BaseModel
     [Column("image")]
     public string Image { get; set; }
     
-    public virtual List<Blog> Blogs { get; set; }
-    public virtual List<Product> Products { get; set; }
+    public virtual ICollection<Blog> Blogs { get; set; }
+    public virtual ICollection<Product> Products { get; set; }
 }

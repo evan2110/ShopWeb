@@ -8,12 +8,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="DTO\" />
-      <Folder Include="Entity\" />
+      <ProjectReference Include="..\BusinessObject\BusinessObject.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\BusinessObject\BusinessObject.csproj" />
+      <Folder Include="Entity\" />
     </ItemGroup>
 
 </Project>

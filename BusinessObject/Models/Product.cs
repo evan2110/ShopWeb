@@ -6,6 +6,14 @@ namespace BusinessObject.Models;
 [Table("Product")]
 public class Product: BaseModel
 {
+    public Product()
+    {
+        ProductSizes = new HashSet<ProductSize>();
+        ProductColors = new HashSet<ProductColor>();
+        OrderDetails = new HashSet<OrderDetail>();
+        CartItems = new HashSet<CartItem>();
+        Rates = new HashSet<Rate>();
+    }
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Column("product_id")]
     public int ProductId { get; set; }
@@ -48,9 +56,9 @@ public class Product: BaseModel
     [Column("discount")]
     public int Discount { get; set; }
     
-    public virtual List<ProductSize> ProductSizes { get; set; }
-    public virtual List<ProductColor> ProductColors { get; set; }
-    public virtual List<OrderDetail> OrderDetails { get; set; }
-    public virtual List<CartItem> CartItems { get; set; }
-    public virtual List<Rate> Rates { get; set; }
+    public virtual ICollection<ProductSize> ProductSizes { get; set; }
+    public virtual ICollection<ProductColor> ProductColors { get; set; }
+    public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+    public virtual ICollection<CartItem> CartItems { get; set; }
+    public virtual ICollection<Rate> Rates { get; set; }
 }

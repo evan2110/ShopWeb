@@ -6,6 +6,10 @@ namespace BusinessObject.Models;
 [Table(("Role"))]
 public class Role: BaseModel
 {
+    public Role()
+    {
+        Users = new HashSet<User>();
+    }
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Column("role_id")]
     public int RoleId { get; set; }
@@ -15,5 +19,5 @@ public class Role: BaseModel
     [Column("role_name", TypeName = "nvarchar(50)")]
     public string RoleName { get; set; }
     
-    public virtual List<User> Users { get; set; }
+    public virtual ICollection<User> Users { get; set; }
 }

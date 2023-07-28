@@ -6,6 +6,10 @@ namespace BusinessObject.Models;
 [Table("Size")]
 public class Size: BaseModel
 {
+    public Size()
+    {
+        ProductSizes = new HashSet<ProductSize>();
+    }
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Column("size_id")]
     public int SizeId { get; set; }
@@ -15,5 +19,5 @@ public class Size: BaseModel
     [Column("size_name", TypeName = "nvarchar(50)")]
     public string SizeName { get; set; }
     
-    public virtual List<ProductSize> ProductSizes { get; set; }
+    public virtual ICollection<ProductSize> ProductSizes { get; set; }
 }

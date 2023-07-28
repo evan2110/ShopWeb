@@ -1,587 +1,587 @@
 {
   "Files": [
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\ShopWeb.bundle.scp.css",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\ShopWeb.bundle.scp.css",
       "PackagePath": "staticwebassets\\ShopWeb.bundle.scp.css"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\css\\plugins.css",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\css\\plugins.css",
       "PackagePath": "staticwebassets\\css\\plugins.css"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\css\\site.css",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\css\\style.css",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\css\\style.css",
       "PackagePath": "staticwebassets\\css\\style.css"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\favicon.ico",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\fonts\\Simple-Line-Icons.woff2",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\fonts\\Simple-Line-Icons.woff2",
       "PackagePath": "staticwebassets\\fonts\\Simple-Line-Icons.woff2"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\fonts\\fontawesome-webfont.woff2",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\fonts\\fontawesome-webfont.woff2",
       "PackagePath": "staticwebassets\\fonts\\fontawesome-webfont.woff2"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\fonts\\ionicons.ttf",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\fonts\\ionicons.ttf",
       "PackagePath": "staticwebassets\\fonts\\ionicons.ttf"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\about\\about1.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\about\\about1.jpg",
       "PackagePath": "staticwebassets\\img\\about\\about1.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\about\\about2.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\about\\about2.jpg",
       "PackagePath": "staticwebassets\\img\\about\\about2.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\about\\count (1).png",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\about\\count (1).png",
       "PackagePath": "staticwebassets\\img\\about\\count (1).png"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\about\\count.png",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\about\\count.png",
       "PackagePath": "staticwebassets\\img\\about\\count.png"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\about\\count2.png",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\about\\count2.png",
       "PackagePath": "staticwebassets\\img\\about\\count2.png"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\about\\count3.png",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\about\\count3.png",
       "PackagePath": "staticwebassets\\img\\about\\count3.png"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\about\\count4.png",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\about\\count4.png",
       "PackagePath": "staticwebassets\\img\\about\\count4.png"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\bg\\banner1.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\bg\\banner1.jpg",
       "PackagePath": "staticwebassets\\img\\bg\\banner1.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\bg\\banner10.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\bg\\banner10.jpg",
       "PackagePath": "staticwebassets\\img\\bg\\banner10.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\bg\\banner11.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\bg\\banner11.jpg",
       "PackagePath": "staticwebassets\\img\\bg\\banner11.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\bg\\banner12.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\bg\\banner12.jpg",
       "PackagePath": "staticwebassets\\img\\bg\\banner12.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\bg\\banner8.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\bg\\banner8.jpg",
       "PackagePath": "staticwebassets\\img\\bg\\banner8.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\bg\\banner9.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\bg\\banner9.jpg",
       "PackagePath": "staticwebassets\\img\\bg\\banner9.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\admin_avatar.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\admin_avatar.jpg",
       "PackagePath": "staticwebassets\\img\\blog\\admin_avatar.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\blog1.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\blog1.jpg",
       "PackagePath": "staticwebassets\\img\\blog\\blog1.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\blog1.png",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\blog1.png",
       "PackagePath": "staticwebassets\\img\\blog\\blog1.png"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\blog2.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\blog2.jpg",
       "PackagePath": "staticwebassets\\img\\blog\\blog2.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\blog2.png",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\blog2.png",
       "PackagePath": "staticwebassets\\img\\blog\\blog2.png"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\blog3.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\blog3.jpg",
       "PackagePath": "staticwebassets\\img\\blog\\blog3.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\blog3.png",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\blog3.png",
       "PackagePath": "staticwebassets\\img\\blog\\blog3.png"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\blog4.png",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\blog4.png",
       "PackagePath": "staticwebassets\\img\\blog\\blog4.png"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\blog6.png",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\blog6.png",
       "PackagePath": "staticwebassets\\img\\blog\\blog6.png"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\comment.png.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\comment.png.jpg",
       "PackagePath": "staticwebassets\\img\\blog\\comment.png.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\comment2.png.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\comment2.png.jpg",
       "PackagePath": "staticwebassets\\img\\blog\\comment2.png.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\comment3.png.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\comment3.png.jpg",
       "PackagePath": "staticwebassets\\img\\blog\\comment3.png.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\post1.png",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\post1.png",
       "PackagePath": "staticwebassets\\img\\blog\\post1.png"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\post2.png",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\post2.png",
       "PackagePath": "staticwebassets\\img\\blog\\post2.png"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\post3.png",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\post3.png",
       "PackagePath": "staticwebassets\\img\\blog\\post3.png"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\post4.png",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\blog\\post4.png",
       "PackagePath": "staticwebassets\\img\\blog\\post4.png"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\icon\\bkg_grid4.png",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\icon\\bkg_grid4.png",
       "PackagePath": "staticwebassets\\img\\icon\\bkg_grid4.png"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\icon\\bkg_grid5.png",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\icon\\bkg_grid5.png",
       "PackagePath": "staticwebassets\\img\\icon\\bkg_grid5.png"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\icon\\bkg_grid_hover.png",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\icon\\bkg_grid_hover.png",
       "PackagePath": "staticwebassets\\img\\icon\\bkg_grid_hover.png"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\icon\\bkg_list.png",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\icon\\bkg_list.png",
       "PackagePath": "staticwebassets\\img\\icon\\bkg_list.png"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\logo\\cigar.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\logo\\cigar.jpg",
       "PackagePath": "staticwebassets\\img\\logo\\cigar.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\logo\\language.png",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\logo\\language.png",
       "PackagePath": "staticwebassets\\img\\logo\\language.png"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\logo\\language2.png",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\logo\\language2.png",
       "PackagePath": "staticwebassets\\img\\logo\\language2.png"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\logo\\logo.png",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\logo\\logo.png",
       "PackagePath": "staticwebassets\\img\\logo\\logo.png"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product1.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product1.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product1.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product10.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product10.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product10.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product11.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product11.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product11.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product12.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product12.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product12.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product13.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product13.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product13.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product14.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product14.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product14.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product15.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product15.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product15.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product16.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product16.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product16.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product17.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product17.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product17.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product18.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product18.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product18.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product19.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product19.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product19.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product2.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product2.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product2.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product20.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product20.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product20.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product21 (1).jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product21 (1).jpg",
       "PackagePath": "staticwebassets\\img\\product\\product21 (1).jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product21.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product21.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product21.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product22.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product22.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product22.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product23.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product23.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product23.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product24.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product24.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product24.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product25.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product25.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product25.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product26.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product26.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product26.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product27.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product27.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product27.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product28.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product28.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product28.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product3.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product3.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product3.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product4.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product4.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product4.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product5.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product5.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product5.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product6.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product6.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product6.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product7.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product7.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product7.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product8.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product8.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product8.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product9.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\product\\product9.jpg",
       "PackagePath": "staticwebassets\\img\\product\\product9.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\s-product\\product.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\s-product\\product.jpg",
       "PackagePath": "staticwebassets\\img\\s-product\\product.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\s-product\\product2.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\s-product\\product2.jpg",
       "PackagePath": "staticwebassets\\img\\s-product\\product2.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\s-product\\product3.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\s-product\\product3.jpg",
       "PackagePath": "staticwebassets\\img\\s-product\\product3.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\s-product\\product4.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\s-product\\product4.jpg",
       "PackagePath": "staticwebassets\\img\\s-product\\product4.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\s-product\\product5.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\s-product\\product5.jpg",
       "PackagePath": "staticwebassets\\img\\s-product\\product5.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\slider\\content3.png",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\slider\\content3.png",
       "PackagePath": "staticwebassets\\img\\slider\\content3.png"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\slider\\content4.png",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\slider\\content4.png",
       "PackagePath": "staticwebassets\\img\\slider\\content4.png"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\slider\\content5.png",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\slider\\content5.png",
       "PackagePath": "staticwebassets\\img\\slider\\content5.png"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\slider\\slider4.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\slider\\slider4.jpg",
       "PackagePath": "staticwebassets\\img\\slider\\slider4.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\slider\\slider5.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\slider\\slider5.jpg",
       "PackagePath": "staticwebassets\\img\\slider\\slider5.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\img\\slider\\slider6.jpg",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\img\\slider\\slider6.jpg",
       "PackagePath": "staticwebassets\\img\\slider\\slider6.jpg"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\js\\main.js",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\js\\main.js",
       "PackagePath": "staticwebassets\\js\\main.js"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\js\\map.js",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\js\\map.js",
       "PackagePath": "staticwebassets\\js\\map.js"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\js\\plugins.js",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\js\\plugins.js",
       "PackagePath": "staticwebassets\\js\\plugins.js"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\js\\site.js",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\LICENSE",
       "PackagePath": "staticwebassets\\lib\\bootstrap"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Id": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {

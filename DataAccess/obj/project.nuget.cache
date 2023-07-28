@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ea343IS894Sm7AwagpNmeB59KnB5udYUT9TB4ttRXOTiPo76rFFdPu2vmCqR0f93OsFrq1ozqvoGMDOokvrKww==",
+  "dgSpecHash": "PtNlLR5hsczZZkWFrtWrNflyI3VbEZGZqBXsngIFrrkqnoyvdQ9CWE3f+bAsCJhOf8u+0OpDuL/1CkYL1u/NSQ==",
   "success": true,
-  "projectFilePath": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\DataAccess\\DataAccess.csproj",
+  "projectFilePath": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\DataAccess\\DataAccess.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\duc21\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\duc21\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

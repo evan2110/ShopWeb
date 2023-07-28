@@ -61,7 +61,7 @@ namespace BusinessObject.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("status");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("datetime")
                         .HasColumnName("updated_time");
 
@@ -97,7 +97,7 @@ namespace BusinessObject.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("status");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("datetime")
                         .HasColumnName("updated_time");
 
@@ -147,7 +147,7 @@ namespace BusinessObject.Migrations
                         .HasColumnType("money")
                         .HasColumnName("total_price");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("datetime")
                         .HasColumnName("updated_time");
 
@@ -195,7 +195,7 @@ namespace BusinessObject.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("status");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("datetime")
                         .HasColumnName("updated_time");
 
@@ -234,7 +234,7 @@ namespace BusinessObject.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("status");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("datetime")
                         .HasColumnName("updated_time");
 
@@ -318,7 +318,7 @@ namespace BusinessObject.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("status");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("datetime")
                         .HasColumnName("updated_time");
 
@@ -374,7 +374,7 @@ namespace BusinessObject.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("status");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("datetime")
                         .HasColumnName("updated_time");
 
@@ -453,7 +453,7 @@ namespace BusinessObject.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("status");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("datetime")
                         .HasColumnName("updated_time");
 
@@ -491,7 +491,7 @@ namespace BusinessObject.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("status");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("datetime")
                         .HasColumnName("updated_time");
 
@@ -531,7 +531,7 @@ namespace BusinessObject.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("status");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("datetime")
                         .HasColumnName("updated_time");
 
@@ -577,7 +577,7 @@ namespace BusinessObject.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("status");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("datetime")
                         .HasColumnName("updated_time");
 
@@ -619,7 +619,7 @@ namespace BusinessObject.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("status");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("datetime")
                         .HasColumnName("updated_time");
 
@@ -653,7 +653,7 @@ namespace BusinessObject.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("status");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("datetime")
                         .HasColumnName("updated_time");
 
@@ -687,7 +687,7 @@ namespace BusinessObject.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("status");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("datetime")
                         .HasColumnName("updated_time");
 
@@ -716,36 +716,30 @@ namespace BusinessObject.Migrations
                         .HasColumnName("email");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("first_name");
 
                     b.Property<string>("Gender")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("gender");
 
                     b.Property<string>("Image")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("image");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("last_name");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("password");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("phone");
@@ -760,7 +754,7 @@ namespace BusinessObject.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("status");
 
-                    b.Property<DateTime>("UpdatedTime")
+                    b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("datetime")
                         .HasColumnName("updated_time");
 

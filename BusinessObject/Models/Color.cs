@@ -6,6 +6,10 @@ namespace BusinessObject.Models;
 [Table("Color")]
 public class Color: BaseModel
 {
+    public Color()
+    {
+        ProductColors = new HashSet<ProductColor>();
+    }
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Column("color_id")]
     public int ColorId { get; set; }
@@ -18,5 +22,5 @@ public class Color: BaseModel
     [Column("image")]
     public string Image { get; set; }
     
-    public virtual List<ProductColor> ProductColors { get; set; }
+    public virtual ICollection<ProductColor> ProductColors { get; set; }
 }

@@ -6,6 +6,10 @@ namespace BusinessObject.Models;
 [Table("Order")]
 public class Order: BaseModel
 {
+    public Order()
+    {
+        OrderDetails = new HashSet<OrderDetail>();
+    }
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Column("order_id")]
     public int OrderId { get; set; }
@@ -67,5 +71,5 @@ public class Order: BaseModel
     [ForeignKey("ShipViaId")]
     public ShipVia ShipVia { get; set; }
     
-    public virtual List<OrderDetail> OrderDetails { get; set; }
+    public virtual ICollection<OrderDetail> OrderDetails { get; set; }
 }

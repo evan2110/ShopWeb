@@ -3561,11 +3561,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\DataAccess\\DataAccess.csproj",
+      "projectUniqueName": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\DataAccess\\DataAccess.csproj",
       "projectName": "DataAccess",
-      "projectPath": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\DataAccess\\DataAccess.csproj",
+      "projectPath": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\DataAccess\\DataAccess.csproj",
       "packagesPath": "C:\\Users\\duc21\\.nuget\\packages\\",
-      "outputPath": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\DataAccess\\obj\\",
+      "outputPath": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\DataAccess\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\duc21\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3582,8 +3582,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\BusinessObject\\BusinessObject.csproj": {
-              "projectPath": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\BusinessObject\\BusinessObject.csproj"
+            "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\BusinessObject\\BusinessObject.csproj": {
+              "projectPath": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\BusinessObject\\BusinessObject.csproj"
             }
           }
         }

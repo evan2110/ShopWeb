@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\BusinessObject\\BusinessObject.csproj": {}
+    "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\BusinessObject\\BusinessObject.csproj": {}
   },
   "projects": {
-    "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\BusinessObject\\BusinessObject.csproj": {
+    "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\BusinessObject\\BusinessObject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\BusinessObject\\BusinessObject.csproj",
+        "projectUniqueName": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\BusinessObject\\BusinessObject.csproj",
         "projectName": "BusinessObject",
-        "projectPath": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\BusinessObject\\BusinessObject.csproj",
+        "projectPath": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\BusinessObject\\BusinessObject.csproj",
         "packagesPath": "C:\\Users\\duc21\\.nuget\\packages\\",
-        "outputPath": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\BusinessObject\\obj\\",
+        "outputPath": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\BusinessObject\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\duc21\\AppData\\Roaming\\NuGet\\NuGet.Config",

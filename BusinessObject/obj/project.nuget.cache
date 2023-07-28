@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "DpFkzC3jv1ZNlAQrlFi8Lv7PK2oOQQR2PLkGm1ljxb1bvjby1qPdX5ETAN8xhou3mmkYEhTpOKzRL8T4reOkbg==",
+  "dgSpecHash": "3hWfBsQz/cInGbYpBMdd+zUIAK2KKjVg6JM09N89JjEIZZflF/jtAUWXAmRSYHr78BE9Vbaf0zHkhze+EWoc2Q==",
   "success": true,
-  "projectFilePath": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\BusinessObject\\BusinessObject.csproj",
+  "projectFilePath": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\BusinessObject\\BusinessObject.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\duc21\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\duc21\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

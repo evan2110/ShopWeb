@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\ShopWeb.csproj",
+      "projectUniqueName": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\ShopWeb.csproj",
       "projectName": "ShopWeb",
-      "projectPath": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\ShopWeb.csproj",
+      "projectPath": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\ShopWeb.csproj",
       "packagesPath": "C:\\Users\\duc21\\.nuget\\packages\\",
-      "outputPath": "D:\\C Sharp\\PRN231_Trenlop\\Project\\ShopWeb\\ShopWeb\\obj\\",
+      "outputPath": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\duc21\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BusinessObject.Models;
 
@@ -15,5 +16,5 @@ public class BaseModel
     public DateTime CreatedTime { get; set; }
     
     [Column("updated_time", TypeName = "datetime")]
-    public DateTime UpdatedTime { get; set; }
+    public DateTime? UpdatedTime { get; set; }
 }
