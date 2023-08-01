@@ -10,7 +10,7 @@
             <div class="col-12">
                 <div class="breadcrumb_content">
                     <ul>
-                        <li><a href="index.html">home</a></li>
+                        <li><a href="/Home">home</a></li>
                         <li>/</li>
                         <li>sign</li>
                     </ul>
@@ -28,15 +28,21 @@
             <div class="col-lg-6 col-md-6">
                 <div class="account_form">
                     <h2>login</h2>
-                    <form action="#">
+                    <form method="post" asp-action="Login">
                         <p>
                             <label>Username or email <span>*</span></label>
-                            <input type="text">
+                            <input name="Email" type="text">
                         </p>
                         <p>
                             <label>Passwords <span>*</span></label>
-                            <input type="password">
+                            <input name="Password" type="password">
                         </p>
+                        <div class="flex items-center justify-between">
+                            @if (ViewBag.ErrorMessageLogin != null)
+                            {
+                                <label style="color:red">@ViewBag.ErrorMessageLogin</label>
+                            }
+                        </div>
                         <div class="login_submit">
                             <a href="#">Lost your password?</a>
                             <label for="remember">
@@ -58,12 +64,22 @@
                     <form method="post" asp-action="Register" asp-controller="Register">
                         <p>
                             <label>Email address  <span>*</span></label>
-                            <input name="Email" required type="text">
+                            <input name="Email" required type="email">
                         </p>
                         <p>
                             <label>Passwords <span>*</span></label>
                             <input name="Password" required type="password">
                         </p>
+                        <div class="flex items-center justify-between">
+                            @if (ViewBag.ErrorMessage != null)
+                            {
+                                <label style="color:red">@ViewBag.ErrorMessage</label>
+                            }
+                            @if (ViewBag.SuccessMessage != null)
+                            {
+                                <label style="color:green">@ViewBag.SuccessMessage</label>
+                            }
+                        </div>
                         <div class="login_submit">
                             <button type="submit">Register</button>
                         </div>

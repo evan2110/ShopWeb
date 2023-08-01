@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ShoppingWebAPI.Request;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ShopWeb.Controllers
@@ -17,7 +18,7 @@ namespace ShopWeb.Controllers
 
         public IActionResult Index()
         {
-            return RedirectToAction("Index", "Login");
+            return View();
         }
 
         [HttpPost]
@@ -37,21 +38,23 @@ namespace ShopWeb.Controllers
                     dynamic json = JObject.Parse(resp.Content.ReadAsStringAsync().GetAwaiter().GetResult());
                     if (resp.IsSuccessStatusCode)
                     {
-                        return RedirectToAction("Index", "Login");
+                        TempData["SuccessMessage"] = "Register susscess!";
                     }
                     else
                     {
-                        ViewBag.Message = (string)json.errorMessages;
+                        TempData["ErrorMessage"] = "Wrong something!";
                     }
-                    return View("Index");
                 }
                 catch (Exception ex)
                 {
-                    ViewBag.Message = "Đã có lỗi xảy ra khi đăng nhập";
+                    TempData["ErrorMessage"] = "Wrong something !";
                 }
                 return RedirectToAction("Index", "Login");
             }
-            return RedirectToAction("Index", "Login");
+            else
+            {
+                return RedirectToAction("Index", "Login");
+            }
         }
     }
 }

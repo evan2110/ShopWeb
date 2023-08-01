@@ -58,7 +58,7 @@ public class UserController : ControllerBase
                 }
                 response.IsSuccess = true;
                 response.Token = token;
-                response.Result = user;
+                response.Result = userDTO;
                 return Ok(response);
             }
             else

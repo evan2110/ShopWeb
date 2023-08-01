@@ -251,6 +251,9 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
+              "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\DataAccess\\DataAccess.csproj": {
+                "projectPath": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\DataAccess\\DataAccess.csproj"
+              },
               "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShoppingWebAPI\\ShoppingWebAPI.csproj": {
                 "projectPath": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShoppingWebAPI\\ShoppingWebAPI.csproj"
               }

@@ -4195,6 +4195,7 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "DataAccess >= 1.0.0",
       "Newtonsoft.Json >= 13.0.3",
       "ShoppingWebAPI >= 1.0.0"
     ]
@@ -4227,6 +4228,9 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
+            "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\DataAccess\\DataAccess.csproj": {
+              "projectPath": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\DataAccess\\DataAccess.csproj"
+            },
             "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShoppingWebAPI\\ShoppingWebAPI.csproj": {
               "projectPath": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShoppingWebAPI\\ShoppingWebAPI.csproj"
             }

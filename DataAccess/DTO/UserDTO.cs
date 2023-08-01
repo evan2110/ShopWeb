@@ -12,4 +12,7 @@ public class UserDTO
     public string Password { get; set; }
     public int RoleId { get; set; }
     public string RoleName { get; set; }
+    public string Status { get; set; }
+    public DateTime CreatedTime { get; set; }
+    public DateTime? UpdatedTime { get; set; }
 }
