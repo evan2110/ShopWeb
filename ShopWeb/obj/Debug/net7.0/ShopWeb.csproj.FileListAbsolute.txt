@@ -124,3 +124,6 @@ D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\bin\Debug\net7.0\BusinessObject.pdb
 D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\bin\Debug\net7.0\DataAccess.pdb
 D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\obj\Debug\net7.0\ShopWeb.MvcApplicationPartsAssemblyInfo.cs
 D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\obj\Debug\net7.0\ShopWeb.csproj.CopyComplete
+D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\bin\Debug\net7.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll

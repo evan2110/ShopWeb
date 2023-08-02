@@ -13,7 +13,9 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private static HttpClient httpClient;
-    private static string baseApiUrl = "https://localhost:7010/api/Product";
+    private static string productUrl = "https://localhost:7010/api/Product";
+    private static string blogUrl = "https://localhost:7010/api/Blog";
+
 
     public HomeController(ILogger<HomeController> logger)
     {
@@ -29,17 +31,30 @@ public class HomeController : Controller
         }
         try
         {
-            string url = $"{baseApiUrl}/list";
+            string urlProduct = $"{productUrl}/list";
+            string urlBlog = $"{blogUrl}/list";
 
-            HttpResponseMessage response = await httpClient.GetAsync(url);
-            string strData = await response.Content.ReadAsStringAsync();
-            var options = new JsonSerializerOptions
+            //GetTopProduct
+            HttpResponseMessage responseProduct = await httpClient.GetAsync(urlProduct);
+            string strDataProduct = await responseProduct.Content.ReadAsStringAsync();
+            var optionsProduct = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             };
 
-            List<ProductDTO> list = System.Text.Json.JsonSerializer.Deserialize<List<ProductDTO>>(strData, options);
-            ViewBag.listProductDTO = list;
+            List<ProductDTO> listProduct = System.Text.Json.JsonSerializer.Deserialize<List<ProductDTO>>(strDataProduct, optionsProduct);
+            ViewBag.listProductDTO = listProduct;
+
+            //GetTopBlog
+            HttpResponseMessage responseBlog = await httpClient.GetAsync(urlBlog);
+            string strDataBlog = await responseBlog.Content.ReadAsStringAsync();
+            var optionsBlog = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            List<BlogDTO> listBlog = System.Text.Json.JsonSerializer.Deserialize<List<BlogDTO>>(strDataBlog, optionsBlog);
+            ViewBag.listBlogDTO = listBlog;
             return View("Index");
         }
         catch (Exception ex)

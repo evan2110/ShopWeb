@@ -98,11 +98,11 @@
                                     <div class="col-lg-3">
                                         <div class="single_product">
                                             <div class="product_thumb">
-                                                <a class="primary_img" href="@item.ImageFront"><img style="width:250px; height:250px; background-color:red;" src="@item.ImageFront" alt=""></a>
-                                                <a class="secondary_img" href="@item.ImageBehind"><img style="width:250px; height:250px; background-color:red;" src="@item.ImageBehind" alt=""></a>
+                                                <a class="primary_img" href="/Product?product_id=@item.ProductId"><img style="width:268px; height:290px; background-color:red;" src="@item.ImageFront" alt=""></a>
+                                                <a class="secondary_img" href="/Product?product_id=@item.ProductId"><img style="width:268px; height:290px; background-color:red;" src="@item.ImageBehind" alt=""></a>
 
                                                 <div class="quick_button">
-                                                    <a href="#" title="quick_view">Xem sản phẩm</a>
+                                                    <a href="/Product?product_id=@item.ProductId" title="quick_view">Xem sản phẩm</a>
 
                                                 </div>
 
@@ -111,189 +111,14 @@
                                                 </div>
                                             </div>
                                             <div class="product_content">
-                                                <h3><a href="product-details.html">@item.ProductName</a></h3>
+                                                <h3><a href="/Product?product_id=@item.ProductId">@item.ProductName</a></h3>
                                                 <span class="current_price">@(item.Price - (item.Price*item.Discount)/100)</span>
                                                 <span class="old_price">@item.Price VNĐ</span>
                                             </div>
                                         </div>
                                     </div>
                                 }
-                                @*<div class="col-lg-3">
-                                <div class="single_product">
-                                <div class="product_thumb">
-                                <a class="primary_img" href="product-details.html"><img src="~/img/product/product4.jpg" alt=""></a>
-                                <a class="secondary_img" href="product-details.html"><img src="~/img/product/product3.jpg" alt=""></a>
-
-                                <div class="quick_button">
-                                <a href="#" title="quick_view">Xem sản phẩm</a>
-                                </div>
-                                </div>
-                                <div class="product_content">
-                                <h3><a href="product-details.html">Koss KPH7 Portable</a></h3>
-                                <span class="current_price">£60.00</span>
-                                </div>
-                                </div>
-                                </div>
-                                <div class="col-lg-3">
-                                <div class="single_product">
-                                <div class="product_thumb">
-                                <a class="primary_img" href="product-details.html"><img src="~/img/product/product6.jpg" alt=""></a>
-                                <a class="secondary_img" href="product-details.html"><img src="~/img/product/product5.jpg" alt=""></a>
-
-                                <div class="quick_button">
-                                <a href="#" title="quick_view">Xem sản phẩm</a>
-                                </div>
-
-                                </div>
-                                <div class="product_content">
-                                <h3><a href="product-details.html">Beats Solo2 Solo 2</a></h3>
-                                <span class="current_price">£60.00</span>
-                                </div>
-                                </div>
-                                </div>
-                                <div class="col-lg-3">
-                                <div class="single_product">
-                                <div class="product_thumb">
-                                <a class="primary_img" href="product-details.html"><img src="~/img/product/product7.jpg" alt=""></a>
-                                <a class="secondary_img" href="product-details.html"><img src="~/img/product/product8.jpg" alt=""></a>
-
-                                <div class="quick_button">
-                                <a href="#" title="quick_view">Xem sản phẩm</a>
-                                </div>
-
-                                <div class="product_sale">
-                                <span>-7%</span>
-                                </div>
-                                </div>
-                                <div class="product_content">
-                                <h3><a href="product-details.html">Beats EP Wired</a></h3>
-                                <span class="current_price">£60.00</span>
-                                <span class="old_price">£86.00</span>
-                                </div>
-                                </div>
-                                </div>
-                                <div class="col-lg-3">
-                                <div class="single_product">
-                                <div class="product_thumb">
-                                <a class="primary_img" href="product-details.html"><img src="~/img/product/product24.jpg" alt=""></a>
-                                <a class="secondary_img" href="product-details.html"><img src="~/img/product/product25.jpg" alt=""></a>
-
-                                <div class="quick_button">
-                                <a href="#" title="quick_view">Xem sản phẩm</a>
-                                </div>
-                                </div>
-                                <div class="product_content">
-                                <h3><a href="product-details.html">Bose SoundLink Bluetooth</a></h3>
-                                <span class="current_price">£60.00</span>
-                                </div>
-                                </div>
-                                </div>
-                                <div class="col-lg-3">
-                                <div class="single_product">
-                                <div class="product_thumb">
-                                <a class="primary_img" href="product-details.html"><img src="~/img/product/product10.jpg" alt=""></a>
-                                <a class="secondary_img" href="product-details.html"><img src="~/img/product/product11.jpg" alt=""></a>
-
-                                <div class="quick_button">
-                                <a href="#" title="quick_view">Xem sản phẩm</a>
-                                </div>
-
-                                <div class="product_sale">
-                                <span>-7%</span>
-                                </div>
-                                </div>
-                                <div class="product_content">
-                                <h3><a href="product-details.html">Apple iPhone SE 16GB</a></h3>
-                                <span class="current_price">£60.00</span>
-                                <span class="old_price">£86.00</span>
-                                </div>
-                                </div>
-                                </div>
-                                <div class="col-lg-3">
-                                <div class="single_product">
-                                <div class="product_thumb">
-                                <a class="primary_img" href="product-details.html"><img src="~/img/product/product23.jpg" alt=""></a>
-                                <a class="secondary_img" href="product-details.html"><img src="~/img/product/product24.jpg" alt=""></a>
-
-                                <div class="quick_button">
-                                <a href="#" title="quick_view">Xem sản phẩm</a>
-                                </div>
-                                <div class="double_base">
-                                <div class="product_sale">
-                                <span>-7%</span>
-                                </div>
-                                <div class="label_product">
-                                <span>new</span>
-                                </div>
-                                </div>
-                                </div>
-                                <div class="product_content">
-                                <h3><a href="product-details.html">JBL Flip 3 Portable</a></h3>
-                                <span class="current_price">£60.00</span>
-                                </div>
-                                </div>
-                                </div>
-                                <div class="col-lg-3">
-                                <div class="single_product">
-                                <div class="product_thumb">
-                                <a class="primary_img" href="product-details.html"><img src="~/img/product/product15.jpg" alt=""></a>
-                                <a class="secondary_img" href="product-details.html"><img src="~/img/product/product16.jpg" alt=""></a>
-
-                                <div class="quick_button">
-                                <a href="#" title="quick_view">Xem sản phẩm</a>
-                                </div>
-
-                                <div class="product_sale">
-                                <span>-7%</span>
-                                </div>
-                                </div>
-                                <div class="product_content">
-                                <h3><a href="product-details.html">Beats Solo Wireless</a></h3>
-                                <span class="current_price">£60.00</span>
-                                <span class="old_price">£86.00</span>
-                                </div>
-                                </div>
-                                </div>
-                                <div class="col-lg-3">
-                                <div class="single_product">
-                                <div class="product_thumb">
-                                <a class="primary_img" href="product-details.html"><img src="~/img/product/product18.jpg" alt=""></a>
-                                <a class="secondary_img" href="product-details.html"><img src="~/img/product/product17.jpg" alt=""></a>
-
-                                <div class="quick_button">
-                                <a href="#" title="quick_view">Xem sản phẩm</a>
-                                </div>
-                                <div class="label_product">
-                                <span>new</span>
-                                </div>
-                                </div>
-                                <div class="product_content">
-                                <h3><a href="product-details.html">Apple iPad with Retina</a></h3>
-                                <span class="current_price">£60.00</span>
-                                </div>
-                                </div>
-                                </div>
-                                <div class="col-lg-3">
-                                <div class="single_product">
-                                <div class="product_thumb">
-                                <a class="primary_img" href="product-details.html"><img src="~/img/product/product19.jpg" alt=""></a>
-                                <a class="secondary_img" href="product-details.html"><img src="~/img/product/product20.jpg" alt=""></a>
-
-                                <div class="quick_button">
-                                <a href="#" title="quick_view">Xem sản phẩm</a>
-                                </div>
-
-                                <div class="product_sale">
-                                <span>-7%</span>
-                                </div>
-                                </div>
-                                <div class="product_content">
-                                <h3><a href="product-details.html">Marshall Portable  Bluetooth</a></h3>
-                                <span class="current_price">£60.00</span>
-                                <span class="old_price">£86.00</span>
-                                </div>
-                                </div>
-                                </div>*@
+                                
                             </div>
                         </div>
                     </div>
@@ -1091,102 +916,33 @@
             </div>
             <div class="row">
                 <div class="blog_wrapper blog_column3 owl-carousel">
-                    <div class="col-lg-4">
-                        <div class="single_blog">
-                            <div class="blog_thumb">
-                                <a href="blog-details.html"><img src="~/img/blog/blog1.jpg" alt=""></a>
-                                <div class="blog_icon">
-                                    <a href="blog-details.html"></a>
+                    @foreach (var item in ViewBag.listBlogDTO)
+                    {
+                        <div class="col-lg-4">
+                            <div class="single_blog">
+                                <div class="blog_thumb">
+                                    <a href="blog-details.html"><img style="width:369.33px; height:324.92px;" src="@item.Image" alt=""></a>
+                                    <div class="blog_icon">
+                                        <a href="blog-details.html"></a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="blog_content">
-                                <h3><a href="blog-details.html">Mercedes Benz– Mirror To The Soul 360</a></h3>
-                                <div class="author_name">
-                                    <p>
-                                        <span class="post_by">by</span>
-                                        <span class="themes">ecommerce Themes</span>
-                                        / 30 Oct 2017
-                                    </p>
+                                <div class="blog_content">
+                                    <h3><a href="blog-details.html">@item.BlogName</a></h3>
+                                    <div class="author_name">
+                                        <p>
+                                            <span class="post_by">by</span>
+                                            <span class="themes">@item.UserName</span>
+                                            / @item.CreatedTime.ToString("dd/MM/yyyy")
+                                        </p>
 
-                                </div>
-                                <div class="post_desc">
-                                    <p>Maria Denardo is the Fashion Director at theFashionSpot. Prior to joining tFS, she worked as...</p>
+                                    </div>
+                                    <div class="post_desc">
+                                        <p>@item.Content.Substring(0, 40) ...</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="single_blog">
-                            <div class="blog_thumb">
-                                <a href="blog-details.html"><img src="~/img/blog/blog2.jpg" alt=""></a>
-                                <div class="blog_icon">
-                                    <a href="blog-details.html"></a>
-                                </div>
-                            </div>
-                            <div class="blog_content">
-                                <h3><a href="blog-details.html">Dior F/W 2015 First Fashion Experience</a></h3>
-                                <div class="author_name">
-                                    <p>
-                                        <span class="post_by">by</span>
-                                        <span class="themes">ecommerce Themes</span>
-                                        / 30 Oct 2017
-                                    </p>
-
-                                </div>
-                                <div class="post_desc">
-                                    <p>Maria Denardo is the Fashion Director at theFashionSpot. Prior to joining tFS, she worked as...</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="single_blog">
-                            <div class="blog_thumb">
-                                <a href="blog-details.html"><img src="~/img/blog/blog3.jpg" alt=""></a>
-                                <div class="blog_icon">
-                                    <a href="blog-details.html"></a>
-                                </div>
-                            </div>
-                            <div class="blog_content">
-                                <h3><a href="blog-details.html">London Fashion Week & Royal Day</a></h3>
-                                <div class="author_name">
-                                    <p>
-                                        <span class="post_by">by</span>
-                                        <span class="themes">ecommerce Themes</span>
-                                        / 30 Oct 2017
-                                    </p>
-
-                                </div>
-                                <div class="post_desc">
-                                    <p>Maria Denardo is the Fashion Director at theFashionSpot. Prior to joining tFS, she worked as...</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="single_blog">
-                            <div class="blog_thumb">
-                                <a href="blog-details.html"><img src="~/img/blog/blog2.jpg" alt=""></a>
-                                <div class="blog_icon">
-                                    <a href="blog-details.html"></a>
-                                </div>
-                            </div>
-                            <div class="blog_content">
-                                <h3><a href="blog-details.html">Best of New York Spring/Summer 2016</a></h3>
-                                <div class="author_name">
-                                    <p>
-                                        <span class="post_by">by</span>
-                                        <span class="themes">ecommerce Themes</span>
-                                        / 30 Oct 2017
-                                    </p>
-
-                                </div>
-                                <div class="post_desc">
-                                    <p>Maria Denardo is the Fashion Director at theFashionSpot. Prior to joining tFS, she worked as...</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>

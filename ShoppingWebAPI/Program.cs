@@ -20,12 +20,29 @@ builder.Services.AddDbContext<MyDBContext>(option =>
 //Add Interface
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<ProductRepository>();
+builder.Services.AddScoped<BlogRepository>();
+builder.Services.AddScoped<ProductSizeRepository>();
+builder.Services.AddScoped<ProductColorRepository>();
 
 
 builder.Services.AddControllers();
+builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+    );
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//add automapper
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new MapperConfigs());
+});
+
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
 
 //JWT auth config
 var secretKey = builder.Configuration["AppSettings:SecretKey"]; //de ma hoa va sinh ra JWT

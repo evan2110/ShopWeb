@@ -82,3 +82,7 @@ D:\C Sharp\PRN231_Trenlop\ShopWeb\ShoppingWebAPI\bin\Debug\net7.0\BusinessObject
 D:\C Sharp\PRN231_Trenlop\ShopWeb\ShoppingWebAPI\bin\Debug\net7.0\DataAccess.dll
 D:\C Sharp\PRN231_Trenlop\ShopWeb\ShoppingWebAPI\bin\Debug\net7.0\BusinessObject.pdb
 D:\C Sharp\PRN231_Trenlop\ShopWeb\ShoppingWebAPI\bin\Debug\net7.0\DataAccess.pdb
+D:\C Sharp\PRN231_Trenlop\ShopWeb\ShoppingWebAPI\bin\Debug\net7.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\C Sharp\PRN231_Trenlop\ShopWeb\ShoppingWebAPI\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\C Sharp\PRN231_Trenlop\ShopWeb\ShoppingWebAPI\bin\Debug\net7.0\Newtonsoft.Json.dll
+D:\C Sharp\PRN231_Trenlop\ShopWeb\ShoppingWebAPI\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
