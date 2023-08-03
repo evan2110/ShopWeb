@@ -3,6 +3,7 @@ using BusinessObject.Models;
 using DataAccess.DTO;
 using DataAccess.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using ShoppingWebAPI.Config;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -28,11 +29,31 @@ namespace ShoppingWebAPI.Controllers
             this.sizeRepository = sizeRepository;
         }
         [HttpGet("list")]
-        public async Task<ActionResult<ProductDTO>> GetTopProducts()
+        public async Task<ActionResult<ProductDTO>> GetTopProducts([FromQuery] int categoryId)
         {
-            IEnumerable<Product> ProductList = await repository.GetAllAsync(includeProperties: "Category");
-            var result = ProductList.OrderByDescending(p => p.CreatedTime).Take(10);
+            IEnumerable<Product> ProductList;
+            IEnumerable<Product> result;
+            if(categoryId != 0)
+            {
+                ProductList = await repository.GetAllAsync(e => e.CategoryId == categoryId && e.Status == "Active", includeProperties: "Category");
+                result = ProductList.OrderBy(p => p.CreatedTime).Take(10);
+            }
+            else
+            {
+                ProductList = await repository.GetAllAsync(e => e.Status == "Active" ,includeProperties: "Category");
+                result = ProductList.OrderByDescending(p => p.CreatedTime).Take(10);
+
+            }
             List<ProductDTO> listDTO = _mapper.Map<List<ProductDTO>>(result);
+            foreach (var item in listDTO)
+            {
+                IEnumerable<ProductColor> ProductColorlist = await colorRepository.GetAllAsync(e => e.ProductId == item.ProductId, includeProperties: "Color");
+                IEnumerable<ProductSize> ProductSizelist = await sizeRepository.GetAllAsync(e => e.ProductId == item.ProductId, includeProperties: "Size");
+                List<ProductColorDTO> productColorDTO = _mapper.Map<List<ProductColorDTO>>(ProductColorlist);
+                List<ProductSizeDTO> productSizeDTO = _mapper.Map<List<ProductSizeDTO>>(ProductSizelist);
+                item.ProductColorDTOs = productColorDTO;
+                item.ProductSizeDTOs = productSizeDTO;
+            }
 
             return Ok(listDTO);
         }
@@ -75,6 +96,5 @@ namespace ShoppingWebAPI.Controllers
             return Ok(productDTO);
         }
 
-        
     }
 }
