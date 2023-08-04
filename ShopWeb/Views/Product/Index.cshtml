@@ -67,8 +67,8 @@
             </div>
             <div class="col-lg-7 col-md-7">
                 <div class="product_d_right">
-                    <form action="#">
-
+                    <form method="POST" asp-action="AddToCart" asp-controller="Product">
+                        <input hidden name="ProductId" value="@ViewBag.product.ProductId" />
                         <h1>@ViewBag.product.ProductName</h1>
                         <div class=" product_ratting">
                             <ul>
@@ -90,7 +90,7 @@
 
                         <div class="product_variant color">
                             <h3>color</h3>
-                            <select class="niceselect_option" id="color" name="produc_color">
+                            <select class="niceselect_option" id="color" name="ColorId">
                                 @foreach (var color in ViewBag.listColor as SelectList)
                                 {
                                     <option value="@color.Value">@color.Text</option>
@@ -100,7 +100,7 @@
                         </div>
                         <div class="product_variant size">
                             <h3>size</h3>
-                            <select class="niceselect_option" id="color1" name="produc_color">
+                            <select class="niceselect_option" id="color1" name="SizeId">
                                 @foreach (var size in ViewBag.listSize as SelectList)
                                 {
                                     <option value="@size.Value">@size.Text</option>
@@ -109,7 +109,7 @@
                         </div>
                         <div class="product_variant quantity">
                             <label>quantity</label>
-                            <input min="1" max="100" value="1" type="number">
+                            <input name="Quantity" min="1" max="100" value="1" type="number">
                             <button class="button" type="submit">add to cart</button>
                         </div>
                         <div class=" product_d_action">

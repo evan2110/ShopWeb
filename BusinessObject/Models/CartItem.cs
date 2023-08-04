@@ -25,7 +25,19 @@ public class CartItem: BaseModel
     [Required]
     [Column("total_price", TypeName = "money")]
     public decimal TotalPrice { get; set; }
-    
+
+    [Column("color_id")]
+    public int ColorId { get; set; }
+
+    [ForeignKey("ColorId")]
+    public Color Color { get; set; }
+
+    [Column("size_id")]
+    public int SizeId { get; set; }
+
+    [ForeignKey("SizeId")]
+    public Size Size { get; set; }
+
     [Required]
     [Column("quantity")]
     public int Quantity { get; set; }

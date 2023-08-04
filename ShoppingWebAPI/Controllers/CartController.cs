@@ -37,7 +37,7 @@ namespace ShoppingWebAPI.Controllers
             CartDTO cartDTO = null;
             if (Cart != null)
             {
-                CartItemlist = await itemRepository.GetAllAsync(e => e.CartId == Cart.CartId, includeProperties: "Product");
+                CartItemlist = await itemRepository.GetAllAsync(e => e.CartId == Cart.CartId, includeProperties: "Product,Color,Size");
                 cartDTO = _mapper.Map<CartDTO>(Cart);
                 if (CartItemlist != null)
                 {
@@ -50,6 +50,29 @@ namespace ShoppingWebAPI.Controllers
             
 
             return Ok(cartDTO);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<CartDTO>> CreateCart([FromBody] CartDTO CartDTO)
+        {
+
+            if (await repository.GetOneAsync(x => x.CartId == CartDTO.CartId) != null)
+            {
+                return BadRequest();
+            }
+
+            // Tạo đối tượng Movie từ MovieCreate và gán Genre
+            var cartCreate = _mapper.Map<Cart>(CartDTO);
+
+
+            // Thực hiện tạo mới Movie
+            await repository.CreateAsync(cartCreate);
+
+            // Ánh xạ lại đối tượng Movie sau khi tạo thành công
+            var resultDTIO = _mapper.Map<CartDTO>(cartCreate);
+
+
+            return Ok(resultDTIO);
         }
     }
 }

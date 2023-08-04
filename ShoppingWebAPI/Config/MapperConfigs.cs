@@ -29,7 +29,16 @@ public class MapperConfigs: Profile
             .ReverseMap();
 
         CreateMap<CartItem, CartItemDTO>()
+            .ForMember(dest => dest.ImageFront, opt => opt.MapFrom(src => src.Product.ImageFront))
+            .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.ProductName))
+            .ForMember(dest => dest.ColorName, opt => opt.MapFrom(src => src.Color.ColorName))
+            .ForMember(dest => dest.SizeName, opt => opt.MapFrom(src => src.Size.SizeName))
             .ReverseMap();
+
+        CreateMap<CartItemDTO, CartItem>();
+
+        CreateMap<CartDTO, Cart>();
+
 
     }
 }

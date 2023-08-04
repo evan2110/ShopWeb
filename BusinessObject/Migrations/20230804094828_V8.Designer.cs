@@ -4,6 +4,7 @@ using BusinessObject.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObject.Migrations
 {
     [DbContext(typeof(MyDBContext))]
-    partial class MyDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230804094828_V8")]
+    partial class V8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,7 +104,8 @@ namespace BusinessObject.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("updated_time");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
+                        .IsRequired()
                         .HasColumnType("int")
                         .HasColumnName("user_id");
 
@@ -121,11 +125,13 @@ namespace BusinessObject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartItemId"));
 
-                    b.Property<int>("CartId")
+                    b.Property<int?>("CartId")
+                        .IsRequired()
                         .HasColumnType("int")
                         .HasColumnName("cart_id");
 
-                    b.Property<int>("ColorId")
+                    b.Property<int?>("ColorId")
+                        .IsRequired()
                         .HasColumnType("int")
                         .HasColumnName("color_id");
 
@@ -133,7 +139,8 @@ namespace BusinessObject.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("created_time");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int?>("ProductId")
+                        .IsRequired()
                         .HasColumnType("int")
                         .HasColumnName("product_id");
 
@@ -141,7 +148,8 @@ namespace BusinessObject.Migrations
                         .HasColumnType("int")
                         .HasColumnName("quantity");
 
-                    b.Property<int>("SizeId")
+                    b.Property<int?>("SizeId")
+                        .IsRequired()
                         .HasColumnType("int")
                         .HasColumnName("size_id");
 
@@ -408,7 +416,8 @@ namespace BusinessObject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"));
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
+                        .IsRequired()
                         .HasColumnType("int")
                         .HasColumnName("category_id");
 
@@ -756,7 +765,8 @@ namespace BusinessObject.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("phone");
 
-                    b.Property<int>("RoleId")
+                    b.Property<int?>("RoleId")
+                        .IsRequired()
                         .HasColumnType("int")
                         .HasColumnName("role_id");
 
