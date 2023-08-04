@@ -5,16 +5,20 @@
     CartDTO cartDTO = null;
     decimal totalPrice = 0;
     int totalItem = 0;
-    if(context.Session.GetString("Cart") != null)
+    if(context.Session.GetString("UserId") != "0")
     {
-        string cartJson = context.Session.GetString("Cart");
-        cartDTO = System.Text.Json.JsonSerializer.Deserialize<CartDTO>(cartJson);
-        foreach(var item in cartDTO.CartItemDTOs)
+        if (context.Session.GetString("Cart") != null)
         {
-            totalPrice += item.TotalPrice;
-            totalItem++;
+            string cartJson = context.Session.GetString("Cart");
+            cartDTO = System.Text.Json.JsonSerializer.Deserialize<CartDTO>(cartJson);
+            foreach (var item in cartDTO.CartItemDTOs)
+            {
+                totalPrice += item.TotalPrice;
+                totalItem++;
+            }
         }
     }
+    
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -508,7 +512,7 @@
                                     <ul>
                                         <li><a href="#">Specials</a></li>
                                         <li><a href="#">Sneaker</a></li>
-                                        <li><a href="about.html">About us</a></li>
+                                        <li><a href="/About">About us</a></li>
                                         <li><a href="contact.html">Contact Us</a></li>
                                     </ul>
                                 </nav>
