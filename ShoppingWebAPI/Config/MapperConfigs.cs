@@ -25,5 +25,11 @@ public class MapperConfigs: Profile
             .ForMember(dest => dest.SizeName, opt => opt.MapFrom(src => src.Size.SizeName))
             .ReverseMap();
 
+        CreateMap<Cart, CartDTO>()
+            .ReverseMap();
+
+        CreateMap<CartItem, CartItemDTO>()
+            .ReverseMap();
+
     }
 }

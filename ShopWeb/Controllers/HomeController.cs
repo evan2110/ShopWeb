@@ -6,6 +6,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using ShopWeb.Models;
 using System.Text.Json;
+using Microsoft.AspNetCore.Http;
 
 namespace ShopWeb.Controllers;
 
@@ -15,6 +16,8 @@ public class HomeController : Controller
     private static HttpClient httpClient;
     private static string productUrl = "https://localhost:7010/api/Product";
     private static string blogUrl = "https://localhost:7010/api/Blog";
+    private static string cartUrl = "https://localhost:7010/api/Cart";
+
 
 
     public HomeController(ILogger<HomeController> logger)
@@ -28,6 +31,37 @@ public class HomeController : Controller
         if (HttpContext.Session.GetString("UserId") == null)
         {
             HttpContext.Session.SetString("UserId", "0");
+        }
+        else
+        {
+            //GetCart
+            string urlCart = $"{cartUrl}/{HttpContext.Session.GetString("UserId")}";
+            HttpResponseMessage responseCart = await httpClient.GetAsync(urlCart);
+            string strDataCart = await responseCart.Content.ReadAsStringAsync();
+
+            // Kiểm tra xem strDataCart có phải là chuỗi JSON hợp lệ hay không
+            if (!string.IsNullOrEmpty(strDataCart) && strDataCart.Trim().StartsWith("{"))
+            {
+                var optionsCart = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+
+                CartDTO cartDTO = System.Text.Json.JsonSerializer.Deserialize<CartDTO>(strDataCart, optionsCart);
+
+                if (cartDTO != null)
+                {
+                    string cartJson = System.Text.Json.JsonSerializer.Serialize(cartDTO);
+                    HttpContext.Session.SetString("Cart", cartJson);
+                }
+                else
+                {
+                    HttpContext.Session.SetString("Cart", null);
+
+                }
+            }
+
+
         }
         try
         {
@@ -54,6 +88,8 @@ public class HomeController : Controller
             };
 
             List<BlogDTO> listBlog = System.Text.Json.JsonSerializer.Deserialize<List<BlogDTO>>(strDataBlog, optionsBlog);
+
+            
             ViewBag.listBlogDTO = listBlog;
             return View("Index");
         }

@@ -23,6 +23,8 @@ builder.Services.AddScoped<ProductRepository>();
 builder.Services.AddScoped<BlogRepository>();
 builder.Services.AddScoped<ProductSizeRepository>();
 builder.Services.AddScoped<ProductColorRepository>();
+builder.Services.AddScoped<CartRepository>();
+builder.Services.AddScoped<CartItemRepository>();
 
 
 builder.Services.AddControllers();

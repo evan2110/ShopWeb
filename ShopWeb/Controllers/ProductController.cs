@@ -10,6 +10,7 @@ namespace ShopWeb.Controllers
         private static HttpClient httpClient;
         private static string productdetailUrl = "https://localhost:7010/api/Product";
 
+
         public ProductController()
         {
             httpClient = new HttpClient();
@@ -47,6 +48,8 @@ namespace ShopWeb.Controllers
             };
 
             List<ProductDTO> upSellProduct = System.Text.Json.JsonSerializer.Deserialize<List<ProductDTO>>(strDataUpSellProduct, optionsUpSellProduct);
+
+
 
             ViewBag.product = product;
             ViewBag.listColor = new SelectList(product.ProductColorDTOs.ToList(), "ColorId", "ColorName");

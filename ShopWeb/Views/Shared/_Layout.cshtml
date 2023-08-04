@@ -1,6 +1,20 @@
-﻿@using Microsoft.AspNetCore.Http
+﻿@using DataAccess.DTO;
+@using Microsoft.AspNetCore.Http
 @{
     HttpContext context = Context.Request.HttpContext;
+    CartDTO cartDTO = null;
+    decimal totalPrice = 0;
+    int totalItem = 0;
+    if(context.Session.GetString("Cart") != null)
+    {
+        string cartJson = context.Session.GetString("Cart");
+        cartDTO = System.Text.Json.JsonSerializer.Deserialize<CartDTO>(cartJson);
+        foreach(var item in cartDTO.CartItemDTOs)
+        {
+            totalPrice += item.TotalPrice;
+            totalItem++;
+        }
+    }
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -106,9 +120,10 @@
                         <a href="#"><i class="test fa fa-shopping-basket"></i>2 item(s) </a>
                         <!--mini cart-->
                         <div class="mini_cart">
+                            
                             <div class="cart_item top">
                                 <div class="cart_img">
-                                    <a href="#"><img src="~/img/s-product/product.jpg" alt=""></a>
+                                    <a href="#"><img src="" alt=""></a>
                                 </div>
                                 <div class="cart_info">
                                     <a href="#">Apple iPhone SE 16GB</a>
@@ -120,6 +135,8 @@
                                     <a href="#"><i class="ion-android-close"></i></a>
                                 </div>
                             </div>
+                               
+                            
                             <div class="cart_item bottom">
                                 <div class="cart_img">
                                     <a href="#"><img src="~/img/s-product/product2.jpg" alt=""></a>
@@ -281,11 +298,11 @@
                                 <div class="top_right text-right">
                                     <ul>
                                         <li class="top_links">
-                                            <a href="#">My Account <i class="ion-chevron-down"></i></a>
+                                            <a href="#">@context.Session.GetString("Email") <i class="ion-chevron-down"></i></a>
                                             <ul class="dropdown_links">
                                                 <li><a href="wishlist.html">My Wish List </a></li>
                                                 <li><a href="my-account.html">My Account </a></li>
-                                                <li><a href="#">Sign In</a></li>
+                                                <li><a href="@Url.Action("Logout", "Login")">Log out</a></li>
                                                 <li><a href="compare.html">Compare Products  </a></li>
                                             </ul>
                                         </li>
@@ -330,46 +347,43 @@
                                 <div class="col-lg-4">
                                     <div class="cart_area">
                                         <div class="cart_link">
-                                            <a href="#"><i class="fa fa-shopping-basket"></i>2 item(s)</a>
+                                            @if(totalItem >= 2)
+                                            {
+                                                <a href="#"><i class="fa fa-shopping-basket"></i>@totalItem items</a>
+                                            }
+                                            else
+                                            {
+                                                <a href="#"><i class="fa fa-shopping-basket"></i>@totalItem item</a>
+                                            }
                                             <!--mini cart-->
                                             <div class="mini_cart">
-                                                <div class="cart_item top">
-                                                    <div class="cart_img">
-                                                        <a href="#"><img src="~/img/s-product/product.jpg" alt=""></a>
-                                                    </div>
-                                                    <div class="cart_info">
-                                                        <a href="#">Apple iPhone SE 16GB</a>
-
-                                                        <span>1x $60.00</span>
-
-                                                    </div>
-                                                    <div class="cart_remove">
-                                                        <a href="#"><i class="ion-android-close"></i></a>
-                                                    </div>
-                                                </div>
-                                                <div class="cart_item bottom">
-                                                    <div class="cart_img">
-                                                        <a href="#"><img src="~/img/s-product/product2.jpg" alt=""></a>
-                                                    </div>
-                                                    <div class="cart_info">
-                                                        <a href="#">Marshall Portable  Bluetooth</a>
-                                                        <span> 1x $160.00</span>
-                                                    </div>
-                                                    <div class="cart_remove">
-                                                        <a href="#"><i class="ion-android-close"></i></a>
-                                                    </div>
-                                                </div>
+                                                @if (context.Session.GetString("Cart") != null)
+                                                {
+                                                    @foreach (var item in cartDTO.CartItemDTOs)
+                                                    {
+                                                        <div class="cart_item top">
+                                                            <div class="cart_img">
+                                                                <a href="#"><img style="width:83px; height:98px;" src="@item.Product.ImageFront" alt=""></a>
+                                                            </div>
+                                                            <div class="cart_info">
+                                                                <a href="#">@item.Product.ProductName</a>
+                                                                 <span>@item.Quantity x @item.TotalPrice VNĐ</span>
+                                                                
+                                                            </div>
+                                                            <div class="cart_remove">
+                                                                <a href="#"><i class="ion-android-close"></i></a>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    
+                                                }
+                                                
                                                 <div class="cart__table">
                                                     <table>
                                                         <tbody>
                                                             <tr>
-                                                                <td class="text-left">Sub-Total :</td>
-                                                                <td class="text-right">$150.00</td>
-                                                            </tr>
-
-                                                            <tr>
                                                                 <td class="text-left">Total :</td>
-                                                                <td class="text-right">$184.00</td>
+                                                                <td class="text-right">@totalPrice VNĐ</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>

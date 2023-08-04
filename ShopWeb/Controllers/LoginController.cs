@@ -54,6 +54,7 @@ namespace ShopWeb.Controllers
                         UserDTO userDTO = JsonConvert.DeserializeObject<UserDTO>(Convert.ToString(json.result));
                         HttpContext.Session.SetString("UserId", userDTO.UserId.ToString());
                         HttpContext.Session.SetString("FullName", userDTO.FirstName + userDTO.LastName);
+                        HttpContext.Session.SetString("Email", userDTO.Email.ToString());
                         HttpContext.Session.SetString("Role", userDTO.RoleId.ToString());
                         HttpContext.Session.SetString("Token", (string)json.token);
                         return RedirectToAction("Index", "Home");
@@ -74,14 +75,14 @@ namespace ShopWeb.Controllers
             return View("Index");
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Logout()
         {
             if (HttpContext.Session.IsAvailable)
             {
                 HttpContext.Session.Clear();
             }
-            return View("Index");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
