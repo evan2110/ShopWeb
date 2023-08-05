@@ -26,100 +26,102 @@ namespace ShopWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> AddToCart(AddToCartRequest addToCartRequest)
         {
+            var userId = Int32.Parse(HttpContext.Session.GetString("UserId"));
             var cart = HttpContext.Session.GetString("Cart");
-            CartDTO cartDTO = null;
-            //Neu Cart da co
-            if (cart != null)
+            CartDTO cartDTO;
+
+            if (cart == null)
             {
-                //Get Product vua add to cart
-                string urlProduct = $"{productdetailUrl}/{addToCartRequest.ProductId}";
-                HttpResponseMessage responseProduct = await httpClient.GetAsync(urlProduct);
-                string strDataProduct = await responseProduct.Content.ReadAsStringAsync();
-                var optionsProduct = new JsonSerializerOptions
+                // Tạo một giỏ hàng mới nếu chưa có
+                cartDTO = new CartDTO
                 {
-                    PropertyNameCaseInsensitive = true
+                    UserId = userId,
+                    Status = "Active",
+                    CreatedTime = DateTime.Now
                 };
-                var productDTO = System.Text.Json.JsonSerializer.Deserialize<ProductDTO>(strDataProduct, optionsProduct);
 
-                cartDTO = System.Text.Json.JsonSerializer.Deserialize<CartDTO>(cart);
-                string url = $"{cartItemUrl}?cartId={cartDTO.CartId}&productId={addToCartRequest.ProductId}&colorId={addToCartRequest.ColorId}&sizeId={addToCartRequest.SizeId}";
-                HttpResponseMessage responseCartItem = await httpClient.GetAsync(url);
-                string strDataCartItem = await responseCartItem.Content.ReadAsStringAsync();
-                //Neu CartItem da ton tai
-                if (!string.IsNullOrEmpty(strDataCartItem) && strDataCartItem.Trim().StartsWith("{"))
-                {
-                    var optionsCartItem = new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    };
+                string urlCreateCart = $"{cartUrl}";
+                HttpResponseMessage response = await httpClient.PostAsJsonAsync(urlCreateCart, cartDTO);
 
-                    CartItemDTO cartItemDTO = System.Text.Json.JsonSerializer.Deserialize<CartItemDTO>(strDataCartItem, optionsCartItem);
-                    cartItemDTO.Quantity = cartItemDTO.Quantity + addToCartRequest.Quantity;
-
-                    cartItemDTO.TotalPrice = ((productDTO.Price - (productDTO.Discount * productDTO.Price)) * cartItemDTO.Quantity);
-                    string urlUpdate = $"{cartItemUrl}/{cartItemDTO.CartItemId}";
-                    HttpResponseMessage response = await httpClient.PutAsJsonAsync(urlUpdate, cartItemDTO);
-                }
-                else
-                {
-                    decimal totalPrice = 0;
-                    totalPrice = ((productDTO.Price - (productDTO.Discount * productDTO.Price)) * addToCartRequest.Quantity);
-
-                    CartItemDTO newCartItemDTO = new CartItemDTO();
-                    newCartItemDTO.CartId = cartDTO.CartId;
-                    newCartItemDTO.ProductId = addToCartRequest.ProductId;
-                    newCartItemDTO.Quantity = addToCartRequest.Quantity;
-                    newCartItemDTO.TotalPrice = totalPrice;
-                    newCartItemDTO.Status = "Active";
-                    newCartItemDTO.CreatedTime = DateTime.Now;
-                    newCartItemDTO.ColorId = addToCartRequest.ColorId;
-                    newCartItemDTO.SizeId = addToCartRequest.SizeId;
-
-                    string urlCreate = $"{cartItemUrl}";
-                    HttpResponseMessage response = await httpClient.PostAsJsonAsync(urlCreate, newCartItemDTO);
-                }
-
+                // Lấy thông tin giỏ hàng sau khi đã tạo
+                cartDTO = await response.Content.ReadFromJsonAsync<CartDTO>();
             }
-            //Neu chua co cart
             else
             {
-                CartDTO newCartDTO = new CartDTO();
-                newCartDTO.UserId = Int32.Parse(HttpContext.Session.GetString("UserId"));
-                newCartDTO.Status = "Active";
-                newCartDTO.CreatedTime = DateTime.Now;
-                string urlCreateCart = $"{cartUrl}";
-                HttpResponseMessage response = await httpClient.PostAsJsonAsync(urlCreateCart, newCartDTO);
+                cartDTO = System.Text.Json.JsonSerializer.Deserialize<CartDTO>(cart);
             }
 
-            //GetCart
-            string urlCart = $"{cartUrl}/{HttpContext.Session.GetString("UserId")}";
-            HttpResponseMessage responseCart = await httpClient.GetAsync(urlCart);
-            string strDataCart = await responseCart.Content.ReadAsStringAsync();
+            // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+            string urlCartItem = $"{cartItemUrl}?cartId={cartDTO.CartId}&productId={addToCartRequest.ProductId}&colorId={addToCartRequest.ColorId}&sizeId={addToCartRequest.SizeId}";
+            HttpResponseMessage responseCartItem = await httpClient.GetAsync(urlCartItem);
+            string strDataCartItem = await responseCartItem.Content.ReadAsStringAsync();
 
-            // Kiểm tra xem strDataCart có phải là chuỗi JSON hợp lệ hay không
-            if (!string.IsNullOrEmpty(strDataCart) && strDataCart.Trim().StartsWith("{"))
+            if (!string.IsNullOrEmpty(strDataCartItem) && strDataCartItem.Trim().StartsWith("{"))
             {
-                var optionsCart = new JsonSerializerOptions
+                // Sản phẩm đã có trong giỏ hàng, cập nhật số lượng
+                var optionsCartItem = new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
                 };
 
-                CartDTO cartFindDTO = System.Text.Json.JsonSerializer.Deserialize<CartDTO>(strDataCart, optionsCart);
+                CartItemDTO cartItemDTO = System.Text.Json.JsonSerializer.Deserialize<CartItemDTO>(strDataCartItem, optionsCartItem);
+                cartItemDTO.Quantity += addToCartRequest.Quantity;
 
-                if (cartFindDTO != null)
-                {
-                    string cartJson = System.Text.Json.JsonSerializer.Serialize(cartFindDTO);
-                    HttpContext.Session.SetString("Cart", cartJson);
-                }
-                else
-                {
-                    HttpContext.Session.SetString("Cart", null);
-
-                }
+                string urlUpdate = $"{cartItemUrl}/{cartItemDTO.CartItemId}";
+                HttpResponseMessage response = await httpClient.PutAsJsonAsync(urlUpdate, cartItemDTO);
             }
+            else
+            {
+                // Sản phẩm chưa có trong giỏ hàng, tạo mới
+                var productDTO = await GetProductDetails(addToCartRequest.ProductId);
+
+                decimal totalPrice = (productDTO.Price - (productDTO.Discount * productDTO.Price)) * addToCartRequest.Quantity;
+
+                CartItemDTO newCartItemDTO = new CartItemDTO
+                {
+                    CartId = cartDTO.CartId,
+                    ProductId = addToCartRequest.ProductId,
+                    Quantity = addToCartRequest.Quantity,
+                    TotalPrice = totalPrice,
+                    Status = "Active",
+                    CreatedTime = DateTime.Now,
+                    ColorId = addToCartRequest.ColorId,
+                    SizeId = addToCartRequest.SizeId
+                };
+
+                string urlCreate = $"{cartItemUrl}";
+                HttpResponseMessage response = await httpClient.PostAsJsonAsync(urlCreate, newCartItemDTO);
+            }
+
+            // Lấy thông tin giỏ hàng sau cập nhật
+            string urlCart = $"{cartUrl}/{userId}";
+            HttpResponseMessage responseCart = await httpClient.GetAsync(urlCart);
+            cartDTO = await responseCart.Content.ReadFromJsonAsync<CartDTO>();
+
+            if (cartDTO != null)
+            {
+                cart = System.Text.Json.JsonSerializer.Serialize(cartDTO);
+                HttpContext.Session.SetString("Cart", cart);
+            }
+            else
+            {
+                HttpContext.Session.SetString("Cart", null);
+            }
+
             await LoadProductDetails(addToCartRequest.ProductId);
             return View("Index");
+        }
 
+        private async Task<ProductDTO> GetProductDetails(int productId)
+        {
+            string urlProduct = $"{productdetailUrl}/{productId}";
+            HttpResponseMessage responseProduct = await httpClient.GetAsync(urlProduct);
+            string strDataProduct = await responseProduct.Content.ReadAsStringAsync();
+            var optionsProduct = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+            return System.Text.Json.JsonSerializer.Deserialize<ProductDTO>(strDataProduct, optionsProduct);
         }
 
         private async Task LoadProductDetails(int productId)

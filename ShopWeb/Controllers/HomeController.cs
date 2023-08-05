@@ -28,11 +28,7 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index()
     {
-        if (HttpContext.Session.GetString("UserId") == null)
-        {
-            HttpContext.Session.SetString("UserId", "0");
-        }
-        else
+        if (HttpContext.Session.GetString("UserId") != null)
         {
             //GetCart
             string urlCart = $"{cartUrl}/{HttpContext.Session.GetString("UserId")}";
@@ -60,8 +56,6 @@ public class HomeController : Controller
 
                 }
             }
-
-
         }
         try
         {

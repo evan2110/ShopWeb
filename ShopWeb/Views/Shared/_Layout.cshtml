@@ -1,11 +1,14 @@
 ﻿@using DataAccess.DTO;
 @using Microsoft.AspNetCore.Http
+@using System.Text.Json;
 @{
+    string cartUrl = "https://localhost:7010/api/Cart";
+    HttpClient httpClient = new HttpClient();
     HttpContext context = Context.Request.HttpContext;
     CartDTO cartDTO = null;
     decimal totalPrice = 0;
     int totalItem = 0;
-    if (context.Session.GetString("UserId") != "0")
+    if (context.Session.GetString("UserId") != null)
     {
         if (context.Session.GetString("Cart") != null)
         {
@@ -64,7 +67,7 @@
                 </div>
                 <div class="top_right">
                     <ul>
-                        @if (context.Session.GetString("UserId") != "0")
+                        @if (context.Session.GetString("UserId") != null)
                         {
                             <li class="top_links">
                                 <a href="#">@context.Session.GetString("Email") <i class="ion-chevron-down"></i></a>
@@ -117,7 +120,7 @@
                         <button type="submit"><i class="ion-ios-search-strong"></i></button>
                     </form>
                 </div>
-                @if (context.Session.GetString("UserId") != "0")
+                @if (context.Session.GetString("UserId") != null)
                 {
                     <div class="cart_area">
 
@@ -288,7 +291,7 @@
                                 </ul>
                             </div>
                         </div>
-                        @if (context.Session.GetString("UserId") != "0")
+                        @if (context.Session.GetString("UserId") != null)
                         {
                             <div class="col-lg-5 col-md-12">
                                 <div class="top_right text-right">
@@ -338,7 +341,7 @@
                                     <a href="/Home"><img src="~/img/logo/logo.png" alt=""></a>
                                 </div>
                             </div>
-                            @if (context.Session.GetString("UserId") != "0")
+                            @if (context.Session.GetString("UserId") != null)
                             {
                                 <div class="col-lg-4">
                                     <div class="cart_area">
@@ -367,12 +370,12 @@
                                                                 <span>@item.ColorName x @item.SizeName</span>
 
                                                             </div>
-                                                            <div class="cart_remove">
-                                                                <a href="#"><i class="ion-android-close"></i></a>
-                                                            </div>
+                                                            @*<div class="cart_remove">
+                                                                <button class="remove-btn" data-cartItemId="@item.CartItemId"><i class="ion-android-close"></i></button>
+                                                            </div>*@
                                                         </div>
                                                     }
-
+                                                    <button id="cartIdButton" hidden data-cart-id="@cartDTO.CartId"></button>
                                                 }
 
                                                 <div class="cart__table">
@@ -387,10 +390,10 @@
                                                 </div>
 
                                                 <div class="cart_button view_cart">
-                                                    <a href="cart.html">View Cart</a>
+                                                    <a href="/Cart">View Cart</a>
                                                 </div>
                                                 <div class="cart_button checkout">
-                                                    <a href="checkout.html">Checkout</a>
+                                                    <a class="checkoutButton" href="#">Checkout</a>
                                                 </div>
                                             </div>
                                             <!--mini cart end-->
@@ -600,7 +603,7 @@
                             <div class="footer_contact">
                                 <p>Address: 6688 Princess Road, London, Greater London BAS 23JK, UK</p>
                                 <p>Phone: <a href="tel:+(+012)800456789-987">(+012) 800 456 789 - 987</a> </p>
-                                <p>Email: demo@example.com</p>
+                                <p>Email: ducdn21102001@gmail.com</p>
                                 <ul>
                                     <li><a href="#" title="Twitter"><i class="fa fa-twitter"></i></a></li>
                                     <li><a href="#" title="google-plus"><i class="fa fa-google-plus"></i></a></li>
@@ -666,6 +669,44 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".checkoutButton").click(function (e) {
+                e.preventDefault(); // Ngăn chặn hành động mặc định của thẻ a
+
+                var checkoutUrl = "https://localhost:7010/api/Cart/create-payment-intent";
+
+                // Gọi API sử dụng Fetch API
+                fetch(`${checkoutUrl}`, {
+                    method: "POST" // Hoặc "POST" tùy theo yêu cầu của bạn
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Lấy URL từ dữ liệu trả về
+                        var cartIdButton = document.getElementById('cartIdButton');
+                        var cartId = cartIdButton.getAttribute('data-cart-id');
+                        var deleteCartItemByCartIdUrl = "https://localhost:7010/api/CartItem/DeleteCartItemByCartId";
+                        fetch(`${deleteCartItemByCartIdUrl}/${cartId}`, {
+                            method: "DELETE" // Hoặc "POST" tùy theo yêu cầu của bạn
+                        })
+                            .catch(error => {
+                                // Xử lý lỗi nếu có
+                                console.error('There was a problem with the fetch operation:', error);
+                                // Hiển thị thông báo lỗi cho người dùng
+                            });
+                        var returnUrl = data.url;
+                        // Tiến hành chuyển hướng đến URL
+                        window.location.href = returnUrl;
+                    })
+                    .catch(error => {
+                        // Xử lý lỗi nếu có
+                        console.error('There was a problem with the fetch operation:', error);
+                        // Hiển thị thông báo lỗi cho người dùng
+                    });
+            });
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

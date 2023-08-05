@@ -56,7 +56,6 @@ namespace ShoppingWebAPI.Controllers
             // Tạo đối tượng Movie từ MovieCreate và gán Genre
             var cartItemCreate = _mapper.Map<CartItem>(CartItemCreateDTO);
 
-
             // Thực hiện tạo mới Movie
             await itemRepository.CreateAsync(cartItemCreate);
 
@@ -68,7 +67,6 @@ namespace ShoppingWebAPI.Controllers
         }
 
 
-        // CRUD_008 //////////Update///////////////////////
         [HttpPut("{CartItem_id:int}", Name = "UpdateCartItem")]
         public async Task<ActionResult<CartItemDTO>> UpdateCartItem(int CartItem_id, [FromBody] CartItemDTO CartItemDTO)
         {
@@ -83,21 +81,40 @@ namespace ShoppingWebAPI.Controllers
             return Ok();
         }
 
-        //////////////// DELETE/////////////////////////
-        /*[HttpDelete(Name = "DeleteMovie")]
-        public async Task<ActionResult> DeleteMovie(int id)
+        [HttpDelete(Name = "DeleteCartItem")]
+        public async Task<ActionResult> DeleteCartItem(int id)
         {
             if (id == 0)
             {
                 return BadRequest();
             }
-            var Movie = await _dbMovie.GetOneAsync(x => x.MovieId == id);
-            if (Movie == null)
+            var cartItem = await itemRepository.GetOneAsync(x => x.CartItemId == id);
+            if (cartItem == null)
             {
                 return NotFound();
             }
-            await _dbMovie.RemoveAsync(Movie);
+            await itemRepository.RemoveAsync(cartItem);
             return NoContent();
-        }*/
+        }
+
+        // DELETE: api/cart/DeleteCartItemByCartId/{CartId}
+        [HttpDelete("DeleteCartItemByCartId/{CartId}", Name = "DeleteCartItemByCartId")]
+        public async Task<ActionResult> DeleteCartItemByCartId(int CartId)
+        {
+            if (CartId == 0)
+            {
+                return BadRequest();
+            }
+            var cartItem = await itemRepository.GetAllAsync(x => x.CartId == CartId);
+            if (cartItem == null)
+            {
+                return NotFound();
+            }
+            foreach(var item in  cartItem)
+            {
+                await itemRepository.RemoveAsync(item);
+            }
+            return NoContent();
+        }
     }
 }
