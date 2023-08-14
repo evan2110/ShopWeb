@@ -30,46 +30,20 @@ public class Order: BaseModel
     
     [Column("shipped_date", TypeName = "datetime")]
     public DateTime ShippedDate { get; set; }
-    
-    [Required]
-    [Column("freight", TypeName = "money")]
-    public decimal Freight { get; set; }
-    
+
     [Required]
     [StringLength(100)]
-    [Column("ship_name", TypeName = "nvarchar(100)")]
-    public string ShipName { get; set; }
-    
+    [Column("ship_phone", TypeName = "nvarchar(100)")]
+    public string ShipPhone { get; set; }
+
     [Required]
     [StringLength(100)]
     [Column("ship_address", TypeName = "nvarchar(100)")]
     public string ShipAddress { get; set; }
-    
+
     [Required]
-    [StringLength(100)]
-    [Column("ship_city", TypeName = "nvarchar(100)")]
-    public string ShipCity { get; set; }
-    
-    [Required]
-    [StringLength(100)]
-    [Column("ship_region", TypeName = "nvarchar(100)")]
-    public string ShipRegion { get; set; }
-    
-    [Required]
-    [StringLength(100)]
-    [Column("ship_postal_code", TypeName = "nvarchar(100)")]
-    public string ShipPostalCode { get; set; }
-    
-    [Required]
-    [StringLength(100)]
-    [Column("ship_country", TypeName = "nvarchar(100)")]
-    public string ShipCountry { get; set; }
-    
-    [Column("ship_via_id")]
-    public int ShipViaId { get; set; }
-    
-    [ForeignKey("ShipViaId")]
-    public ShipVia ShipVia { get; set; }
-    
+    [Column("total_price", TypeName = "money")]
+    public decimal TotalPrice { get; set; }
+
     public virtual ICollection<OrderDetail> OrderDetails { get; set; }
 }

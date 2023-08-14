@@ -32,8 +32,8 @@ public class MyDBContext:DbContext
     public DbSet<ProductColor> ProductColors { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderDetail> OrderDetails { get; set; }
-    public DbSet<ShipVia> ShipVias { get; set; }
     public DbSet<Cart> Carts { get; set; }
     public DbSet<CartItem> CartItems { get; set; }
     public DbSet<Rate> Rates { get; set; }
+    public DbSet<Coupon> Coupons { get; set; }
 }

@@ -26,6 +26,7 @@ namespace ShopWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> AddToCart(AddToCartRequest addToCartRequest)
         {
+            var productDTO = await GetProductDetails(addToCartRequest.ProductId);
             var userId = Int32.Parse(HttpContext.Session.GetString("UserId"));
             var cart = HttpContext.Session.GetString("Cart");
             CartDTO cartDTO;
@@ -66,6 +67,7 @@ namespace ShopWeb.Controllers
 
                 CartItemDTO cartItemDTO = System.Text.Json.JsonSerializer.Deserialize<CartItemDTO>(strDataCartItem, optionsCartItem);
                 cartItemDTO.Quantity += addToCartRequest.Quantity;
+                cartItemDTO.TotalPrice = ((productDTO.Price * (100 - productDTO.Discount)) / 100) * cartItemDTO.Quantity;
 
                 string urlUpdate = $"{cartItemUrl}/{cartItemDTO.CartItemId}";
                 HttpResponseMessage response = await httpClient.PutAsJsonAsync(urlUpdate, cartItemDTO);
@@ -73,9 +75,8 @@ namespace ShopWeb.Controllers
             else
             {
                 // Sản phẩm chưa có trong giỏ hàng, tạo mới
-                var productDTO = await GetProductDetails(addToCartRequest.ProductId);
 
-                decimal totalPrice = (productDTO.Price - (productDTO.Discount * productDTO.Price)) * addToCartRequest.Quantity;
+                decimal totalPrice = ((productDTO.Price * (100 - productDTO.Discount)) / 100) * addToCartRequest.Quantity;
 
                 CartItemDTO newCartItemDTO = new CartItemDTO
                 {

@@ -1,7 +1,27 @@
-﻿@*
+﻿@using DataAccess.DTO;
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    string cartUrl = "https://localhost:7010/api/Cart";
+    HttpClient httpClient = new HttpClient();
+    HttpContext context = Context.Request.HttpContext;
+    CartDTO cartDTO = null;
+
+    if (context.Session.GetString("UserId") != null)
+    {
+        if (context.Session.GetString("Cart") != null)
+        {
+            string cartJson = context.Session.GetString("Cart");
+            cartDTO = System.Text.Json.JsonSerializer.Deserialize<CartDTO>(cartJson);
+        }
+    }
+    var cartItem = ViewBag.CartItems;
+    var total = 0;
+    foreach(var item in cartItem)
+    {
+        total += item.TotalPrice;
+    }
 }
 <!--breadcrumbs area start-->
 <div class="breadcrumbs_area other_bread">
@@ -43,19 +63,17 @@
                                     @foreach (var item in ViewBag.CartItems)
                                     {
                                         <tr>
-                                            <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
+                                            <td id="delete" data-id-delete="@item.CartItemId" class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
                                             <td class="product_thumb"><a href="#"><img style="width:83px; height:98px;" src="@item.ImageFront" alt=""></a></td>
                                             <td class="product_name"><a href="#">@item.ProductName</a></td>
                                             <td class="product-price">@(item.TotalPrice / item.Quantity)</td>
-                                            <td class="product_quantity"><input value="@item.Quantity" min="1" max="100" value="1" type="number"></td>
+                                            <td class="product_quantity"><input readonly value="@item.Quantity" min="1" max="100" value="1" type="number"></td>
                                             <td class="product_total">@item.TotalPrice</td>
                                         </tr>
                                     }
+
                                 </tbody>
                             </table>
-                        </div>
-                        <div class="cart_submit">
-                            <button type="submit">update cart</button>
                         </div>
                     </div>
                 </div>
@@ -69,31 +87,39 @@
                             <h3>Coupon</h3>
                             <div class="coupon_inner">
                                 <p>Enter your coupon code if you have one.</p>
-                                <input placeholder="Coupon code" type="text">
-                                <button type="submit">Apply coupon</button>
+                                <input id ="couponInput" placeholder="Coupon code" type="text">
+                                <button id="applyCouponBtn" type="submit">Apply coupon</button>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="coupon_code right">
+                            
                             <h3>Cart Totals</h3>
                             <div class="coupon_inner">
+                                <p>
+                                    <label style="margin-right:240px;"> Ship address (required)</label>
+                                    <input name="address" placeholder="Address *" type="text">
+                                </p>
+                                <p>
+                                    <label style="margin-right:250px;"> Ship phone (required)</label>
+                                    <input name="phone" placeholder="Phone *" type="text">
+                                </p>
                                 <div class="cart_subtotal">
                                     <p>Subtotal</p>
-                                    <p class="cart_amount">£215.00</p>
+                                    <p class="cart_amount" id="subTotal">@total VNĐ</p>
                                 </div>
                                 <div class="cart_subtotal ">
-                                    <p>Shipping</p>
-                                    <p class="cart_amount"><span>Flat Rate:</span> £255.00</p>
+                                    <p>Discount</p>
+                                    <p class="cart_amount"><span id="coupon">0</span></p>
                                 </div>
-                                <a href="#">Calculate shipping</a>
-
                                 <div class="cart_subtotal">
                                     <p>Total</p>
-                                    <p class="cart_amount">£215.00</p>
+                                    <p class="cart_amount" id="total">@total VNĐ</p>
                                 </div>
                                 <div class="checkout_btn">
-                                    <a href="#">Proceed to Checkout</a>
+                                    <a class="checkoutButton" >Proceed to Checkout</a>
+                                    <button hidden id="cartId" data-cart-id="@cartDTO.CartId">Proceed to Checkout</button>
                                 </div>
                             </div>
                         </div>
@@ -106,3 +132,123 @@
     </div>
 </div>
 <!-- shopping cart area end -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".checkoutButton").click(function (e) {
+            var returnUrl;
+            var sessionId;
+            var status;
+            e.preventDefault(); // Ngăn chặn hành động mặc định của thẻ a
+
+            var checkoutUrl = "https://localhost:7010/api/Cart/create-payment-intent";
+
+            // Gọi API sử dụng Fetch API
+            fetch(`${checkoutUrl}`, {
+                method: "POST" // Hoặc "POST" tùy theo yêu cầu của bạn
+            })
+                .then(response => response.json())
+                .then(data => {
+                    returnUrl = data.url;
+                    sessionId = data.sessionId;
+                    // Tiến hành chuyển hướng đến URL
+                    window.location.href = returnUrl;
+
+                    // Lấy URL từ dữ liệu trả về
+                    var cartIdButton = document.getElementById('cartId');
+                    var cartId = cartIdButton.getAttribute('data-cart-id');
+
+                    // Thực hiện xóa cartItem tại đây
+                    var deleteCartItemByCartIdUrl = `https://localhost:7010/api/CartItem/DeleteCartItemByCartId/${cartId}`;
+                    fetch(deleteCartItemByCartIdUrl, {
+                        method: "DELETE" // Hoặc "POST" tùy theo yêu cầu của bạn
+                    })
+                        .catch(error => {
+                            // Xử lý lỗi nếu có
+                            console.error('There was a problem with the fetch operation:', error);
+                            // Hiển thị thông báo lỗi cho người dùng
+                        });
+
+                    //Khong dung vao ngoac ben duoi
+
+                })
+                .catch(error => {
+                    // Xử lý lỗi nếu có
+                    console.error('There was a problem with the fetch operation:', error);
+                    // Hiển thị thông báo lỗi cho người dùng
+                });
+
+            
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var applyCouponBtn = document.getElementById("applyCouponBtn");
+        var couponInput = document.getElementById("couponInput");
+
+        applyCouponBtn.addEventListener("click", function (event) {
+            event.preventDefault(); // Ngăn chặn hành động mặc định của nút submit
+
+            var enteredCoupon = couponInput.value;
+            if (enteredCoupon) {
+                // Thực hiện xử lý với giá trị coupon đã nhập
+                console.log("Entered coupon:", enteredCoupon);
+                var checkCouponUrl = `https://localhost:7010/api/Coupon?Coupon_serie=${enteredCoupon}`;
+                fetch(checkCouponUrl, {
+                    method: "GET" // Hoặc "POST" tùy theo yêu cầu của bạn
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Coupon hợp lệ
+                        var couponElement = document.getElementById("coupon");
+                        couponElement.innerHTML = data.couponDiscount + ' %';
+                        var coupon = parseInt(data.couponDiscount);
+
+                        var subTotalPrice = document.getElementById("subTotal").textContent;
+                        var total = subTotalPrice.substring(0, subTotalPrice.length - 3);
+                        var intTotal = parseInt(total);
+
+                        var totalPrice = document.getElementById("total");
+                        totalPrice.innerHTML = intTotal - (intTotal * coupon / 100);
+                    })
+                    .catch(error => {
+                        console.error('There was a problem with the fetch operation:', error);
+                    });
+            } else {
+                console.log("No coupon entered.");
+            }
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var deleteTdList = document.querySelectorAll(".product_remove[data-id-delete]");
+
+        deleteTdList.forEach(function (deleteTd) {
+            deleteTd.addEventListener("click", function () {
+                var cartItemId = this.getAttribute("data-id-delete");
+                var deleteCartItemByIdUrl = `https://localhost:7010/api/CartItem/DeleteCartItemById/${cartItemId}`;
+                fetch(deleteCartItemByIdUrl, {
+                    method: "DELETE" // Hoặc "POST" tùy theo yêu cầu của bạn
+                })
+                    .then(response => {
+                        if (response.status === 204) {
+                            console.log("CartItem deleted successfully.");
+                            // Load lại trang sau khi xóa thành công
+                            location.reload();
+                        } else {
+                            console.error("Failed to delete cart item.");
+                        }
+                    })
+                    .catch(error => {
+                        // Xử lý lỗi nếu có
+                        console.error('There was a problem with the fetch operation:', error);
+                        // Hiển thị thông báo lỗi cho người dùng
+                    });
+
+                // You can use the cartItemId for further processing (e.g., delete from cart)
+            });
+        });
+    });
+
+
+</script>

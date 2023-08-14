@@ -88,8 +88,8 @@ namespace ShoppingWebAPI.Controllers
             var options = new PaymentIntentCreateOptions
             {
                 Amount = 100, // Amount in cents
-                Currency = "usd",
-                Description = "Thanh toán đơn hàng " + 100,
+                Currency = "eur",
+                Description = "Thanh toán đơn hàng ",
                 PaymentMethodTypes = new List<string> { "card" },
             };
 
@@ -112,11 +112,11 @@ namespace ShoppingWebAPI.Controllers
                         Quantity = 1,
                         PriceData = new SessionLineItemPriceDataOptions
                         {
-                            Currency = "usd",
+                            Currency = "eur",
                             UnitAmount = 100,
                             ProductData = new SessionLineItemPriceDataProductDataOptions
                             {
-                                Name = "Thanh toán đơn hàng " + 100,
+                                Name = "Thanh toán đơn hàng ",
                             },
                         },
                     },
@@ -125,8 +125,26 @@ namespace ShoppingWebAPI.Controllers
 
             var sessionService = new SessionService();
             var session = sessionService.Create(sessionOptions);
+            var sessionId = session.Id;
+            return new PaymentStripeResponse { SessionId = sessionId, Url = session.Url };
+        }
 
-            return new PaymentStripeResponse { Url = session.Url };
+        [HttpGet("check-payment-status/{sessionId}")]
+        public ActionResult<PaymentStripeResponse> CheckPaymentStatus(string sessionId)
+        {
+            StripeConfiguration.ApiKey = StripeSecretKey;
+
+            var sessionService = new SessionService();
+            var session = sessionService.Get(sessionId);
+
+            // Kiểm tra trạng thái thanh toán
+            if (session.PaymentStatus == "paid")
+            {
+
+                return new PaymentStripeResponse { Status = "paid" };
+            }
+
+            return new PaymentStripeResponse { Status = null };
         }
 
     }

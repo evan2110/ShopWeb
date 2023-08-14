@@ -164,10 +164,7 @@
                             </div>
 
                             <div class="cart_button view_cart">
-                                <a href="cart.html">View Cart</a>
-                            </div>
-                            <div class="cart_button checkout">
-                                <a href="checkout.html">Checkout</a>
+                                    <a href="/Cart">View Cart</a>
                             </div>
                         </div>
                         <!--mini cart end-->
@@ -175,23 +172,10 @@
                 </div>
                 }
 
-
-
                 <div id="menu" class="text-left ">
                     <ul class="offcanvas_main_menu">
-                        <li class="menu-item-has-children active">
+                        <li class="menu-item-has-children">
                             <a href="/Home">Home</a>
-                            <ul class="sub-menu">
-                                <li><a href="/Home">Home 1</a></li>
-                                <li><a href="index-2.html">Home 2</a></li>
-                                <li><a href="index-3.html">Home 3</a></li>
-                                <li><a href="index-4.html">Home 4</a></li>
-                                <li><a href="index-5.html">Home 5</a></li>
-                                <li><a href="index-6.html">Home 6</a></li>
-                                <li><a href="index-7.html">Home 7</a></li>
-                                <li><a href="index-8.html">Home 8</a></li>
-                                <li><a href="index-9.html">Home 9</a></li>
-                            </ul>
                         </li>
                         <li class="menu-item-has-children">
                             <a href="#">Shop</a>
@@ -392,9 +376,6 @@
                                                 <div class="cart_button view_cart">
                                                     <a href="/Cart">View Cart</a>
                                                 </div>
-                                                <div class="cart_button checkout">
-                                                    <a class="checkoutButton" href="#">Checkout</a>
-                                                </div>
                                             </div>
                                             <!--mini cart end-->
                                         </div>
@@ -409,18 +390,8 @@
                             <div class="main_menu">
                                 <nav>
                                     <ul>
-                                        <li class="active">
-                                            <a href="/Home">Home <i class="fa fa-angle-down"></i></a>
-                                            <ul class="sub_menu">
-                                                <li><a href="/Home">Home 1</a></li>
-                                                <li><a href="index-2.html">Home 2</a></li>
-                                                <li><a href="index-3.html">Home 3</a></li>
-                                                <li><a href="index-4.html">Home 4</a></li>
-                                                <li><a href="index-5.html">Home 5</a></li>
-                                                <li><a href="index-6.html">Home 6</a></li>
-                                                <li><a href="index-7.html">Home 7</a></li>
-                                                <li><a href="index-8.html">Home 8</a></li>
-                                            </ul>
+                                        <li>
+                                            <a href="/Home">Home</a>
                                         </li>
                                         <li class="mega_items">
                                             <a href="shop.html">shop <i class="fa fa-angle-down"></i></a>
@@ -669,44 +640,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $(".checkoutButton").click(function (e) {
-                e.preventDefault(); // Ngăn chặn hành động mặc định của thẻ a
-
-                var checkoutUrl = "https://localhost:7010/api/Cart/create-payment-intent";
-
-                // Gọi API sử dụng Fetch API
-                fetch(`${checkoutUrl}`, {
-                    method: "POST" // Hoặc "POST" tùy theo yêu cầu của bạn
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        // Lấy URL từ dữ liệu trả về
-                        var cartIdButton = document.getElementById('cartIdButton');
-                        var cartId = cartIdButton.getAttribute('data-cart-id');
-                        var deleteCartItemByCartIdUrl = "https://localhost:7010/api/CartItem/DeleteCartItemByCartId";
-                        fetch(`${deleteCartItemByCartIdUrl}/${cartId}`, {
-                            method: "DELETE" // Hoặc "POST" tùy theo yêu cầu của bạn
-                        })
-                            .catch(error => {
-                                // Xử lý lỗi nếu có
-                                console.error('There was a problem with the fetch operation:', error);
-                                // Hiển thị thông báo lỗi cho người dùng
-                            });
-                        var returnUrl = data.url;
-                        // Tiến hành chuyển hướng đến URL
-                        window.location.href = returnUrl;
-                    })
-                    .catch(error => {
-                        // Xử lý lỗi nếu có
-                        console.error('There was a problem with the fetch operation:', error);
-                        // Hiển thị thông báo lỗi cho người dùng
-                    });
-            });
-        });
-    </script>
+    
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

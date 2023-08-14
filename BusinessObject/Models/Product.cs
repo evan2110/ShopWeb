@@ -61,4 +61,5 @@ public class Product: BaseModel
     public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     public virtual ICollection<CartItem> CartItems { get; set; }
     public virtual ICollection<Rate> Rates { get; set; }
+
 }

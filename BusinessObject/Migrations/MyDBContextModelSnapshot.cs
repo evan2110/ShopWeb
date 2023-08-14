@@ -255,6 +255,47 @@ namespace BusinessObject.Migrations
                     b.ToTable("Color");
                 });
 
+            modelBuilder.Entity("BusinessObject.Models.Coupon", b =>
+                {
+                    b.Property<int>("CouponId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("coupon_id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CouponId"));
+
+                    b.Property<int>("CouponDiscount")
+                        .HasColumnType("int")
+                        .HasColumnName("coupon_discount");
+
+                    b.Property<string>("CouponSerie")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("coupon_serie");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime")
+                        .HasColumnName("created_time");
+
+                    b.Property<DateTime>("ExpirateDate")
+                        .HasColumnType("datetime")
+                        .HasColumnName("expirate_date");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("status");
+
+                    b.Property<DateTime?>("UpdatedTime")
+                        .HasColumnType("datetime")
+                        .HasColumnName("updated_time");
+
+                    b.HasKey("CouponId");
+
+                    b.ToTable("Coupon");
+                });
+
             modelBuilder.Entity("BusinessObject.Models.Order", b =>
                 {
                     b.Property<int>("OrderId")
@@ -267,10 +308,6 @@ namespace BusinessObject.Migrations
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("datetime")
                         .HasColumnName("created_time");
-
-                    b.Property<decimal>("Freight")
-                        .HasColumnType("money")
-                        .HasColumnName("freight");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime")
@@ -286,39 +323,11 @@ namespace BusinessObject.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("ship_address");
 
-                    b.Property<string>("ShipCity")
+                    b.Property<string>("ShipPhone")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
-                        .HasColumnName("ship_city");
-
-                    b.Property<string>("ShipCountry")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("ship_country");
-
-                    b.Property<string>("ShipName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("ship_name");
-
-                    b.Property<string>("ShipPostalCode")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("ship_postal_code");
-
-                    b.Property<string>("ShipRegion")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("ship_region");
-
-                    b.Property<int>("ShipViaId")
-                        .HasColumnType("int")
-                        .HasColumnName("ship_via_id");
+                        .HasColumnName("ship_phone");
 
                     b.Property<DateTime>("ShippedDate")
                         .HasColumnType("datetime")
@@ -330,6 +339,10 @@ namespace BusinessObject.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("status");
 
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("money")
+                        .HasColumnName("total_price");
+
                     b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("datetime")
                         .HasColumnName("updated_time");
@@ -339,8 +352,6 @@ namespace BusinessObject.Migrations
                         .HasColumnName("user_id");
 
                     b.HasKey("OrderId");
-
-                    b.HasIndex("ShipViaId");
 
                     b.HasIndex("UserId");
 
@@ -640,40 +651,6 @@ namespace BusinessObject.Migrations
                     b.ToTable("Role");
                 });
 
-            modelBuilder.Entity("BusinessObject.Models.ShipVia", b =>
-                {
-                    b.Property<int>("ShipViaId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("ship_via_id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ShipViaId"));
-
-                    b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime")
-                        .HasColumnName("created_time");
-
-                    b.Property<string>("ShipViaName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnName("ship_via_name");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnName("status");
-
-                    b.Property<DateTime?>("UpdatedTime")
-                        .HasColumnType("datetime")
-                        .HasColumnName("updated_time");
-
-                    b.HasKey("ShipViaId");
-
-                    b.ToTable("ShipVia");
-                });
-
             modelBuilder.Entity("BusinessObject.Models.Size", b =>
                 {
                     b.Property<int>("SizeId")
@@ -844,19 +821,11 @@ namespace BusinessObject.Migrations
 
             modelBuilder.Entity("BusinessObject.Models.Order", b =>
                 {
-                    b.HasOne("BusinessObject.Models.ShipVia", "ShipVia")
-                        .WithMany("Orders")
-                        .HasForeignKey("ShipViaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("BusinessObject.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("ShipVia");
 
                     b.Navigation("User");
                 });
@@ -997,11 +966,6 @@ namespace BusinessObject.Migrations
             modelBuilder.Entity("BusinessObject.Models.Role", b =>
                 {
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("BusinessObject.Models.ShipVia", b =>
-                {
-                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("BusinessObject.Models.Size", b =>

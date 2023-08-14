@@ -39,6 +39,8 @@ public class MapperConfigs: Profile
 
         CreateMap<CartDTO, Cart>();
 
+        CreateMap<Coupon, CouponDTO>()
+            .ReverseMap();
 
     }
 }
