@@ -371,10 +371,6 @@ namespace BusinessObject.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("created_time");
 
-                    b.Property<int>("Discount")
-                        .HasColumnType("int")
-                        .HasColumnName("discount");
-
                     b.Property<int>("OrderId")
                         .HasColumnType("int")
                         .HasColumnName("order_id");

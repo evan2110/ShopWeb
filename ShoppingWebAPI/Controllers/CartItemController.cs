@@ -117,22 +117,5 @@ namespace ShoppingWebAPI.Controllers
             return NoContent();
         }
 
-        // DELETE: api/cart/DeleteCartItemById/{id}
-        [HttpDelete("DeleteCartItemById/{id}", Name = "DeleteCartItemById")]
-        public async Task<ActionResult> DeleteCartItemById(int id)
-        {
-            if (id == 0)
-            {
-                return BadRequest();
-            }
-            var cartItem = await itemRepository.GetOneAsync(x => x.CartItemId == id);
-            if (cartItem == null)
-            {
-                return NotFound();
-            }
-            
-            await itemRepository.RemoveAsync(cartItem);
-            return NoContent();
-        }
     }
 }

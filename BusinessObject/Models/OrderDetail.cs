@@ -30,7 +30,4 @@ public class OrderDetail: BaseModel
     [Column("quantity")]
     public int Quantity { get; set; }
     
-    [Required]
-    [Column("discount")]
-    public int Discount { get; set; }
 }

@@ -42,5 +42,10 @@ public class MapperConfigs: Profile
         CreateMap<Coupon, CouponDTO>()
             .ReverseMap();
 
+        CreateMap<Order, OrderDTO>()
+            .ReverseMap();
+
+        CreateMap<OrderDetail, OrderDetailDTO>()
+            .ReverseMap();
     }
 }

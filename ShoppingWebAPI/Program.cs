@@ -26,6 +26,8 @@ builder.Services.AddScoped<ProductColorRepository>();
 builder.Services.AddScoped<CartRepository>();
 builder.Services.AddScoped<CartItemRepository>();
 builder.Services.AddScoped<CouponRepository>();
+builder.Services.AddScoped<OrderRepository>();
+builder.Services.AddScoped<OrderDetailRepository>();
 
 
 builder.Services.AddControllers();

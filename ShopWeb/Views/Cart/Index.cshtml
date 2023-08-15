@@ -7,21 +7,24 @@
     HttpClient httpClient = new HttpClient();
     HttpContext context = Context.Request.HttpContext;
     CartDTO cartDTO = null;
-
+    List<CartItemDTO> cartItem = null;
+    decimal total = 0;
     if (context.Session.GetString("UserId") != null)
     {
         if (context.Session.GetString("Cart") != null)
         {
             string cartJson = context.Session.GetString("Cart");
             cartDTO = System.Text.Json.JsonSerializer.Deserialize<CartDTO>(cartJson);
+
+            cartItem = ViewBag.CartItems;
+            foreach (var item in cartItem)
+            {
+                total += item.TotalPrice;
+            }
         }
     }
-    var cartItem = ViewBag.CartItems;
-    var total = 0;
-    foreach(var item in cartItem)
-    {
-        total += item.TotalPrice;
-    }
+    
+    int UserId = Int32.Parse(context.Session.GetString("UserId"));
 }
 <!--breadcrumbs area start-->
 <div class="breadcrumbs_area other_bread">
@@ -43,7 +46,7 @@
 <!-- shopping cart area start -->
 <div class="shopping_cart_area">
     <div class="container">
-        <form action="#">
+        <form method="POST" asp-action="AddOrder" asp-controller="Cart">
             <div class="row">
                 <div class="col-12">
                     <div class="table_desc">
@@ -60,17 +63,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in ViewBag.CartItems)
+                                    @if(cartItem != null)
                                     {
-                                        <tr>
-                                            <td id="delete" data-id-delete="@item.CartItemId" class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                            <td class="product_thumb"><a href="#"><img style="width:83px; height:98px;" src="@item.ImageFront" alt=""></a></td>
-                                            <td class="product_name"><a href="#">@item.ProductName</a></td>
-                                            <td class="product-price">@(item.TotalPrice / item.Quantity)</td>
-                                            <td class="product_quantity"><input readonly value="@item.Quantity" min="1" max="100" value="1" type="number"></td>
-                                            <td class="product_total">@item.TotalPrice</td>
-                                        </tr>
+                                        @foreach (var item in cartItem)
+                                        {
+                                            <tr>
+                                                <td id="delete" data-id-delete="@item.CartItemId" class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
+                                                <td class="product_thumb"><a href="#"><img style="width:83px; height:98px;" src="@item.ImageFront" alt=""></a></td>
+                                                <td class="product_name"><a href="#">@item.ProductName</a></td>
+                                                <td class="product-price">@(item.TotalPrice / item.Quantity)</td>
+                                                <td class="product_quantity"><input readonly value="@item.Quantity" min="1" max="100" value="1" type="number"></td>
+                                                <td class="product_total">@item.TotalPrice</td>
+                                            </tr>
+                                        }
                                     }
+                                    
 
                                 </tbody>
                             </table>
@@ -98,13 +105,14 @@
                             <h3>Cart Totals</h3>
                             <div class="coupon_inner">
                                 <p>
-                                    <label style="margin-right:240px;"> Ship address (required)</label>
-                                    <input name="address" placeholder="Address *" type="text">
+                                    <label style="margin-right:248px;"> Ship address (required)</label>
+                                    <input required id="address" name="ShipAddress" placeholder="Address *" type="text">
                                 </p>
                                 <p>
-                                    <label style="margin-right:250px;"> Ship phone (required)</label>
-                                    <input name="phone" placeholder="Phone *" type="text">
+                                    <label style="margin-right:256px;"> Ship phone (required)</label>
+                                    <input required id="phone" name="ShipPhone" placeholder="Phone *" type="text">
                                 </p>
+                                <input hidden name="UserId" id="userIdInput" value="@UserId" />
                                 <div class="cart_subtotal">
                                     <p>Subtotal</p>
                                     <p class="cart_amount" id="subTotal">@total VNĐ</p>
@@ -116,10 +124,11 @@
                                 <div class="cart_subtotal">
                                     <p>Total</p>
                                     <p class="cart_amount" id="total">@total VNĐ</p>
+                                        <input hidden id="totalPrice" name="ToTalPrice" value="@total" />
                                 </div>
                                 <div class="checkout_btn">
-                                    <a class="checkoutButton" >Proceed to Checkout</a>
-                                    <button hidden id="cartId" data-cart-id="@cartDTO.CartId">Proceed to Checkout</button>
+                                    @*<button type="button" class="buy">Buy</button>*@
+                                    <button type="submit" class="checkoutButton" >Proceed to Checkout</button>
                                 </div>
                             </div>
                         </div>
@@ -134,86 +143,70 @@
 <!-- shopping cart area end -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function () {
-        $(".checkoutButton").click(function (e) {
-            var returnUrl;
-            var sessionId;
-            var status;
+    /*$(document).ready(function () {
+        $(".checkoutButton").click(async function (e) {
             e.preventDefault(); // Ngăn chặn hành động mặc định của thẻ a
 
             var checkoutUrl = "https://localhost:7010/api/Cart/create-payment-intent";
 
-            // Gọi API sử dụng Fetch API
-            fetch(`${checkoutUrl}`, {
-                method: "POST" // Hoặc "POST" tùy theo yêu cầu của bạn
-            })
-                .then(response => response.json())
-                .then(data => {
-                    returnUrl = data.url;
-                    sessionId = data.sessionId;
-                    // Tiến hành chuyển hướng đến URL
-                    window.location.href = returnUrl;
+            try {
+                const response = await fetch(checkoutUrl, {
+                    method: "POST"
+                });
+                const data = await response.json();
 
-                    // Lấy URL từ dữ liệu trả về
-                    var cartIdButton = document.getElementById('cartId');
-                    var cartId = cartIdButton.getAttribute('data-cart-id');
+                var returnUrl = data.url;
+                var sessionId = data.sessionId;
+                window.location.href = returnUrl;
 
-                    // Thực hiện xóa cartItem tại đây
-                    var deleteCartItemByCartIdUrl = `https://localhost:7010/api/CartItem/DeleteCartItemByCartId/${cartId}`;
-                    fetch(deleteCartItemByCartIdUrl, {
-                        method: "DELETE" // Hoặc "POST" tùy theo yêu cầu của bạn
-                    })
-                        .catch(error => {
-                            // Xử lý lỗi nếu có
-                            console.error('There was a problem with the fetch operation:', error);
-                            // Hiển thị thông báo lỗi cho người dùng
-                        });
+                var cartIdButton = document.getElementById('cartId');
+                var cartId = cartIdButton.getAttribute('data-cart-id');
 
-                    //Khong dung vao ngoac ben duoi
-
-                })
-                .catch(error => {
-                    // Xử lý lỗi nếu có
-                    console.error('There was a problem with the fetch operation:', error);
-                    // Hiển thị thông báo lỗi cho người dùng
+                var deleteCartItemByCartIdUrl = `https://localhost:7010/api/CartItem/DeleteCartItemByCartId/${cartId}`;
+                await fetch(deleteCartItemByCartIdUrl, {
+                    method: "DELETE"
                 });
 
-            
+            } catch (error) {
+                console.error('There was a problem:', error);
+                // Xử lý lỗi nếu có
+            }
         });
     });
+    */
+
 
     document.addEventListener("DOMContentLoaded", function () {
         var applyCouponBtn = document.getElementById("applyCouponBtn");
         var couponInput = document.getElementById("couponInput");
 
-        applyCouponBtn.addEventListener("click", function (event) {
+        applyCouponBtn.addEventListener("click", async function (event) {
             event.preventDefault(); // Ngăn chặn hành động mặc định của nút submit
 
             var enteredCoupon = couponInput.value;
             if (enteredCoupon) {
-                // Thực hiện xử lý với giá trị coupon đã nhập
-                console.log("Entered coupon:", enteredCoupon);
-                var checkCouponUrl = `https://localhost:7010/api/Coupon?Coupon_serie=${enteredCoupon}`;
-                fetch(checkCouponUrl, {
-                    method: "GET" // Hoặc "POST" tùy theo yêu cầu của bạn
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        // Coupon hợp lệ
-                        var couponElement = document.getElementById("coupon");
-                        couponElement.innerHTML = data.couponDiscount + ' %';
-                        var coupon = parseInt(data.couponDiscount);
-
-                        var subTotalPrice = document.getElementById("subTotal").textContent;
-                        var total = subTotalPrice.substring(0, subTotalPrice.length - 3);
-                        var intTotal = parseInt(total);
-
-                        var totalPrice = document.getElementById("total");
-                        totalPrice.innerHTML = intTotal - (intTotal * coupon / 100);
-                    })
-                    .catch(error => {
-                        console.error('There was a problem with the fetch operation:', error);
+                try {
+                    var checkCouponUrl = `https://localhost:7010/api/Coupon?Coupon_serie=${enteredCoupon}`;
+                    const response = await fetch(checkCouponUrl, {
+                        method: "GET"
                     });
+                    const data = await response.json();
+
+                    var couponElement = document.getElementById("coupon");
+                    couponElement.innerHTML = data.couponDiscount + ' %';
+                    var coupon = parseInt(data.couponDiscount);
+
+                    var subTotalPrice = document.getElementById("subTotal").textContent;
+                    var total = subTotalPrice.substring(0, subTotalPrice.length - 3);
+                    var intTotal = parseInt(total);
+
+                    var totalPrice = document.getElementById("total");
+                    totalPrice.innerHTML = intTotal - (intTotal * coupon / 100);
+                    var totalPrice = document.getElementById("totalPrice");
+                    totalPrice.value = intTotal - (intTotal * coupon / 100);
+                } catch (error) {
+                    console.error('There was a problem with the fetch operation:', error);
+                }
             } else {
                 console.log("No coupon entered.");
             }
@@ -223,32 +216,30 @@
     document.addEventListener("DOMContentLoaded", function () {
         var deleteTdList = document.querySelectorAll(".product_remove[data-id-delete]");
 
-        deleteTdList.forEach(function (deleteTd) {
-            deleteTd.addEventListener("click", function () {
+        deleteTdList.forEach(async function (deleteTd) {
+            deleteTd.addEventListener("click", async function () {
                 var cartItemId = this.getAttribute("data-id-delete");
-                var deleteCartItemByIdUrl = `https://localhost:7010/api/CartItem/DeleteCartItemById/${cartItemId}`;
-                fetch(deleteCartItemByIdUrl, {
-                    method: "DELETE" // Hoặc "POST" tùy theo yêu cầu của bạn
-                })
-                    .then(response => {
-                        if (response.status === 204) {
-                            console.log("CartItem deleted successfully.");
-                            // Load lại trang sau khi xóa thành công
-                            location.reload();
-                        } else {
-                            console.error("Failed to delete cart item.");
-                        }
-                    })
-                    .catch(error => {
-                        // Xử lý lỗi nếu có
-                        console.error('There was a problem with the fetch operation:', error);
-                        // Hiển thị thông báo lỗi cho người dùng
+                var deleteCartItemByIdUrl = `https://localhost:7010/api/CartItem?id=${cartItemId}`;
+                try {
+                    const response = await fetch(deleteCartItemByIdUrl, {
+                        method: "DELETE"
                     });
 
-                // You can use the cartItemId for further processing (e.g., delete from cart)
+                    if (response.status === 204) {
+                        console.log("CartItem deleted successfully.");
+                        // Load lại trang sau khi xóa thành công
+                        location.reload();
+                    } else {
+                        console.error("Failed to delete cart item.");
+                    }
+                } catch (error) {
+                    console.error('There was a problem with the fetch operation:', error);
+                    // Xử lý lỗi nếu có
+                }
+
+                // Bạn có thể sử dụng cartItemId cho xử lý tiếp theo (ví dụ: xóa khỏi giỏ hàng)
             });
         });
     });
-
 
 </script>
