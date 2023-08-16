@@ -42,7 +42,7 @@ public class Order: BaseModel
     public string ShipAddress { get; set; }
 
     [Required]
-    [Column("total_price", TypeName = "money")]
+    [Column("total_price", TypeName = "decimal")]
     public decimal TotalPrice { get; set; }
 
     public virtual ICollection<OrderDetail> OrderDetails { get; set; }

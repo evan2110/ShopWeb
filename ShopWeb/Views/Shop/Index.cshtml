@@ -1,0 +1,212 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    int pageNumber = int.Parse(ViewData["pageNumber"].ToString());
+    int TotalPage = int.Parse(ViewData["TotalPage"].ToString());
+    int Count = 1;
+}
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <ul>
+                        <li><a href="/Home">home</a></li>
+                        <li>/</li>
+                        <li>shop</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
+<!--shop  area start-->
+<div class="shop_area shop_reverse">
+    <div class="container">
+        <div class="shop_inner_area">
+            <div class="row">
+                <div class="col-lg-3 col-md-12">
+                    <!--sidebar widget start-->
+                    <div class="sidebar_widget">
+                        <div class="widget_list widget_filter">
+                            <h2>Filter by price</h2>
+                            <form action="#">
+                                <div id="slider-range"></div>
+                                <button type="submit">Filter</button>
+                                <input type="text" name="text" id="amount" />
+
+                            </form>
+                        </div>
+                        <div class="widget_list widget_categories">
+                            <h2>Product categories</h2>
+                            <ul>
+                                @foreach (var item in ViewBag.categories)
+                                {
+                                <li><a href="#">@item.CategoryName <span>@(Count++)</span></a> </li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="widget_list widget_categories">
+                            <h2>Select By Color</h2>
+                            <ul>
+                                @foreach (var item in ViewBag.colors)
+                                {
+                                    <li><a href="#">@item.ColorName <span>@(Count++)</span></a> </li>
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!--sidebar widget end-->
+                </div>
+                <div class="col-lg-9 col-md-12">
+                    <!--shop wrapper start-->
+                    <!--shop toolbar start-->
+                    <div class="shop_title">
+                        <h1>shop</h1>
+                    </div>
+                    <div class="shop_toolbar_wrapper">
+                        <div class="shop_toolbar_btn">
+
+                            <button data-role="grid_3" type="button" class="active btn-grid-3" data-toggle="tooltip" title="3"></button>
+
+                            <button data-role="grid_4" type="button" class=" btn-grid-4" data-toggle="tooltip" title="4"></button>
+
+                            <button data-role="grid_5" type="button" class="btn-grid-5" data-toggle="tooltip" title="5"></button>
+
+                            <button data-role="grid_list" type="button" class="btn-list" data-toggle="tooltip" title="List"></button>
+                        </div>
+                        <div class=" niceselect_option">
+
+                            <form class="select_option" action="#">
+                                <select name="orderby" id="short">
+
+                                    <option selected value="1">Sort by average rating</option>
+                                    <option value="2">Sort by popularity</option>
+                                    <option value="3">Sort by newness</option>
+                                    <option value="4">Sort by price: low to high</option>
+                                    <option value="5">Sort by price: high to low</option>
+                                    <option value="6">Product Name: Z</option>
+                                </select>
+                            </form>
+
+
+                        </div>
+                        <div class="page_amount">
+                            <p>Showing 1–9 of 21 results</p>
+                        </div>
+                    </div>
+                    <!--shop toolbar end-->
+
+                    <div class="row shop_wrapper">
+                        @foreach (var item in ViewBag.products)
+                        {
+                            <div class="col-lg-4 col-md-4 col-12 ">
+                                <div class="single_product">
+                                    <div class="product_thumb">
+                                        <a class="primary_img" href="/Product?product_id=@item.ProductId"><img style="width:258.98px; height:304.69px;" src="@item.ImageFront" alt=""></a>
+                                        <a class="secondary_img" href="/Product?product_id=@item.ProductId"><img style="width:258.98px; height:304.69px;" src="@item.ImageBehind" alt=""></a>
+
+                                        <div class="quick_button">
+                                            <a href="/Product?product_id=@item.ProductId" title="quick_view">Xem sản phẩm</a>
+                                        </div>
+
+                                        <div class="double_base">
+                                            <div class="product_sale">
+                                                <span>-@item.Discount%</span>
+                                            </div>
+                                            <div class="label_product">
+                                                <span>new</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="product_content grid_content">
+                                        <h3><a href="/Product?product_id=@item.ProductId">@item.ProductName</a></h3>
+                                        <span class="current_price">@((item.Price * (100 - item.Discount)) / 100) $</span>
+                                        <span class="old_price">@item.Price $</span>
+                                    </div>
+
+
+                                    <div class="product_content list_content">
+                                        <h3><a href="/Product?product_id=@item.ProductId">@item.ProductName</a></h3>
+                                        <div class="product_ratting">
+                                            <ul>
+                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="product_price">
+                                            <span class="current_price">@((item.Price * (100 - item.Discount)) / 100) $</span>
+                                            <span class="old_price">@item.Price $</span>
+                                        </div>
+                                        <div class="product_desc">
+                                            <p>@item.Description</p>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        }
+                        
+                    </div>
+
+                    <div class="shop_toolbar t_bottom">
+                        <div>
+                            <nav class="isolate inline-flex -space-x-px shadow-sm" aria-label="Pagination">
+                                @if (pageNumber == 1)
+                                {
+                                    <span class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0">
+                                        <span class="sr-only">Previous</span>
+                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
+                                        </svg>
+                                    </span>
+
+                                }
+                                else
+                                {
+                                    <a asp-controller="Shop" asp-action="Index" asp-route-pageSize="@ViewData["pageSize"]" asp-route-pageNumber="@(pageNumber-1)" class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
+                                        <span class="sr-only">Previous</span>
+                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
+                                        </svg>
+                                    </a> 
+                                }
+                                @if (pageNumber == TotalPage)
+                                {
+                                    <span class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0">
+                                        <span class="sr-only">Next</span>
+                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+                                        </svg>
+                                    </span>
+                                }
+                                else
+                                {
+                                    <a asp-controller="Shop" asp-action="Index" asp-route-pageSize="@ViewData["pageSize"]" asp-route-pageNumber="@(pageNumber+1)" class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
+                                        <span class="sr-only">Next</span>
+                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+                                        </svg>
+                                    </a>
+                                }
+                            </nav>
+                        </div>
+                    </div>
+                    <!--shop toolbar end-->
+                    <!--shop wrapper end-->
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--shop  area end-->

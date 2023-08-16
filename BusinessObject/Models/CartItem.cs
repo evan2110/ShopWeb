@@ -23,7 +23,7 @@ public class CartItem: BaseModel
     public Product Product { get; set; }
     
     [Required]
-    [Column("total_price", TypeName = "money")]
+    [Column("total_price", TypeName = "decimal")]
     public decimal TotalPrice { get; set; }
 
     [Column("color_id")]

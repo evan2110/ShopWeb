@@ -152,7 +152,7 @@ namespace BusinessObject.Migrations
                         .HasColumnName("status");
 
                     b.Property<decimal>("TotalPrice")
-                        .HasColumnType("money")
+                        .HasColumnType("decimal")
                         .HasColumnName("total_price");
 
                     b.Property<DateTime?>("UpdatedTime")
@@ -340,7 +340,7 @@ namespace BusinessObject.Migrations
                         .HasColumnName("status");
 
                     b.Property<decimal>("TotalPrice")
-                        .HasColumnType("money")
+                        .HasColumnType("decimal")
                         .HasColumnName("total_price");
 
                     b.Property<DateTime?>("UpdatedTime")
@@ -376,7 +376,7 @@ namespace BusinessObject.Migrations
                         .HasColumnName("order_id");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("money")
+                        .HasColumnType("decimal")
                         .HasColumnName("price");
 
                     b.Property<int>("ProductId")
@@ -453,7 +453,7 @@ namespace BusinessObject.Migrations
                         .HasColumnName("image_right");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("money")
+                        .HasColumnType("decimal")
                         .HasColumnName("price");
 
                     b.Property<string>("ProductName")

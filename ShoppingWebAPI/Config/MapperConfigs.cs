@@ -47,5 +47,11 @@ public class MapperConfigs: Profile
 
         CreateMap<OrderDetail, OrderDetailDTO>()
             .ReverseMap();
+
+        CreateMap<Category, CategoryDTO>()
+            .ReverseMap();
+
+        CreateMap<Color, ColorDTO>()
+            .ReverseMap();
     }
 }

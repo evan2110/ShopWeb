@@ -28,6 +28,27 @@ namespace ShoppingWebAPI.Controllers
             this.colorRepository = colorRepository;
             this.sizeRepository = sizeRepository;
         }
+
+        [HttpGet("getAll")]
+        public async Task<ActionResult<ProductDTO>> GetAllProducts(int pageSize = 0, int pageNumber = 1)
+        {
+            IEnumerable<Product> ProductList;
+            ProductList = await repository.GetAllAsync(e => e.Status == "Active", includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber);
+            List<ProductDTO> listDTO = _mapper.Map<List<ProductDTO>>(ProductList);
+            foreach (var item in listDTO)
+            {
+                IEnumerable<ProductColor> ProductColorlist = await colorRepository.GetAllAsync(e => e.ProductId == item.ProductId, includeProperties: "Color");
+                IEnumerable<ProductSize> ProductSizelist = await sizeRepository.GetAllAsync(e => e.ProductId == item.ProductId, includeProperties: "Size");
+                List<ProductColorDTO> productColorDTO = _mapper.Map<List<ProductColorDTO>>(ProductColorlist);
+                List<ProductSizeDTO> productSizeDTO = _mapper.Map<List<ProductSizeDTO>>(ProductSizelist);
+                item.ProductColorDTOs = productColorDTO;
+                item.ProductSizeDTOs = productSizeDTO;
+            }
+
+            return Ok(listDTO);
+        }
+
+
         [HttpGet("list")]
         public async Task<ActionResult<ProductDTO>> GetTopProducts([FromQuery] int categoryId)
         {

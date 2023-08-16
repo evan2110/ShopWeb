@@ -23,7 +23,7 @@ public class OrderDetail: BaseModel
     public Order Order { get; set; }
     
     [Required]
-    [Column("price", TypeName = "money")]
+    [Column("price", TypeName = "decimal")]
     public decimal Price { get; set; }
     
     [Required]

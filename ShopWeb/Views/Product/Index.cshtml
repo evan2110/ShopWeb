@@ -84,12 +84,12 @@
 
                         @if(ViewBag.product.Discount != 0){
                         <div class="product_content">
-                            <span class="current_price">@((ViewBag.product.Price * (100 - ViewBag.product.Discount)) / 100) VNĐ</span>
-                            <span class="old_price">@ViewBag.product.Price VNĐ</span>
+                            <span class="current_price">@((ViewBag.product.Price * (100 - ViewBag.product.Discount)) / 100) $</span>
+                            <span class="old_price">@ViewBag.product.Price $</span>
                         </div>
                         }else{
                         <div class="product_content">
-                            <span class="current_price">@(ViewBag.product.Price) VNĐ</span>
+                            <span class="current_price">@(ViewBag.product.Price) $</span>
                         </div>
                         }
 
@@ -189,7 +189,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="first_child">Price</td>
-                                                <td>@ViewBag.product.Price VNĐ</td>
+                                                <td>@ViewBag.product.Price $</td>
                                             </tr>
                                             <tr>
                                                 <td class="first_child">Category</td>
@@ -307,15 +307,15 @@
                                 {
                                     <div class="product_content">
                                         <h3><a href="/Product?product_id=@item.ProductId">@item.ProductName</a></h3>
-                                        <span class="current_price">@((item.Price * (100 - item.Discount)) / 100) VNĐ</span>
-                                        <span class="old_price">@item.Price VNĐ</span>
+                                        <span class="current_price">@((item.Price * (100 - item.Discount)) / 100) $</span>
+                                        <span class="old_price">@item.Price $</span>
                                     </div>
                                 }
                                 else
                                 {
                                     <div class="product_content">
                                         <h3><a href="/Product?product_id=@item.ProductId">@item.ProductName</a></h3>
-                                        <span class="current_price">@(item.Price) VNĐ</span>
+                                        <span class="current_price">@(item.Price) $</span>
                                     </div>
                                 }
 
@@ -378,8 +378,8 @@
                                 </div>
                                 <div class="product_content">
                                     <h3><a href="/Product?product_id=@item.ProductId">@item.ProductName</a></h3>
-                                    <span class="current_price">@((item.Price * (100 - item.Discount)) / 100) VNĐ</span>
-                                    <span class="old_price">@item.Price VNĐ</span>
+                                    <span class="current_price">@((item.Price * (100 - item.Discount)) / 100) $</span>
+                                    <span class="old_price">@item.Price $</span>
                                 </div>
                             </div>
                         </div>
@@ -517,8 +517,8 @@
                 
                 // Cập nhật thông tin trong modal
                 modal.querySelector('.modal_title h2').textContent = productData.productName;
-                modal.querySelector('.new_price').textContent = ((productData.price * (100 - productData.discount)) / 100) + ' VNĐ';
-                modal.querySelector('.old_price').textContent = productData.price + ' VNĐ';
+                modal.querySelector('.new_price').textContent = ((productData.price * (100 - productData.discount)) / 100) + ' $';
+                modal.querySelector('.old_price').textContent = productData.price + ' $';
                 modal.querySelector('.modal_description p').textContent = productData.description;
                 //Cập nhật các tùy chọn khác tương tự...
                 var tabContent = modal.querySelectorAll('.tab1').forEach(function(tabPane, index) {

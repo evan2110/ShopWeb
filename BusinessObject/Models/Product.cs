@@ -39,7 +39,7 @@ public class Product: BaseModel
     public string ImageRight { get; set; }
     
     [Required]
-    [Column("price", TypeName = "money")]
+    [Column("price", TypeName = "decimal")]
     public decimal Price { get; set; }
     
     [Required]
