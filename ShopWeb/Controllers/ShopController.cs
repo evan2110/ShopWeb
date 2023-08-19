@@ -16,9 +16,10 @@ namespace ShopWeb.Controllers
         {
             httpClient = new HttpClient();
         }
-        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 9)
+        public async Task<IActionResult> Index(decimal? maxPrice, decimal? minPrice, int? categoryId, int? sort, int pageNumber = 1, int pageSize = 9)
         {
-            string urlGetAllProduct = $"{productUrl}/getAll?pageSize={pageSize}&pageNumber={pageNumber}";
+            string urlGetAllProduct;
+            urlGetAllProduct = $"{productUrl}/getAll?pageSize={pageSize}&pageNumber={pageNumber}&minPrice={minPrice}&maxPrice={maxPrice}&categoryId={categoryId}&sort={sort}";
             HttpResponseMessage responseProduct = await httpClient.GetAsync(urlGetAllProduct);
             string strDataProduct = await responseProduct.Content.ReadAsStringAsync();
             var optionsProduct = new JsonSerializerOptions
@@ -29,7 +30,7 @@ namespace ShopWeb.Controllers
             List<ProductDTO> product = System.Text.Json.JsonSerializer.Deserialize<List<ProductDTO>>(strDataProduct, optionsProduct);
 
             //Lay totalPage
-            string urlGetTotalProduct = $"{productUrl}/getAll?pageSize=0&pageNumber=1";
+            string urlGetTotalProduct = $"{productUrl}/getAll?pageSize=0&pageNumber=1&minPrice={minPrice}&maxPrice={maxPrice}";
             HttpResponseMessage responseTotalProduct = await httpClient.GetAsync(urlGetTotalProduct);
             string strTotalProduct = await responseTotalProduct.Content.ReadAsStringAsync();
             var optionsTotalProduct = new JsonSerializerOptions
@@ -40,8 +41,8 @@ namespace ShopWeb.Controllers
             List<ProductDTO> totalProduct = System.Text.Json.JsonSerializer.Deserialize<List<ProductDTO>>(strTotalProduct, optionsTotalProduct);
 
             ViewBag.products = product;
-            ViewData["pageNumber"] = pageNumber;
-            ViewData["pageSize"] = pageSize;
+            ViewBag.pageNumber = pageNumber;
+            ViewBag.pageSize = pageSize;
             if (product != null && product.Count > 0)
             {
                 ViewBag.ToTalPage = (int)Math.Ceiling((double)totalProduct.Count / pageSize);
@@ -75,6 +76,11 @@ namespace ShopWeb.Controllers
 
             List<ColorDTO> colors = System.Text.Json.JsonSerializer.Deserialize<List<ColorDTO>>(strColor, optionsColor);
             ViewBag.colors = colors;
+
+            ViewBag.minPrice = minPrice;
+            ViewBag.maxPrice = maxPrice;
+            ViewBag.categoryId = categoryId;
+            ViewBag.sort = sort;
 
             return View();
         }

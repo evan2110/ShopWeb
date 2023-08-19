@@ -2,10 +2,34 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    int pageNumber = int.Parse(ViewData["pageNumber"].ToString());
-    int TotalPage = int.Parse(ViewData["TotalPage"].ToString());
+    int PageNumber = int.Parse(ViewBag.pageNumber.ToString());
+    int TotalPage = int.Parse(ViewBag.TotalPage.ToString());
+    int PageSize = int.Parse(ViewBag.pageSize.ToString());
     int Count = 1;
 }
+<style>
+    .bigGroup {
+        display: flex;
+    }
+    /* Định dạng phần tử select */
+    select#short {
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    /* Định dạng tùy chọn mặc định */
+    select#short option[selected] {
+        font-weight: bold;
+    }
+
+    /* Định dạng tùy chọn khác */
+    select#short option {
+        font-size: 14px;
+    }
+
+</style>
 <!--breadcrumbs area start-->
 <div class="breadcrumbs_area">
     <div class="container">
@@ -33,30 +57,46 @@
                     <div class="sidebar_widget">
                         <div class="widget_list widget_filter">
                             <h2>Filter by price</h2>
-                            <form action="#">
-                                <div id="slider-range"></div>
+                            <form action="Shop" method="get">
+                                <div class="bigGroup">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">$ MinPrice</span>
+                                        <input type="number" name="minPrice" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" min="0" title="Please enter a valid number" value="@ViewBag.minPrice">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">$ MaxPrice</span>
+                                        <input type="number" name="maxPrice" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" min="0" title="Please enter a valid number" value="@ViewBag.maxPrice">
+                                    </div>
+                                    <input style="display:none;" name="categoryId" value="@ViewBag.categoryId" />
+                                    <input style="display:none;" name="sort" value="@ViewBag.sort" />
+                                    <input style="display:none;" name="pageSize" value="@PageSize" />
+                                    <input style="display:none;" name="pageNumber" value="@PageNumber" />
+                                </div>
                                 <button type="submit">Filter</button>
-                                <input type="text" name="text" id="amount" />
-
                             </form>
+
                         </div>
                         <div class="widget_list widget_categories">
                             <h2>Product categories</h2>
                             <ul>
                                 @foreach (var item in ViewBag.categories)
                                 {
-                                <li><a href="#">@item.CategoryName <span>@(Count++)</span></a> </li>
+                                <li><a asp-controller="Shop"
+                                    asp-action="Index"
+                                    asp-route-pageSize="@PageSize"
+                                    asp-route-pageNumber="@PageNumber"
+                                    asp-route-minPrice="@ViewBag.minPrice"
+                                    asp-route-maxPrice="@ViewBag.maxPrice"
+                                    asp-route-categoryId="@item.CategoryId"
+                                    asp-route-sort="@ViewBag.sort" />@item.CategoryName <span>@(Count++)</span>
+                                </li>
                                 }
                             </ul>
                         </div>
-                        <div class="widget_list widget_categories">
-                            <h2>Select By Color</h2>
+                        <div class="">
+                            <h2></h2>
                             <ul>
-                                @foreach (var item in ViewBag.colors)
-                                {
-                                    <li><a href="#">@item.ColorName <span>@(Count++)</span></a> </li>
-                                }
-
+                                <li><a href="#"></a> </li>
                             </ul>
                         </div>
                     </div>
@@ -65,8 +105,24 @@
                 <div class="col-lg-9 col-md-12">
                     <!--shop wrapper start-->
                     <!--shop toolbar start-->
-                    <div class="shop_title">
+                    <div style="display:flex; justify-content:space-between;" class="shop_title">
                         <h1>shop</h1>
+                        <div>
+                        <form action="Shop" method="get">
+                                <select name="sort" id="short">
+                                    <option selected="@(ViewBag.sort == null || ViewBag.sort == 1)" value="1">Sort by oldest</option>
+                                    <option value="2" selected="@(ViewBag.sort == 2)">Sort by newness</option>
+                                    <option value="3" selected="@(ViewBag.sort == 3)">Sort by price: low to high</option>
+                                    <option value="4" selected="@(ViewBag.sort == 4)">Sort by price: high to low</option>
+                                </select>
+                                <input style="display:none;" name="categoryId" value="@ViewBag.categoryId" />
+                                <input style="display:none;" name="pageSize" value="@PageSize" />
+                                <input style="display:none;" name="pageNumber" value="@PageNumber" />
+                                <input style="display:none;" name="minPrice" value="@ViewBag.minPrice" />
+                                <input style="display:none;" name="maxPrice" value="@ViewBag.maxPrice" />
+                                <button type="submit" class="btn btn-secondary">Sort</button>
+                        </form>
+                        </div>
                     </div>
                     <div class="shop_toolbar_wrapper">
                         <div class="shop_toolbar_btn">
@@ -78,22 +134,6 @@
                             <button data-role="grid_5" type="button" class="btn-grid-5" data-toggle="tooltip" title="5"></button>
 
                             <button data-role="grid_list" type="button" class="btn-list" data-toggle="tooltip" title="List"></button>
-                        </div>
-                        <div class=" niceselect_option">
-
-                            <form class="select_option" action="#">
-                                <select name="orderby" id="short">
-
-                                    <option selected value="1">Sort by average rating</option>
-                                    <option value="2">Sort by popularity</option>
-                                    <option value="3">Sort by newness</option>
-                                    <option value="4">Sort by price: low to high</option>
-                                    <option value="5">Sort by price: high to low</option>
-                                    <option value="6">Product Name: Z</option>
-                                </select>
-                            </form>
-
-
                         </div>
                         <div class="page_amount">
                             <p>Showing 1–9 of 21 results</p>
@@ -158,55 +198,54 @@
                         
                     </div>
 
-                    <div class="shop_toolbar t_bottom">
-                        <div>
-                            <nav class="isolate inline-flex -space-x-px shadow-sm" aria-label="Pagination">
-                                @if (pageNumber == 1)
-                                {
-                                    <span class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0">
-                                        <span class="sr-only">Previous</span>
-                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
-                                        </svg>
-                                    </span>
-
-                                }
-                                else
-                                {
-                                    <a asp-controller="Shop" asp-action="Index" asp-route-pageSize="@ViewData["pageSize"]" asp-route-pageNumber="@(pageNumber-1)" class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
-                                        <span class="sr-only">Previous</span>
-                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
-                                        </svg>
-                                    </a> 
-                                }
-                                @if (pageNumber == TotalPage)
-                                {
-                                    <span class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0">
-                                        <span class="sr-only">Next</span>
-                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-                                        </svg>
-                                    </span>
-                                }
-                                else
-                                {
-                                    <a asp-controller="Shop" asp-action="Index" asp-route-pageSize="@ViewData["pageSize"]" asp-route-pageNumber="@(pageNumber+1)" class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
-                                        <span class="sr-only">Next</span>
-                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-                                        </svg>
-                                    </a>
-                                }
-                            </nav>
-                        </div>
-                    </div>
+                    
                     <!--shop toolbar end-->
                     <!--shop wrapper end-->
                 </div>
             </div>
-        </div>
+            <div style="float:right;" class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+                <div class="flex flex-1 justify-between sm:hidden">
+                    @if (PageNumber == 1)
+                    {
+                        <span class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0">
+                            <span class="sr-only">Previous</span>
+                        </span>
+                    }
+                    else
+                    {
+                        <a asp-controller="Shop" asp-action="Index" asp-route-pageSize="@PageSize" asp-route-pageNumber="@(PageNumber-1)" asp-route-minPrice="@ViewBag.minPrice" asp-route-maxPrice="@ViewBag.maxPrice" asp-route-categoryId="@ViewBag.CategoryId"
+                           asp-route-sort="@ViewBag.sort" class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Previous</a>
+                    }
+                    @for (int i = 1; i <= TotalPage; i++)
+                    {
+                        <a asp-controller="Shop"
+                           asp-action="Index"
+                           asp-route-pageSize="@PageSize"
+                           asp-route-pageNumber="@i"
+                           asp-route-minPrice="@ViewBag.minPrice"
+                           asp-route-maxPrice="@ViewBag.maxPrice"
+                           asp-route-categoryId="@ViewBag.CategoryId"
+                           asp-route-sort="@ViewBag.sort"
+                           class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">@i</a>
+                    }
+                    @if (PageNumber == TotalPage)
+                    {
+                        <span class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0">
+                            <span class="sr-only">Next</span>
+                        </span>
+                    }
+                    else
+                    {
+                        <a asp-controller="Shop" asp-action="Index" asp-route-pageSize="@PageSize" asp-route-pageNumber="@(PageNumber+1)" asp-route-minPrice="@ViewBag.minPrice" asp-route-maxPrice="@ViewBag.maxPrice" asp-route-categoryId="@ViewBag.CategoryId"
+                           asp-route-sort="@ViewBag.sort" class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Next</a>
+                    }
 
+                </div>
+            </div>
+        </div>
+        
     </div>
+
 </div>
+
 <!--shop  area end-->

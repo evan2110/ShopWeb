@@ -30,10 +30,191 @@ namespace ShoppingWebAPI.Controllers
         }
 
         [HttpGet("getAll")]
-        public async Task<ActionResult<ProductDTO>> GetAllProducts(int pageSize = 0, int pageNumber = 1)
+        public async Task<ActionResult<ProductDTO>> GetAllProducts([FromQuery(Name = "minPrice")] decimal? minPrice, [FromQuery(Name = "maxPrice")] decimal? maxPrice,
+            [FromQuery(Name = "categoryId")] int? categoryId, [FromQuery(Name = "sort")] int? sort, int pageSize = 0, int pageNumber = 1)
         {
             IEnumerable<Product> ProductList;
             ProductList = await repository.GetAllAsync(e => e.Status == "Active", includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber);
+            if(categoryId != null && minPrice != null && maxPrice != null && sort != null)
+            {
+                if(sort == 1)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.CategoryId == categoryId && e.Price >= minPrice && e.Price <= maxPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderBy(e => e.CreatedTime);
+                }
+                if(sort == 2)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.CategoryId == categoryId && e.Price >= minPrice && e.Price <= maxPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderByDescending(e => e.CreatedTime);
+                }
+                if(sort == 3)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.CategoryId == categoryId && e.Price >= minPrice && e.Price <= maxPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderBy(e => e.Price);
+                }
+                if (sort == 4)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.CategoryId == categoryId && e.Price >= minPrice && e.Price <= maxPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderByDescending(e => e.Price);
+                }
+            }
+            if (categoryId != null && minPrice != null && maxPrice != null && sort == null)
+            {
+                ProductList = await repository.GetAllAsync(e => e.Status == "Active" && e.CategoryId == categoryId && e.Price >= minPrice && e.Price <= maxPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber);
+            }
+            if (categoryId != null && minPrice != null && maxPrice == null && sort != null)
+            {
+                if (sort == 1)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.CategoryId == categoryId && e.Price >= minPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderBy(e => e.CreatedTime);
+                }
+                if (sort == 2)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.CategoryId == categoryId && e.Price >= minPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderByDescending(e => e.CreatedTime);
+                }
+                if (sort == 3)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.CategoryId == categoryId && e.Price >= minPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderBy(e => e.Price);
+                }
+                if (sort == 4)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.CategoryId == categoryId && e.Price >= minPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderByDescending(e => e.Price);
+                }
+            }
+            if (categoryId != null && minPrice == null && maxPrice != null && sort != null)
+            {
+                if (sort == 1)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.CategoryId == categoryId && e.Price <= maxPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderBy(e => e.CreatedTime);
+                }
+                if (sort == 2)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.CategoryId == categoryId && e.Price <= maxPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderByDescending(e => e.CreatedTime);
+                }
+                if (sort == 3)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.CategoryId == categoryId && e.Price <= maxPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderBy(e => e.Price);
+                }
+                if (sort == 4)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.CategoryId == categoryId && e.Price <= maxPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderByDescending(e => e.Price);
+                }
+            }
+            if (categoryId == null && minPrice != null && maxPrice != null && sort != null)
+            {
+                if (sort == 1)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.Price >= minPrice && e.Price <= maxPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderBy(e => e.CreatedTime);
+                }
+                if (sort == 2)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.Price >= minPrice && e.Price <= maxPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderByDescending(e => e.CreatedTime);
+                }
+                if (sort == 3)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.Price >= minPrice && e.Price <= maxPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderBy(e => e.Price);
+                }
+                if (sort == 4)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.Price >= minPrice && e.Price <= maxPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderByDescending(e => e.Price);
+                }
+            }
+            if (categoryId != null && minPrice != null && maxPrice == null && sort == null)
+            {
+                ProductList = await repository.GetAllAsync(e => e.Status == "Active" && e.CategoryId == categoryId && e.Price >= minPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber);
+            }
+            if (categoryId != null && minPrice == null && maxPrice != null && sort == null)
+            {
+                ProductList = await repository.GetAllAsync(e => e.Status == "Active" && e.CategoryId == categoryId && e.Price <= maxPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber);
+            }
+            if (categoryId != null && minPrice == null && maxPrice == null && sort != null)
+            {
+                if (sort == 1)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.CategoryId == categoryId, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderBy(e => e.CreatedTime);
+                }
+                if (sort == 2)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.CategoryId == categoryId, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderByDescending(e => e.CreatedTime);
+                }
+                if (sort == 3)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.CategoryId == categoryId, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderBy(e => e.Price);
+                }
+                if (sort == 4)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.CategoryId == categoryId, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderByDescending(e => e.Price);
+                }
+            }
+            if (categoryId == null && minPrice != null && maxPrice != null && sort == null)
+            {
+                ProductList = await repository.GetAllAsync(e => e.Status == "Active" && e.Price >= minPrice && e.Price <= maxPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber);
+            }
+            if (categoryId == null && minPrice != null && maxPrice == null && sort != null)
+            {
+                if (sort == 1)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.Price >= minPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderBy(e => e.CreatedTime);
+                }
+                if (sort == 2)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.Price >= minPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderByDescending(e => e.CreatedTime);
+                }
+                if (sort == 3)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.Price >= minPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderBy(e => e.Price);
+                }
+                if (sort == 4)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.Price >= minPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderByDescending(e => e.Price);
+                }
+            }
+            if (categoryId == null && minPrice == null && maxPrice != null && sort != null)
+            {
+                if (sort == 1)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.Price <= maxPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderBy(e => e.CreatedTime);
+                }
+                if (sort == 2)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.Price <= maxPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderByDescending(e => e.CreatedTime);
+                }
+                if (sort == 3)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.Price <= maxPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderBy(e => e.Price);
+                }
+                if (sort == 4)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active" && e.Price <= maxPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderByDescending(e => e.Price);
+                }
+            }
+            if (categoryId != null && minPrice == null && maxPrice == null && sort == null)
+            {
+                ProductList = await repository.GetAllAsync(e => e.Status == "Active" && e.CategoryId == categoryId, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber);
+            }
+            if (categoryId == null && minPrice != null && maxPrice == null && sort == null)
+            {
+                ProductList = await repository.GetAllAsync(e => e.Status == "Active" && e.Price >= minPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber);
+            }
+            if (categoryId == null && minPrice == null && maxPrice != null && sort == null)
+            {
+                ProductList = await repository.GetAllAsync(e => e.Status == "Active" && e.Price <= maxPrice, includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber);
+            }
+            if (categoryId == null && minPrice == null && maxPrice == null && sort != null)
+            {
+                if (sort == 1)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active", includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderBy(e => e.CreatedTime);
+                }
+                if (sort == 2)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active", includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderByDescending(e => e.CreatedTime);
+                }
+                if (sort == 3)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active", includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderBy(e => e.Price);
+                }
+                if (sort == 4)
+                {
+                    ProductList = (await repository.GetAllAsync(e => e.Status == "Active", includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber)).OrderByDescending(e => e.Price);
+                }
+            }
             List<ProductDTO> listDTO = _mapper.Map<List<ProductDTO>>(ProductList);
             foreach (var item in listDTO)
             {
