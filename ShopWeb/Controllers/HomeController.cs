@@ -17,6 +17,7 @@ public class HomeController : Controller
     private static string productUrl = "https://localhost:7010/api/Product";
     private static string blogUrl = "https://localhost:7010/api/Blog";
     private static string cartUrl = "https://localhost:7010/api/Cart";
+    private static string orderDetailUrl = "https://localhost:7010/api/OrderDetail";
 
 
 
@@ -85,6 +86,20 @@ public class HomeController : Controller
 
             
             ViewBag.listBlogDTO = listBlog;
+
+            //GetTopBuyProduct
+            string urlTopBuyProduct = $"{orderDetailUrl}/topBuyProduct";
+            HttpResponseMessage responseTopBuyProduct = await httpClient.GetAsync(urlTopBuyProduct);
+            string strDataTopBuyProduct = await responseTopBuyProduct.Content.ReadAsStringAsync();
+            var optionsTopBuyProduct = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            List<TopBuyProductDTO> listTopBuyProduct = System.Text.Json.JsonSerializer.Deserialize<List<TopBuyProductDTO>>(strDataTopBuyProduct, optionsTopBuyProduct);
+
+
+            ViewBag.listTopBuyProduct = listTopBuyProduct;
             return View("Index");
         }
         catch (Exception ex)

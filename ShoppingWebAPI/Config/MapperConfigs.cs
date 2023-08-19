@@ -53,5 +53,8 @@ public class MapperConfigs: Profile
 
         CreateMap<Color, ColorDTO>()
             .ReverseMap();
+
+        CreateMap<TopBuyProductDTO, OrderDetailDTO>()
+            .ReverseMap();
     }
 }
