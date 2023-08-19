@@ -75,7 +75,7 @@ namespace BusinessObject.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Blog", (string)null);
+                    b.ToTable("Blog");
                 });
 
             modelBuilder.Entity("BusinessObject.Models.Cart", b =>
@@ -109,7 +109,7 @@ namespace BusinessObject.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Cart", (string)null);
+                    b.ToTable("Cart");
                 });
 
             modelBuilder.Entity("BusinessObject.Models.CartItem", b =>
@@ -169,7 +169,7 @@ namespace BusinessObject.Migrations
 
                     b.HasIndex("SizeId");
 
-                    b.ToTable("CartItem", (string)null);
+                    b.ToTable("CartItem");
                 });
 
             modelBuilder.Entity("BusinessObject.Models.Category", b =>
@@ -213,7 +213,7 @@ namespace BusinessObject.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Category", (string)null);
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("BusinessObject.Models.Color", b =>
@@ -252,7 +252,7 @@ namespace BusinessObject.Migrations
 
                     b.HasKey("ColorId");
 
-                    b.ToTable("Color", (string)null);
+                    b.ToTable("Color");
                 });
 
             modelBuilder.Entity("BusinessObject.Models.Coupon", b =>
@@ -293,7 +293,7 @@ namespace BusinessObject.Migrations
 
                     b.HasKey("CouponId");
 
-                    b.ToTable("Coupon", (string)null);
+                    b.ToTable("Coupon");
                 });
 
             modelBuilder.Entity("BusinessObject.Models.Order", b =>
@@ -355,7 +355,7 @@ namespace BusinessObject.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Order", (string)null);
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("BusinessObject.Models.OrderDetail", b =>
@@ -403,7 +403,7 @@ namespace BusinessObject.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderDetail", (string)null);
+                    b.ToTable("OrderDetail");
                 });
 
             modelBuilder.Entity("BusinessObject.Models.Product", b =>
@@ -480,7 +480,7 @@ namespace BusinessObject.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Product", (string)null);
+                    b.ToTable("Product");
                 });
 
             modelBuilder.Entity("BusinessObject.Models.ProductColor", b =>
@@ -520,7 +520,7 @@ namespace BusinessObject.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductColor", (string)null);
+                    b.ToTable("ProductColor");
                 });
 
             modelBuilder.Entity("BusinessObject.Models.ProductSize", b =>
@@ -560,7 +560,7 @@ namespace BusinessObject.Migrations
 
                     b.HasIndex("SizeId");
 
-                    b.ToTable("ProductSize", (string)null);
+                    b.ToTable("ProductSize");
                 });
 
             modelBuilder.Entity("BusinessObject.Models.Rate", b =>
@@ -582,7 +582,6 @@ namespace BusinessObject.Migrations
                         .HasColumnName("created_time");
 
                     b.Property<string>("Image")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("image");
 
@@ -610,7 +609,7 @@ namespace BusinessObject.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Rate", (string)null);
+                    b.ToTable("Rate");
                 });
 
             modelBuilder.Entity("BusinessObject.Models.Role", b =>
@@ -644,7 +643,7 @@ namespace BusinessObject.Migrations
 
                     b.HasKey("RoleId");
 
-                    b.ToTable("Role", (string)null);
+                    b.ToTable("Role");
                 });
 
             modelBuilder.Entity("BusinessObject.Models.Size", b =>
@@ -678,7 +677,7 @@ namespace BusinessObject.Migrations
 
                     b.HasKey("SizeId");
 
-                    b.ToTable("Size", (string)null);
+                    b.ToTable("Size");
                 });
 
             modelBuilder.Entity("BusinessObject.Models.User", b =>
@@ -747,7 +746,7 @@ namespace BusinessObject.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("User", (string)null);
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("BusinessObject.Models.Blog", b =>

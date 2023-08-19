@@ -10,6 +10,7 @@ using System.Text;
 using DataAccess.DTO;
 using Microsoft.IdentityModel.Tokens;
 using ShoppingWebAPI.Config;
+using AutoMapper;
 
 namespace ShoppingWebAPI.Controllers;
 
@@ -19,10 +20,12 @@ public class UserController : ControllerBase
 {
     private UserRepository repository;
     private IConfiguration configuration;
-    public UserController(UserRepository repository, IConfiguration configuration)
+    private readonly IMapper _mapper;
+    public UserController(UserRepository repository, IConfiguration configuration, IMapper mapper)
     {
         this.repository = repository;
         this.configuration = configuration;
+        _mapper = mapper;
     }
     
     [HttpPost("login")]
@@ -143,5 +146,27 @@ public class UserController : ControllerBase
             return "NORMAL";
         }
         return "";
+    }
+
+    [HttpGet("{user_id:int}", Name = "getUser")]
+    public async Task<ActionResult<UserDTO>> GetOneUser(int user_id)
+    {
+
+        if (user_id == 0)
+        {
+
+            return BadRequest();
+        }
+        var User = await repository.GetOneAsync(x => x.UserId == user_id, includeProperties: "Role");
+
+        if (User == null)
+        {
+
+            return NotFound();
+        }
+
+        UserDTO userDTO = _mapper.Map<UserDTO>(User);
+
+        return Ok(userDTO);
     }
 }

@@ -4,6 +4,10 @@
 @using Microsoft.AspNetCore.Http
 @{
     HttpContext context = Context.Request.HttpContext;
+    int ProductId = int.Parse(ViewBag.product.ProductId.ToString());
+    int PageNumber = int.Parse(ViewBag.pageNumber.ToString());
+    int TotalPage = int.Parse(ViewBag.TotalPage.ToString());
+    int PageSize = int.Parse(ViewBag.pageSize.ToString());
 }
 <!--breadcrumbs area start-->
 <div class="breadcrumbs_area product_bread">
@@ -207,44 +211,81 @@
                             <div class="product_info_content">
                                 <p>@ViewBag.product.Description</p>
                             </div>
+                            @foreach(var item in ViewBag.rates)
+                            {
                             <div class="product_info_inner">
-                                <div class="product_ratting mb-10">
-                                    <ul>
-                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    </ul>
-                                    <strong>Posthemes</strong>
-                                    <p>09/07/2018</p>
-                                </div>
-                                <div class="product_demo">
-                                    <strong>demo</strong>
-                                    <p>That's OK!</p>
+                                    <div class="product_ratting mb-10">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                        </ul>
+                                        <strong>@item.UserName</strong>
+                                        <p>@item.CreatedTime.ToString("dd/MM/yyyy")</p>
+                                    </div>
+                                
+                                    <div class="product_demo">
+                                        <p>@item.Content</p>
+                                        <img style="width:300px; height:300px;" src="@item.Image"/>
+                                    </div>
+                            </div>
+                            }
+                            <div style="float:right;" class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+                                <div class="flex flex-1 justify-between sm:hidden">
+                                    @if (PageNumber == 1)
+                                    {
+                                        <span class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0">
+                                            <span class="sr-only">Previous</span>
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="Product" asp-action="Index" asp-route-pageSize="@PageSize" asp-route-pageNumber="@(PageNumber-1)" asp-route-product_id="@ProductId"
+                                           class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Previous</a>
+                                    }
+                                    @for (int i = 1; i <= TotalPage; i++)
+                                    {
+                                        <a asp-controller="Product"
+                                           asp-action="Index"
+                                           asp-route-pageSize="@PageSize"
+                                           asp-route-pageNumber="@i"
+                                           asp-route-product_id="@ProductId"
+                                           class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">@i</a>
+                                    }
+                                    @if (PageNumber == TotalPage)
+                                    {
+                                        <span class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0">
+                                            <span class="sr-only">Next</span>
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="Product" asp-action="Index" asp-route-pageSize="@PageSize" asp-route-pageNumber="@(PageNumber+1)" asp-route-product_id="@ProductId"
+                                          class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Next</a>
+                                    }
+
                                 </div>
                             </div>
-                            @if (context.Session.GetString("UserId") != "0")
+                            @if (context.Session.GetString("UserId") != null)
                             {
                                 <div class="product_review_form">
-                                    <form action="#">
+                                    <form method="POST" asp-action="AddRate" asp-controller="Product">
                                         <h2>Add a review </h2>
-                                        <p>Your email address will not be published. Required fields are marked </p>
                                         <div class="row">
                                             <div class="col-12">
                                                 <label for="review_comment">Your review </label>
-                                                <textarea name="comment" id="review_comment"></textarea>
+                                                <textarea name="Content" id="review_comment"></textarea>
                                             </div>
-                                            <div class="col-lg-6 col-md-6">
-                                                <label for="author">Name</label>
-                                                <input id="author" type="text">
-
-                                            </div>
-                                            <div class="col-lg-6 col-md-6">
-                                                <label for="email">Email </label>
-                                                <input id="email" type="text">
+                                            <div class="col-12">
+                                                <label for="author">Image</label>
+                                                <input name="Image" id="author" type="text">
                                             </div>
                                         </div>
+                                        <input style="display: none;" name="UserId" value="@(Int32.Parse(context.Session.GetString("UserId")))" id="author" type="text">
+                                        <input style="display: none;" name="ProductId" value="@ProductId" id="author" type="text">
+                                        <input style="display: none;" name="UserName" value="@context.Session.GetString("Email")" id="author" type="text">
                                         <button type="submit">Submit</button>
                                     </form>
                                 </div>

@@ -1,7 +1,9 @@
-﻿using DataAccess.DTO;
+﻿using BusinessObject.Models;
+using DataAccess.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ShoppingWebAPI.Request;
+using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace ShopWeb.Controllers
@@ -12,14 +14,16 @@ namespace ShopWeb.Controllers
         private static string productdetailUrl = "https://localhost:7010/api/Product";
         private static string cartUrl = "https://localhost:7010/api/Cart";
         private static string cartItemUrl = "https://localhost:7010/api/CartItem";
+        private static string rateUrl = "https://localhost:7010/api/Rate";
+        private static string userUrl = "https://localhost:7010/api/User";
 
         public ProductController()
         {
             httpClient = new HttpClient();
         }
-        public async Task<IActionResult> Index(int product_id)
+        public async Task<IActionResult> Index(int product_id, int pageNumber = 1, int pageSize = 2)
         {
-            await LoadProductDetails(product_id);
+            await LoadProductDetails(product_id, pageNumber, pageSize);
             return View();
         }
 
@@ -125,9 +129,9 @@ namespace ShopWeb.Controllers
             return System.Text.Json.JsonSerializer.Deserialize<ProductDTO>(strDataProduct, optionsProduct);
         }
 
-        private async Task LoadProductDetails(int productId)
+        private async Task LoadProductDetails(int product_id, int pageNumber = 1, int pageSize = 2)
         {
-            string urlProductDetail = $"{productdetailUrl}/{productId}";
+            string urlProductDetail = $"{productdetailUrl}/{product_id}";
             HttpResponseMessage responseProduct = await httpClient.GetAsync(urlProductDetail);
             string strDataProduct = await responseProduct.Content.ReadAsStringAsync();
             var optionsProduct = new JsonSerializerOptions
@@ -159,11 +163,65 @@ namespace ShopWeb.Controllers
 
             List<ProductDTO> upSellProduct = System.Text.Json.JsonSerializer.Deserialize<List<ProductDTO>>(strDataUpSellProduct, optionsUpSellProduct);
 
+            //GetRateOfProduct
+            string urlRate = $"{rateUrl}/getRateByProductId?ProductId={product_id}&pageSize={pageSize}&pageNumber={pageNumber}";
+            HttpResponseMessage responseRate = await httpClient.GetAsync(urlRate);
+            string strDataRate = await responseRate.Content.ReadAsStringAsync();
+            var optionsRate = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+            
+            List<RateDTO> rates = System.Text.Json.JsonSerializer.Deserialize<List<RateDTO>>(strDataRate, optionsRate);
+
+            //Lay totalPage
+            string urlGetTotalRate = $"{rateUrl}/getRateByProductId?ProductId={product_id}&pageSize=0&pageNumber=1";
+            HttpResponseMessage responseTotalRate = await httpClient.GetAsync(urlGetTotalRate);
+            string strTotalRate = await responseTotalRate.Content.ReadAsStringAsync();
+            var optionsTotalRate = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            List<RateDTO> totalRate = System.Text.Json.JsonSerializer.Deserialize<List<RateDTO>>(strTotalRate, optionsTotalRate);
+            if (rates != null && rates.Count > 0)
+            {
+                ViewBag.ToTalPage = (int)Math.Ceiling((double)totalRate.Count / pageSize);
+            }
+            else
+            {
+                ViewBag.TotalPage = 1;
+            }
+            ViewBag.pageNumber = pageNumber;
+            ViewBag.pageSize = pageSize;
+            ViewBag.rates = rates;
             ViewBag.product = product;
             ViewBag.listColor = new SelectList(product.ProductColorDTOs.ToList(), "ColorId", "ColorName");
             ViewBag.listSize = new SelectList(product.ProductSizeDTOs.ToList(), "SizeId", "SizeName");
             ViewBag.relatedProduct = productRelated;
             ViewBag.upSellProduct = upSellProduct;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddRate(AddRateRequest addRateRequest)
+        {
+            //Tao Order
+            RateDTO rateDTO = new RateDTO();
+            rateDTO.UserId = addRateRequest.UserId;
+            rateDTO.ProductId = addRateRequest.ProductId;
+            rateDTO.Content = addRateRequest.Content;
+            rateDTO.Image = addRateRequest.Image;
+            rateDTO.UserName = addRateRequest.UserName;
+            rateDTO.Status = "Active";
+            rateDTO.CreatedTime = DateTime.Now;
+
+
+            string urlCreateRate = $"{rateUrl}";
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync(urlCreateRate, rateDTO);
+            Console.WriteLine(response);
+            rateDTO = await response.Content.ReadFromJsonAsync<RateDTO>();
+            await LoadProductDetails(addRateRequest.ProductId);
+            return View("Index");
         }
 
     }

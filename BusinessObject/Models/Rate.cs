@@ -26,5 +26,5 @@ public class Rate: BaseModel
     public string Content { get; set; }
     
     [Column("image")]
-    public string Image { get; set; }
+    public string? Image { get; set; }
 }
