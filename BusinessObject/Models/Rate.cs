@@ -21,7 +21,7 @@ public class Rate: BaseModel
     
     [ForeignKey("ProductId")]
     public Product Product { get; set; }
-    
+
     [Column("content")]
     public string Content { get; set; }
     

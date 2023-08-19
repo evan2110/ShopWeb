@@ -24,12 +24,66 @@ namespace ShoppingWebAPI.Controllers
         [HttpGet("list")]
         public async Task<ActionResult<BlogDTO>> GetTopBlogs()
         {
-            IEnumerable<Blog> BlogList = await repository.GetAllAsync(includeProperties: "User,Category");
+            IEnumerable<Blog> BlogList = await repository.GetAllAsync(e => e.Status == "Active", includeProperties: "User,Category");
             var result = BlogList.OrderByDescending(p => p.CreatedTime).Take(4).ToList();
             List<BlogDTO> listDTO = _mapper.Map<List<BlogDTO>>(result);
 
             return Ok(listDTO);
         }
-        
+
+        [HttpGet("getAll")]
+        public async Task<ActionResult<BlogDTO>> GetAllBlogs([FromQuery(Name = "categoryId")] int? categoryId, [FromQuery(Name = "search")] string? search, int pageSize = 0, int pageNumber = 1)
+        {
+            IEnumerable<Blog> BlogList;
+            BlogList = await repository.GetAllAsync(e => e.Status == "Active", includeProperties: "Category,User", pageSize: pageSize, pageNumber: pageNumber);
+            if (categoryId != null && search != null)
+            {
+                BlogList = await repository.GetAllAsync(e => e.Status == "Active" && e.CategoryId == categoryId && e.BlogName.Contains(search), includeProperties: "Category,User", pageSize: pageSize, pageNumber: pageNumber);
+            }
+            if(categoryId != null && search == null)
+            {
+                BlogList = await repository.GetAllAsync(e => e.Status == "Active" && e.CategoryId == categoryId, includeProperties: "Category,User", pageSize: pageSize, pageNumber: pageNumber);
+            }
+            if(categoryId == null && search != null)
+            {
+                BlogList = await repository.GetAllAsync(e => e.Status == "Active" && e.BlogName.Contains(search), includeProperties: "Category,User", pageSize: pageSize, pageNumber: pageNumber);
+            }
+            List<BlogDTO> listDTO = _mapper.Map<List<BlogDTO>>(BlogList);
+
+            return Ok(listDTO);
+        }
+
+        [HttpGet("{blog_id:int}", Name = "getBlog")]
+        public async Task<ActionResult<BlogDTO>> GetOneBlog(int blog_id)
+        {
+
+            if (blog_id == 0)
+            {
+
+                return BadRequest();
+            }
+            var Blog = await repository.GetOneAsync(x => x.BlogId == blog_id, includeProperties: "Category,User");
+
+            if (Blog == null)
+            {
+
+                return NotFound();
+            }
+
+            BlogDTO blogDTO = _mapper.Map<BlogDTO>(Blog);
+
+            return Ok(blogDTO);
+        }
+
+        [HttpGet("lstRelate")]
+        public async Task<ActionResult<BlogDTO>> GetRelatedBlogs([FromQuery(Name = "categoryId")] int? categoryId)
+        {
+            IEnumerable<Blog> BlogList = await repository.GetAllAsync(e => e.Status == "Active" && e.CategoryId == categoryId, includeProperties: "User,Category");
+            var result = BlogList.OrderByDescending(p => p.CreatedTime).Take(3).ToList();
+            List<BlogDTO> listDTO = _mapper.Map<List<BlogDTO>>(result);
+
+            return Ok(listDTO);
+        }
+
     }
 }

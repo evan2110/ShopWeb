@@ -30,7 +30,7 @@ namespace ShopWeb.Controllers
             List<ProductDTO> product = System.Text.Json.JsonSerializer.Deserialize<List<ProductDTO>>(strDataProduct, optionsProduct);
 
             //Lay totalPage
-            string urlGetTotalProduct = $"{productUrl}/getAll?pageSize=0&pageNumber=1&minPrice={minPrice}&maxPrice={maxPrice}";
+            string urlGetTotalProduct = $"{productUrl}/getAll?pageSize=0&pageNumber=1&minPrice={minPrice}&maxPrice={maxPrice}&categoryId={categoryId}&sort={sort}";
             HttpResponseMessage responseTotalProduct = await httpClient.GetAsync(urlGetTotalProduct);
             string strTotalProduct = await responseTotalProduct.Content.ReadAsStringAsync();
             var optionsTotalProduct = new JsonSerializerOptions

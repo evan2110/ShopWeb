@@ -1,0 +1,121 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    int lengthContent = ViewBag.blog.Content.Length;
+}
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area other_bread">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <ul>
+                        <li><a href="/Home">home</a></li>
+                        <li>/</li>
+                        <li><a href="/Blog">blog</a></li>
+                        <li>/</li>
+                        <li>blog details</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
+<!--blog body area start-->
+<div class="blog_area blog_details">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-12">
+                <!--blog sidebar start-->
+                <aside class="blog_sidebar">
+                    <!--recent post start-->
+                    <div class="sidebar_widget recent_post">
+                        <h3 class="widget_title">Recent Posts</h3>
+                        @foreach (var item in ViewBag.listTopBlog)
+                        {
+                            <div class="sidebar_post">
+                                <div class="post_img">
+                                    <a href="/BlogDetail?blogId=@item.BlogId"><img src="@item.Image" alt=""></a>
+                                </div>
+                                <div class="post_text">
+                                    <h3><a href="/BlogDetail?blogId=@item.BlogId">@item.BlogName</a></h3>
+                                    <span>@item.CreatedTime.ToString("dd/MM/yyyy")</span>
+                                </div>
+
+                            </div>
+                        }
+                    </div>
+                    <!--recent post end-->
+
+                </aside>
+
+                <!--blog sidebar start-->
+            </div>
+            <div class="col-lg-9 col-md-12">
+                <!--blog grid area start-->
+                <div class="blog_details_wrapper">
+                    <div class="blog__thumb">
+                        <a href="#"><img style="width:825px; height:359.61px;" src="@ViewBag.blog.Image" alt=""></a>
+                    </div>
+                    <div class="blog_info_wrapper">
+                        <div class="blog_info_inner">
+                            <div class="post__date">
+                                <span class="day">@ViewBag.blog.CreatedTime.Day</span>
+                                <span class="month">@ViewBag.blog.CreatedTime.Month</span>
+                            </div>
+                            <div class="post__info">
+                                <div class="post_header">
+                                    <h3>@ViewBag.blog.BlogName</h3>
+                                </div>
+                                <div class="post_meta">
+                                    <span>Posted by </span>
+                                    <span><a href="#">@ViewBag.blog.UserName</a></span>
+                                    <span><a href="#">/ WordPress</a></span>
+                                </div>
+                                <div class="post_content">
+                                    <blockquote>
+                                        <p>@ViewBag.blog.Content.Substring(0, 100)</p>
+                                    </blockquote>
+                                    <p>@ViewBag.blog.Content.Substring(100).</p>
+                                </div>
+                                <div class="social_sharing">
+                                    <h3>Share this post</h3>
+                                    <ul>
+                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="related_posts">
+                            <h3>Related posts</h3>
+                            <div class="row">
+                                @foreach (var item in ViewBag.listRelatedBlog)
+                                {
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="single_related_posts">
+                                            <div class="related_posts_thumb">
+                                                <img src="@item.Image" alt="">
+                                            </div>
+                                            <div class="related_posts_content">
+                                                <h3><a href="/BlogDetail?blogId=@item.BlogId">@item.BlogName</a></h3>
+                                                <span>@item.CreatedTime.ToString("dd/MM/yyyy") </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--blog grid area start-->
+            </div>
+        </div>
+    </div>
+</div>
+<!--blog section area end-->
