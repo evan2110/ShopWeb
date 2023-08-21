@@ -85,5 +85,28 @@ namespace ShoppingWebAPI.Controllers
             return Ok(listDTO);
         }
 
+        [HttpPost]
+        public async Task<ActionResult<BlogDTO>> CreateBlog([FromBody] BlogDTO blogDTO)
+        {
+
+            if (await repository.GetOneAsync(x => x.BlogId == blogDTO.BlogId) != null)
+            {
+                return BadRequest();
+            }
+
+            // Map nguoc tu DTO -> Entity thi dung AutoMapperConfig
+            var mapper = AutoMapperConfig.InitializeAutomapper<BlogDTO, Blog>();
+            var blogCreate = mapper.Map<Blog>(blogDTO);
+
+            // Thực hiện tạo mới Movie
+            await repository.CreateAsync(blogCreate);
+
+            // Ánh xạ lại đối tượng Movie sau khi tạo thành công
+            var resultDTIO = _mapper.Map<BlogDTO>(blogCreate);
+
+
+            return Ok(resultDTIO);
+        }
+
     }
 }

@@ -6,6 +6,7 @@
     int TotalPage = int.Parse(ViewBag.TotalPage.ToString());
     int PageSize = int.Parse(ViewBag.pageSize.ToString());
     int Count = 1;
+    HttpContext context = Context.Request.HttpContext;
 }
 <!--breadcrumbs area start-->
 <div class="breadcrumbs_area other_bread">
@@ -67,7 +68,7 @@
                         {
                             <div class="sidebar_post">
                                 <div class="post_img">
-                                    <a href="/BlogDetail?blogId=@item.BlogId"><img src="@item.Image" alt=""></a>
+                                    <a href="/BlogDetail?blogId=@item.BlogId"><img style="width:55px; height:31.44px;" src="@item.Image" alt=""></a>
                                 </div>
                                 <div class="post_text">
                                     <h3><a href="/BlogDetail?blogId=@item.BlogId">@item.BlogName</a></h3>
@@ -84,13 +85,19 @@
                 <!--blog sidebar start-->
             </div>
             <div class="col-lg-9 col-md-12">
+                @if(context.Session.GetString("UserId") != null)
+                {
+                    <div style="margin-bottom:86px;">
+                        <a style="float:right; background-color: gray; padding: 5px 30px; text-decoration:none; color:white; border-radius: 10px;" href="/WriteBlog"><i class="bi bi-pencil-square"></i> Write</a>
+                    </div>
+                }
                 <!--blog grid area start-->
                 <div class="blog_grid_area">
                     @foreach(var item in ViewBag.blogs)
                     {
                         <div class="blog_grid">
                             <div class="blog_thumb">
-                                <a href="/BlogDetail?blogId=@item.BlogId"><img src="@item.Image" alt=""></a>
+                                <a href="/BlogDetail?blogId=@item.BlogId"><img style="width:386.39px;height:220.86px;" src="@item.Image" alt=""></a>
                             </div>
                             <div class="blog_content">
                                 <div class="post_date">
