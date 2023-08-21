@@ -3,6 +3,7 @@ using BusinessObject.Models;
 using DataAccess.DTO;
 using DataAccess.Repository;
 using Microsoft.AspNetCore.Mvc;
+using ShoppingWebAPI.Config;
 using Stripe;
 using System.Runtime.InteropServices;
 
@@ -12,15 +13,17 @@ namespace ShoppingWebAPI.Controllers
     [Route("api/[controller]")]
     public class OrderDetailController : ControllerBase
     {
+        private OrderRepository orderRepository;
         private OrderDetailRepository repository;
         private IConfiguration configuration;
         private readonly IMapper _mapper;
 
-        public OrderDetailController(OrderDetailRepository repository, IConfiguration configuration, IMapper mapper)
+        public OrderDetailController(OrderDetailRepository repository, OrderRepository orderRepository, IConfiguration configuration, IMapper mapper)
         {
             this.repository = repository;
             this.configuration = configuration;
             this._mapper = mapper;
+            this.orderRepository = orderRepository;
         }
 
         [HttpPost]
@@ -33,7 +36,8 @@ namespace ShoppingWebAPI.Controllers
             }
 
             // Tạo đối tượng Movie từ MovieCreate và gán Genre
-            var orderDetailCreate = _mapper.Map<OrderDetail>(orderDetailDTO);
+            var mapper = AutoMapperConfig.InitializeAutomapper<OrderDetailDTO, OrderDetail>();
+            var orderDetailCreate = mapper.Map<OrderDetail>(orderDetailDTO);
 
 
             // Thực hiện tạo mới Movie
@@ -73,6 +77,25 @@ namespace ShoppingWebAPI.Controllers
 
             return Ok(productGroupsWithTotalQuantity);
            
+        }
+
+        [HttpGet("{userId:int}", Name = "GetOrderDetailByUserId")]
+        public async Task<ActionResult<OrderDetailDTO>> GetOrderDetailByUserId(int userId, int pageSize = 0, int pageNumber = 1)
+        {
+            List<OrderDetailDTO> OrderDetailList = new List<OrderDetailDTO>();
+            List<OrderDetail> OrderDetail = new List<OrderDetail>();
+            //Vi o day co mac dinh 1 thang null ban dau cho nen pageSize muon lay dung phai + 1
+
+            var OrderList = await orderRepository.GetAllAsync(e => e.Status == "Active" && e.UserId == userId, includeProperties: "OrderDetails", pageSize: pageSize, pageNumber: pageNumber);
+            foreach(var item in  OrderList)
+            {
+                OrderDetail = await repository.GetAllAsync(e => e.Status == "Active" && e.OrderId == item.OrderId, includeProperties: "Product");
+                var orderDetailMap = _mapper.Map<List<OrderDetailDTO>>(OrderDetail);
+                OrderDetailList.AddRange(orderDetailMap);
+            }
+
+            return Ok(OrderDetailList);
+
         }
 
     }

@@ -46,6 +46,8 @@ public class MapperConfigs: Profile
             .ReverseMap();
 
         CreateMap<OrderDetail, OrderDetailDTO>()
+            .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Product.ImageFront))
+            .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.ProductName))
             .ReverseMap();
 
         CreateMap<Category, CategoryDTO>()
