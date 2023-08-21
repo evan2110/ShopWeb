@@ -259,9 +259,9 @@
                                             <a href="#">@context.Session.GetString("Email") <i class="ion-chevron-down"></i></a>
                                             <ul class="dropdown_links">
                                                 <li><a href="wishlist.html">My Wish List </a></li>
-                                                <li><a href="my-account.html">My Account </a></li>
+                                                <li><a href="/UserDetail?user_id=@Int32.Parse(context.Session.GetString("UserId"))">My Account </a></li>
+                                                <li><a href="compare.html">Order History  </a></li>
                                                 <li><a href="@Url.Action("Logout", "Login")">Log out</a></li>
-                                                <li><a href="compare.html">Compare Products  </a></li>
                                             </ul>
                                         </li>
                                     </ul>

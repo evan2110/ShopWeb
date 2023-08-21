@@ -112,9 +112,7 @@ namespace ShopWeb.Controllers
             {
                 HttpContext.Session.SetString("Cart", null);
             }
-
-            await LoadProductDetails(addToCartRequest.ProductId);
-            return View("Index");
+            return RedirectToAction("Index", new { product_id = addToCartRequest.ProductId });
         }
 
         private async Task<ProductDTO> GetProductDetails(int productId)
@@ -220,8 +218,7 @@ namespace ShopWeb.Controllers
             HttpResponseMessage response = await httpClient.PostAsJsonAsync(urlCreateRate, rateDTO);
             Console.WriteLine(response);
             rateDTO = await response.Content.ReadFromJsonAsync<RateDTO>();
-            await LoadProductDetails(addRateRequest.ProductId);
-            return View("Index");
+            return RedirectToAction("Index", new { product_id = addRateRequest.ProductId});
         }
 
     }

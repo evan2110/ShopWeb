@@ -1,0 +1,109 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area other_bread">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <ul>
+                        <li><a href="/Home">home</a></li>
+                        <li>/</li>
+                        <li>account detail</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
+<!--contact area start-->
+<div class="contact_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <div class="contact_message content">
+                    <h3>User Information</h3>
+                    <img style="height:350px; width:400px;" src="@ViewBag.user.Image"/>
+                    <ul>
+                        <li><i class="fa fa-phone"></i> <a href="#">@ViewBag.user.Phone</a></li>
+                        <li><i class="fa fa-envelope-o"></i> @ViewBag.user.Email</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="contact_message form">
+                    <form method="POST" asp-action="UpdateUser" asp-controller="UserDetail">
+                        <input style="display:none;" name="UserId" value="@int.Parse(ViewBag.user.UserId.ToString())" />
+                        <input style="display:none;" name="RoleId" value="@int.Parse(ViewBag.user.RoleId.ToString())" />
+                        <input style="display:none;" name="RoleName" value="@ViewBag.user.RoleName" />
+                        <input style="display:none;" name="CreatedTime" value="@DateTime.Parse(ViewBag.user.CreatedTime.ToString())" />
+
+                        <p>
+                            <label> Firt Name</label>
+                            <input value="@ViewBag.user.FirstName" name="FirstName" placeholder="First Name *" type="text">
+                        </p>
+                        <p>
+                            <label> Last Name</label>
+                            <input value="@ViewBag.user.LastName" name="LastName" placeholder="Last Name *" type="text">
+                        </p>
+                        <p>
+                            <label>  Your Email (required)</label>
+                            <input value="@ViewBag.user.Email" name="Email" placeholder="Email *" type="email">
+                        </p>
+                        <p>
+                            <label>  Phone</label>
+                            <input value="@ViewBag.user.Phone" name="Phone" placeholder="Phone *" type="text">
+                        </p>
+                        <p>
+                            <label>  Image</label>
+                            <input value="@ViewBag.user.Image" name="Image" placeholder="Image *" type="text">
+                        </p>
+                        <p>
+                            <label>  Password</label>
+                            <input value="@ViewBag.user.Password" name="Password" placeholder="Password *" type="password">
+                        </p>
+                        <div>
+                            <label style="margin-bottom:16px;">Gender</label>
+                            <div style="display:flex;">
+                                <div style="display:flex;">
+                                    <label for="male">Male</label>
+                                    <input checked style="width:136px; max-height:25px; margin-bottom:12px;" id="male" name="Gender" type="radio" value="True" @(
+                                           ViewBag.user.Gender == "Male"  ? "checked" : ""
+                                           )>
+                                </div>
+                                
+                                <div style="display:flex;">
+                                    <label for="female">Female</label>
+                                    <input style="width:107px; max-height:25px;" id="female" name="Gender" type="radio" value="False" @(
+                                           ViewBag.user.Gender == "Female" ? "checked" : "")>
+                                </div>
+                            </div>
+                        </div>
+                        <button style="margin-top:16px;" type="submit"> Update</button>
+                        <p class="form-messege"></p>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--contact area end-->
+<!--contact map start-->
+<div class="contact_map">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="map-area">
+                    <div id="googleMap"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--contact map end-->

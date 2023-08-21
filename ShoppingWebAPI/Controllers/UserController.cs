@@ -169,4 +169,23 @@ public class UserController : ControllerBase
 
         return Ok(userDTO);
     }
+
+    [HttpPut("{User_id:int}", Name = "UpdateUser")]
+    public async Task<ActionResult<UserDTO>> UpdateUser(int User_id, [FromBody] UserDTO userDTO)
+    {
+
+        if (userDTO == null || User_id != userDTO.UserId)
+        {
+            return BadRequest();
+        }
+
+        // Map nguoc tu DTO -> Entity thi dung AutoMapperConfig
+        var mapper = AutoMapperConfig.InitializeAutomapper<UserDTO, User>();
+        var userCreate = mapper.Map<User>(userDTO);
+
+        // Thực hiện tạo mới Movie
+        await repository.UpdateAsync(userCreate);
+
+        return Ok();
+    }
 }
