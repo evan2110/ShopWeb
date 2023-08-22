@@ -1,9 +1,11 @@
 using DataAccess.Repository;
 using ShopWeb.Middleware;
+using ShopWeb.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddTransient<IEmailSendercs, EmailSender>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession(options =>
 {

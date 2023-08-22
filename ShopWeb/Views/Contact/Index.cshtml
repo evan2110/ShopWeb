@@ -37,26 +37,31 @@
             </div>
             <div class="col-lg-6 col-md-12">
                 <div class="contact_message form">
-                    <h3>Tell us your project</h3>
-                    <form id="contact-form" method="POST" action="assets/mail.php">
+                    <h3>Enter information to receive notifications</h3>
+                    <form method="POST" asp-action="SendMail" asp-controller="Contact">
                         <p>
                             <label> Your Name (required)</label>
-                            <input name="name" placeholder="Name *" type="text">
+                            <input name="Name" placeholder="Name *" type="text">
                         </p>
                         <p>
                             <label>  Your Email (required)</label>
-                            <input name="email" placeholder="Email *" type="email">
+                            <input name="Email" placeholder="Email *" type="email">
                         </p>
                         <p>
                             <label>  Subject</label>
-                            <input name="subject" placeholder="Subject *" type="text">
+                            <input name="Subject" placeholder="Subject *" type="text">
                         </p>
                         <div class="contact_textarea">
                             <label>  Your Message</label>
-                            <textarea placeholder="Message *" name="message" class="form-control2"></textarea>
+                            <textarea placeholder="Message *" name="Message" class="form-control2"></textarea>
                         </div>
                         <button type="submit"> Send</button>
-                        <p class="form-messege"></p>
+                        @if (ViewBag.status != null)
+                        {
+                            <div style="margin-top:13px;" class="alert alert-success" role="alert">
+                                @ViewBag.status
+                            </div>
+                        }
                     </form>
 
                 </div>
