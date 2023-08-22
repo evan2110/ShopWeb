@@ -219,6 +219,7 @@ namespace ShopWeb.Controllers
             {
                 ViewBag.TotalPage = 1;
             }
+            ViewBag.totalRate = totalRate.Count;
             ViewBag.pageNumber = pageNumber;
             ViewBag.pageSize = pageSize;
             ViewBag.rates = rates;

@@ -225,11 +225,11 @@
                 <div class="offcanvas_footer">
                     <span><a href="#"><i class="fa fa-envelope-o"></i> dundn21102001@gmail.com</a></span>
                     <ul>
-                        <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li class="pinterest"><a href="#"><i class="fa fa-pinterest-p"></i></a></li>
-                        <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                        <li class="linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li class="facebook"><a href="#" onclick="shareOnFacebook('https://www.facebook.com/sharer/sharer.php?u=https://www.facebook.com/'); return false;"><i class="fa fa-facebook"></i></a></li>
+                        <li class="twitter"><a href="#" onclick="shareOnFacebook('https://twitter.com/share?url=https://twitter.com/home'); return false;"><i class="fa fa-twitter"></i></a></li>
+                        <li class="pinterest"><a href="#" onclick="shareOnFacebook('https://www.pinterest.com/pin/create/button/?url=https://www.pinterest.com/'); return false;"><i class="fa fa-pinterest-p"></i></a></li>
+                        <li class="google-plus"><a href="#" onclick="shareOnFacebook('https://www.instagram.com/sharer.php?u=https://www.instagram.com/'); return false;"><i class="fa fa-instagram"></i></a></li>
+                        <li class="linkedin"><a href="#" onclick="shareOnFacebook('https://www.linkedin.com/shareArticle?url=https://www.linkedin.com/feed/'); return false;"><i class="fa fa-linkedin"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -511,10 +511,10 @@
                                 <p>Phone: <a href="tel:+(+012)800456789-987">(+012) 800 456 789 - 987</a> </p>
                                 <p>Email: ducdn21102001@gmail.com</p>
                                 <ul>
-                                    <li><a href="#" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#" title="google-plus"><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href="#" title="facebook"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#" title="youtube"><i class="fa fa-youtube"></i></a></li>
+                                    <li><a href="#" onclick="shareOnFacebook('https://twitter.com/share?url=https://twitter.com/home'); return false;" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#" onclick="shareOnFacebook('https://www.instagram.com/sharer.php?u=https://www.instagram.com/'); return false;" title="google-plus"><i class="fa fa-instagram"></i></a></li>
+                                    <li><a href="#" onclick="shareOnFacebook('https://www.facebook.com/sharer/sharer.php?u=https://www.facebook.com/'); return false;" title="facebook"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#" onclick="shareOnFacebook('https://www.linkedin.com/shareArticle?url=https://www.linkedin.com/feed/'); return false;" title="youtube"><i class="fa fa-linkedin"></i></a></li>
                                 </ul>
 
                             </div>
@@ -564,6 +564,13 @@
             </div>
         </div>
     </footer>
+    <script>
+        function shareOnFacebook(link) {
+            // Mở cửa sổ pop-up chia sẻ
+            window.open(link, "_blank", "width=600,height=400");
+        }
+
+    </script>
 
     <!-- JS
     ============================================ -->

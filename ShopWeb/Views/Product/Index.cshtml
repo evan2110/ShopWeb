@@ -81,8 +81,7 @@
                                 <li><a href="#"><i class="fa fa-star"></i></a></li>
                                 <li><a href="#"><i class="fa fa-star"></i></a></li>
                                 <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                <li class="review"><a href="#"> 1 review </a></li>
-                                <li class="review"><a href="#"> Write a review </a></li>
+                                <li class="review"><a href=""> @ViewBag.totalRate review (s) </a></li>
                             </ul>
                         </div>
 
@@ -142,11 +141,10 @@
                     <div class="priduct_social">
                         <h3>Share on:</h3>
                         <ul>
-                            <li><a href="#"><i class="fa fa-rss"></i></a></li>
-                            <li><a href="#"><i class="fa fa-vimeo"></i></a></li>
-                            <li><a href="#"><i class="fa fa-tumblr"></i></a></li>
-                            <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a onclick="shareOnFacebook('https://www.facebook.com/sharer/sharer.php?u=https://www.facebook.com/'); return false;" href="#"><i class="fa fa-rss"></i></a></li>
+                            <li><a onclick="shareOnFacebook('https://twitter.com/share?url=https://twitter.com/home'); return false;" href="#"><i class="fa fa-tumblr"></i></a></li>
+                            <li><a onclick="shareOnFacebook('https://www.pinterest.com/pin/create/button/?url=https://www.pinterest.com/'); return false;" href="#"><i class="fa fa-pinterest"></i></a></li>
+                            <li><a onclick="shareOnFacebook('https://www.linkedin.com/shareArticle?url=https://www.linkedin.com/feed/'); return false;" href="#"><i class="fa fa-linkedin"></i></a></li>
                         </ul>
                     </div>
 
@@ -318,22 +316,6 @@
                                 <div class="product_thumb">
                                     <a class="primary_img" href="/Product?product_id=@item.ProductId"><img style="width: 301.5px; height: 301.5px;" src="@item.ImageFront" alt=""></a>
                                     <a class="secondary_img" href="/Product?product_id=@item.ProductId"><img style="width: 301.5px; height: 301.5px;" src="@item.ImageBehind" alt=""></a>
-                                    <div class="product_action">
-                                        <div class="hover_action">
-                                            <a href="#"><i class="fa fa-plus"></i></a>
-                                            <div class="action_button">
-                                                <ul>
-
-                                                    <li><a title="add to cart" href="cart.html"><i class="fa fa-shopping-basket" aria-hidden="true"></i></a></li>
-                                                    <li><a href="wishlist.html" title="Add to Wishlist"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-
-                                                    <li><a href="compare.html" title="Add to Compare"><i class="fa fa-sliders" aria-hidden="true"></i></a></li>
-
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                    </div>
                                     <div class="quick_button">
                                         @*<a href="#" data-toggle="modal" data-target="#modal_box" title="quick_view">+ quick view</a>*@
                                         <a href="#" class="quick_view_btn" data-toggle="modal" data-target="#modal_box_show" data-product='@Json.Serialize(item)' title="Quick View">+ Quick View</a>
@@ -393,22 +375,6 @@
                                 <div class="product_thumb">
                                     <a class="primary_img" href="/Product?product_id=@item.ProductId"><img style="width: 301.5px; height: 301.5px;" src="@item.ImageFront" alt=""></a>
                                     <a class="secondary_img" href="/Product?product_id=@item.ProductId"><img style="width: 301.5px; height: 301.5px;" src="@item.ImageBehind" alt=""></a>
-                                    <div class="product_action">
-                                        <div class="hover_action">
-                                            <a href="#"><i class="fa fa-plus"></i></a>
-                                            <div class="action_button">
-                                                <ul>
-
-                                                    <li><a title="add to cart" href="cart.html"><i class="fa fa-shopping-basket" aria-hidden="true"></i></a></li>
-                                                    <li><a href="wishlist.html" title="Add to Wishlist"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-
-                                                    <li><a href="compare.html" title="Add to Compare"><i class="fa fa-sliders" aria-hidden="true"></i></a></li>
-
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                    </div>
                                     <div class="quick_button">
                                         <a href="#" class="quick_view_btn" data-toggle="modal" data-target="#modal_box_show" data-product='@Json.Serialize(item)' title="Quick View">+ Quick View</a>
                                     </div>

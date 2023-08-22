@@ -83,11 +83,11 @@
                                 <div class="social_sharing">
                                     <h3>Share this post</h3>
                                     <ul>
-                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                        <li><a href="#" onclick="shareOnFacebook('https://www.facebook.com/sharer/sharer.php?u=https://www.facebook.com/'); return false;"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="#" onclick="shareOnFacebook('https://twitter.com/share?url=https://twitter.com/home'); return false;"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#" onclick="shareOnFacebook('https://www.instagram.com/sharer.php?u=https://www.instagram.com/'); return false;"><i class="fa fa-instagram"></i></a></li>
+                                        <li><a href="#" onclick="shareOnFacebook('https://www.pinterest.com/pin/create/button/?url=https://www.pinterest.com/'); return false;"><i class="fa fa-pinterest"></i></a></li>
+                                        <li><a href="#" onclick="shareOnFacebook('https://www.linkedin.com/shareArticle?url=https://www.linkedin.com/feed/'); return false;"><i class="fa fa-linkedin"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -119,3 +119,10 @@
     </div>
 </div>
 <!--blog section area end-->
+<script>
+    function shareOnFacebook(link) {
+        // Mở cửa sổ pop-up chia sẻ
+        window.open(link, "_blank", "width=600,height=400");
+    }
+
+</script>
