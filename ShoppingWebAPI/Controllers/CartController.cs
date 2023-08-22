@@ -58,6 +58,7 @@ namespace ShoppingWebAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<CartDTO>> CreateCart([FromBody] CartDTO CartDTO)
         {
 

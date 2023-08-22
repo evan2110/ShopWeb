@@ -2,6 +2,7 @@
 using BusinessObject.Models;
 using DataAccess.DTO;
 using DataAccess.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoppingWebAPI.Config;
 
@@ -22,6 +23,7 @@ namespace ShoppingWebAPI.Controllers
             this._mapper = mapper;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<RateDTO>> CreateRate([FromBody] RateDTO rateDTO)
         {

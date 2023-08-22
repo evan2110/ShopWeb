@@ -5,7 +5,9 @@ using DataAccess.Repository;
 using Microsoft.AspNetCore.Mvc;
 using ShoppingWebAPI.Config;
 using ShoppingWebAPI.Request;
+using Stripe;
 using System.Drawing.Printing;
+using System.Net.Http.Headers;
 using System.Security.Policy;
 using System.Text.Json;
 
@@ -23,36 +25,59 @@ namespace ShopWeb.Controllers
 
         public async Task<IActionResult> Index(int user_id)
         {
-            UserDTO user = await GetUser(user_id);
-            ViewBag.user = user;
-            return View();
+            if(HttpContext.Session.GetString("UserId") != null)
+            {
+                UserDTO user = await GetUser(user_id);
+                ViewBag.user = user;
+                return View();
+            }
+            else
+            {
+                return View("Error");
+            }
+
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateUser(UserDTO user)
         {
-            UserDTO userResult = await GetUser(user.UserId);
-
-            if (user.Password != userResult.Password)
+            if (HttpContext.Session.GetString("UserId") != null)
             {
-                user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+                UserDTO userResult = await GetUser(user.UserId);
+
+                if (user.Password != userResult.Password)
+                {
+                    user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+                }
+                user.Gender = user.Gender == "True" ? "Male" : "Female";
+                user.Status = "Active";
+                user.UpdatedTime = DateTime.Now;
+                string url = $"{userUrl}/{user.UserId}";
+
+                //Lay token tu session
+                string token = HttpContext.Session.GetString("Token");
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                HttpResponseMessage response = await httpClient.PutAsJsonAsync(url, user);
+                Console.WriteLine(response);
+
+                return RedirectToAction("Index", new { user_id = user.UserId });
             }
-            user.Gender = user.Gender == "True" ? "Male" : "Female";
-            user.Status = "Active";
-            user.UpdatedTime = DateTime.Now;
-
-            string url = $"{userUrl}/{user.UserId}";
-            HttpResponseMessage response = await httpClient.PutAsJsonAsync(url, user);
-            Console.WriteLine(response);
-
-            return RedirectToAction("Index", new { user_id = user.UserId });
+            else
+            {
+                return View("Error");
+            }
         }
 
         private async Task<UserDTO> GetUser(int userId)
         {
             string urlGetUser;
             urlGetUser = $"{userUrl}/{userId}";
-            HttpResponseMessage responseUser = await httpClient.GetAsync(urlGetUser);
+
+			//Lay token tu session
+			string token = HttpContext.Session.GetString("Token");
+			httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+			HttpResponseMessage responseUser = await httpClient.GetAsync(urlGetUser);
             string strDataUser = await responseUser.Content.ReadAsStringAsync();
             var optionsUser = new JsonSerializerOptions
             {

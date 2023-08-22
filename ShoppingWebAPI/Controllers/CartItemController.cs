@@ -2,6 +2,7 @@
 using BusinessObject.Models;
 using DataAccess.DTO;
 using DataAccess.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ShoppingWebAPI.Controllers
@@ -44,6 +45,7 @@ namespace ShoppingWebAPI.Controllers
         }
 
         //////////////// Create/////////////////////
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<CartItemDTO>> CreateCartItem([FromBody] CartItemDTO CartItemCreateDTO)
         {
@@ -66,8 +68,8 @@ namespace ShoppingWebAPI.Controllers
             return Ok(resultDTIO);
         }
 
-
-        [HttpPut("{CartItem_id:int}", Name = "UpdateCartItem")]
+		[Authorize]
+		[HttpPut("{CartItem_id:int}", Name = "UpdateCartItem")]
         public async Task<ActionResult<CartItemDTO>> UpdateCartItem(int CartItem_id, [FromBody] CartItemDTO CartItemDTO)
         {
 
@@ -81,7 +83,7 @@ namespace ShoppingWebAPI.Controllers
             return Ok();
         }
 
-        [HttpDelete(Name = "DeleteCartItem")]
+		[HttpDelete(Name = "DeleteCartItem")]
         public async Task<ActionResult> DeleteCartItem(int id)
         {
             if (id == 0)
@@ -97,8 +99,9 @@ namespace ShoppingWebAPI.Controllers
             return NoContent();
         }
 
-        // DELETE: api/cart/DeleteCartItemByCartId/{CartId}
-        [HttpDelete("DeleteCartItemByCartId/{CartId}", Name = "DeleteCartItemByCartId")]
+		// DELETE: api/cart/DeleteCartItemByCartId/{CartId}
+		[Authorize]
+		[HttpDelete("DeleteCartItemByCartId/{CartId}", Name = "DeleteCartItemByCartId")]
         public async Task<ActionResult> DeleteCartItemByCartId(int CartId)
         {
             if (CartId == 0)

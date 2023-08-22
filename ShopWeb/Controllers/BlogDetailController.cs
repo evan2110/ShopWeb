@@ -17,44 +17,51 @@ namespace ShopWeb.Controllers
         }
         public async Task<IActionResult> Index(int blogId)
         {
-            //GetBlog
-            string urlBlog = $"{blogUrl}/{blogId}";
-            HttpResponseMessage responseBlog = await httpClient.GetAsync(urlBlog);
-            string strDataBlog = await responseBlog.Content.ReadAsStringAsync();
-            var optionsBlog = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
-            BlogDTO blog = System.Text.Json.JsonSerializer.Deserialize<BlogDTO>(strDataBlog, optionsBlog);
-            ViewBag.blog = blog;
+			try
+			{
+				//GetBlog
+				string urlBlog = $"{blogUrl}/{blogId}";
+				HttpResponseMessage responseBlog = await httpClient.GetAsync(urlBlog);
+				string strDataBlog = await responseBlog.Content.ReadAsStringAsync();
+				var optionsBlog = new JsonSerializerOptions
+				{
+					PropertyNameCaseInsensitive = true
+				};
+				BlogDTO blog = System.Text.Json.JsonSerializer.Deserialize<BlogDTO>(strDataBlog, optionsBlog);
+				ViewBag.blog = blog;
 
-            //GetTopBlog
-            string urlGetTopBlog = $"{blogUrl}/list";
-            HttpResponseMessage responseTopBlog = await httpClient.GetAsync(urlGetTopBlog);
-            string strDataTopBlog = await responseTopBlog.Content.ReadAsStringAsync();
-            var optionsTopBlog = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
+				//GetTopBlog
+				string urlGetTopBlog = $"{blogUrl}/list";
+				HttpResponseMessage responseTopBlog = await httpClient.GetAsync(urlGetTopBlog);
+				string strDataTopBlog = await responseTopBlog.Content.ReadAsStringAsync();
+				var optionsTopBlog = new JsonSerializerOptions
+				{
+					PropertyNameCaseInsensitive = true
+				};
 
-            List<BlogDTO> listTopBlog = System.Text.Json.JsonSerializer.Deserialize<List<BlogDTO>>(strDataTopBlog, optionsTopBlog);
+				List<BlogDTO> listTopBlog = System.Text.Json.JsonSerializer.Deserialize<List<BlogDTO>>(strDataTopBlog, optionsTopBlog);
 
-            ViewBag.listTopBlog = listTopBlog;
+				ViewBag.listTopBlog = listTopBlog;
 
-            //GetRelatedBlog
-            string urlGetRelatedBlog = $"{blogUrl}/lstRelate?categoryId={blog.CategoryId}";
-            HttpResponseMessage responseRelatedBlog = await httpClient.GetAsync(urlGetRelatedBlog);
-            string strDataRelatedBlog = await responseRelatedBlog.Content.ReadAsStringAsync();
-            var optionsRelatedBlog = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
+				//GetRelatedBlog
+				string urlGetRelatedBlog = $"{blogUrl}/lstRelate?categoryId={blog.CategoryId}";
+				HttpResponseMessage responseRelatedBlog = await httpClient.GetAsync(urlGetRelatedBlog);
+				string strDataRelatedBlog = await responseRelatedBlog.Content.ReadAsStringAsync();
+				var optionsRelatedBlog = new JsonSerializerOptions
+				{
+					PropertyNameCaseInsensitive = true
+				};
 
-            List<BlogDTO> listRelatedBlog = System.Text.Json.JsonSerializer.Deserialize<List<BlogDTO>>(strDataRelatedBlog, optionsRelatedBlog);
+				List<BlogDTO> listRelatedBlog = System.Text.Json.JsonSerializer.Deserialize<List<BlogDTO>>(strDataRelatedBlog, optionsRelatedBlog);
 
-            ViewBag.listRelatedBlog = listRelatedBlog;
+				ViewBag.listRelatedBlog = listRelatedBlog;
 
-            return View();
+				return View();
+			}catch(Exception ex)
+			{
+				return View("Error");
+			}
+				
         }
     }
 }

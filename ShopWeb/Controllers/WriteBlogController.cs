@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ShoppingWebAPI.Request;
+using System.Net.Http.Headers;
 using System.Text.Json;
 
 namespace ShopWeb.Controllers
@@ -18,35 +19,53 @@ namespace ShopWeb.Controllers
         }
         public async Task<IActionResult> Index(string? status)
         {
-            //Lay Category
-            string urlGetCategory = $"{categoryUrl}/getAll";
-            HttpResponseMessage responseCategory = await httpClient.GetAsync(urlGetCategory);
-            string strCategory = await responseCategory.Content.ReadAsStringAsync();
-            var optionsCategory = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
+			if (HttpContext.Session.GetString("UserId") != null)
+			{
+				//Lay Category
+				string urlGetCategory = $"{categoryUrl}/getAll";
+                HttpResponseMessage responseCategory = await httpClient.GetAsync(urlGetCategory);
+                string strCategory = await responseCategory.Content.ReadAsStringAsync();
+                var optionsCategory = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
 
-            List<CategoryDTO> categories = System.Text.Json.JsonSerializer.Deserialize<List<CategoryDTO>>(strCategory, optionsCategory);
-            ViewBag.categories = new SelectList(categories, "CategoryId", "CategoryName");
-            if(status != null)
-            {
-                ViewBag.status = "Your blog was updated success !";
+                List<CategoryDTO> categories = System.Text.Json.JsonSerializer.Deserialize<List<CategoryDTO>>(strCategory, optionsCategory);
+                ViewBag.categories = new SelectList(categories, "CategoryId", "CategoryName");
+                if (status != null)
+                {
+                    ViewBag.status = "Your blog was updated success !";
+                }
+                return View();
             }
-            return View();
+            else
+            {
+                return View("Error");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateBlog(BlogDTO blogDTO)
         {
-            blogDTO.Status = "Active";
-            blogDTO.CreatedTime = DateTime.Now;
+            if (HttpContext.Session.GetString("UserId") != null)
+            {
+                blogDTO.Status = "Active";
+                blogDTO.CreatedTime = DateTime.Now;
 
-            string urlCreateBlog = $"{blogUrl}";
-            HttpResponseMessage response = await httpClient.PostAsJsonAsync(urlCreateBlog, blogDTO);
-            Console.WriteLine(response);
-            blogDTO = await response.Content.ReadFromJsonAsync<BlogDTO>();
-            return RedirectToAction("Index", new {status = "success" });
+                string urlCreateBlog = $"{blogUrl}";
+
+                //Lay token tu session
+                string token = HttpContext.Session.GetString("Token");
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                HttpResponseMessage response = await httpClient.PostAsJsonAsync(urlCreateBlog, blogDTO);
+                Console.WriteLine(response);
+                blogDTO = await response.Content.ReadFromJsonAsync<BlogDTO>();
+                return RedirectToAction("Index", new { status = "success" });
+            }
+            else
+            {
+				return View("Error");
+			}
         }
     }
 }

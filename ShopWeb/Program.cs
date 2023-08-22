@@ -1,4 +1,5 @@
 using DataAccess.Repository;
+using ShopWeb.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseMiddleware<NotFoundMiddleware>();
 app.UseHttpsRedirection();
 app.UseCors("MyCors");
 app.UseStaticFiles();

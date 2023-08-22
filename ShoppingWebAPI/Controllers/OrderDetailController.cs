@@ -2,6 +2,7 @@
 using BusinessObject.Models;
 using DataAccess.DTO;
 using DataAccess.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoppingWebAPI.Config;
 using Stripe;
@@ -26,6 +27,7 @@ namespace ShoppingWebAPI.Controllers
             this.orderRepository = orderRepository;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<OrderDetailDTO>> CreateOrderDetail([FromBody] OrderDetailDTO orderDetailDTO)
         {
@@ -79,6 +81,7 @@ namespace ShoppingWebAPI.Controllers
            
         }
 
+        [Authorize]
         [HttpGet("{userId:int}", Name = "GetOrderDetailByUserId")]
         public async Task<ActionResult<OrderDetailDTO>> GetOrderDetailByUserId(int userId, int pageSize = 0, int pageNumber = 1)
         {

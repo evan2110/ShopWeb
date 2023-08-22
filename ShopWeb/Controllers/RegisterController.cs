@@ -18,8 +18,8 @@ namespace ShopWeb.Controllers
 
         public IActionResult Index()
         {
-            return View();
-        }
+            return RedirectToAction("Index", "Login");
+		}
 
         [HttpPost]
         public IActionResult Register(UserRegisterRequest registerRequest)

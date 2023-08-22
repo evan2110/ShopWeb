@@ -2,6 +2,7 @@
 using BusinessObject.Models;
 using DataAccess.DTO;
 using DataAccess.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ShoppingWebAPI.Controllers
@@ -21,6 +22,7 @@ namespace ShoppingWebAPI.Controllers
             this._mapper = mapper;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<OrderDTO>> CreateOrder([FromBody] OrderDTO orderDTO)
         {

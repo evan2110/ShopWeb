@@ -11,6 +11,7 @@ using DataAccess.DTO;
 using Microsoft.IdentityModel.Tokens;
 using ShoppingWebAPI.Config;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ShoppingWebAPI.Controllers;
 
@@ -34,7 +35,7 @@ public class UserController : ControllerBase
         try
         {
             AuthResponse response = new AuthResponse();
-            User user = await repository.GetOneAsync(p => p.Email.Equals(request.Email));
+            User user = await repository.GetOneAsync(p => p.Email.Equals(request.Email), includeProperties:"Role");
             if (user == null)
             {
                 response.IsSuccess = false;
@@ -50,8 +51,7 @@ public class UserController : ControllerBase
             bool IsPasswordMatch = BCrypt.Net.BCrypt.Verify(request.Password, user.Password);
             if (IsPasswordMatch)
             {
-                var mapper = AutoMapperConfig.InitializeAutomapper<User, UserDTO>();
-                UserDTO userDTO = mapper.Map<UserDTO>(user);
+                UserDTO userDTO = _mapper.Map<UserDTO>(user);
                 string token = GenerateToken(userDTO);
                 if (string.IsNullOrEmpty(token))
                 {
@@ -148,7 +148,8 @@ public class UserController : ControllerBase
         return "";
     }
 
-    [HttpGet("{user_id:int}", Name = "getUser")]
+	[Authorize]
+	[HttpGet("{user_id:int}", Name = "getUser")]
     public async Task<ActionResult<UserDTO>> GetOneUser(int user_id)
     {
 
@@ -170,6 +171,7 @@ public class UserController : ControllerBase
         return Ok(userDTO);
     }
 
+    [Authorize]
     [HttpPut("{User_id:int}", Name = "UpdateUser")]
     public async Task<ActionResult<UserDTO>> UpdateUser(int User_id, [FromBody] UserDTO userDTO)
     {

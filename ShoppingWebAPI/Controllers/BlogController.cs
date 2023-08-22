@@ -2,6 +2,7 @@
 using BusinessObject.Models;
 using DataAccess.DTO;
 using DataAccess.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoppingWebAPI.Config;
 
@@ -86,6 +87,7 @@ namespace ShoppingWebAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<BlogDTO>> CreateBlog([FromBody] BlogDTO blogDTO)
         {
 

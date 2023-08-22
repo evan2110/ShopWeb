@@ -3,6 +3,7 @@ using DataAccess.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Stripe;
 using System;
+using System.Net.Http.Headers;
 using System.Text.Json;
 
 namespace ShopWeb.Controllers
@@ -20,43 +21,54 @@ namespace ShopWeb.Controllers
 
         public async Task<IActionResult> Index(int userId, int pageNumber = 1, int pageSize = 5)
         {
-            string urlGetOrderDetail;
-            urlGetOrderDetail = $"{orderDetailUrl}/{userId}?pageSize={pageSize}&pageNumber={pageNumber}";
-            HttpResponseMessage responseOrderDetail = await httpClient.GetAsync(urlGetOrderDetail);
-            string strDataOrderDetail = await responseOrderDetail.Content.ReadAsStringAsync();
-            var optionsOrderDetail = new JsonSerializerOptions
+            if (HttpContext.Session.GetString("UserId") != null)
             {
-                PropertyNameCaseInsensitive = true
-            };
+                string urlGetOrderDetail;
+				//Lay token tu session
+				string token = HttpContext.Session.GetString("Token");
+				httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            List<OrderDetailDTO> OrderDetails = System.Text.Json.JsonSerializer.Deserialize<List<OrderDetailDTO>>(strDataOrderDetail, optionsOrderDetail);
-            ViewBag.OrderDetails = OrderDetails;
+				urlGetOrderDetail = $"{orderDetailUrl}/{userId}?pageSize={pageSize}&pageNumber={pageNumber}";
+                HttpResponseMessage responseOrderDetail = await httpClient.GetAsync(urlGetOrderDetail);
+                string strDataOrderDetail = await responseOrderDetail.Content.ReadAsStringAsync();
+                var optionsOrderDetail = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+
+                List<OrderDetailDTO> OrderDetails = System.Text.Json.JsonSerializer.Deserialize<List<OrderDetailDTO>>(strDataOrderDetail, optionsOrderDetail);
+                ViewBag.OrderDetails = OrderDetails;
 
 
-            // Lay totalPage
-            string urlGetTotalOrderDetail = $"{orderDetailUrl}/{userId}?pageSize=0&pageNumber=1";
-            HttpResponseMessage responseTotalOrderDetail = await httpClient.GetAsync(urlGetTotalOrderDetail);
-            string strTotalOrderDetail = await responseTotalOrderDetail.Content.ReadAsStringAsync();
-            var optionsTotalOrderDetail = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
+                // Lay totalPage
+                string urlGetTotalOrderDetail = $"{orderDetailUrl}/{userId}?pageSize=0&pageNumber=1";
+                HttpResponseMessage responseTotalOrderDetail = await httpClient.GetAsync(urlGetTotalOrderDetail);
+                string strTotalOrderDetail = await responseTotalOrderDetail.Content.ReadAsStringAsync();
+                var optionsTotalOrderDetail = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
 
-            List<OrderDetailDTO> totalOrderDetail = System.Text.Json.JsonSerializer.Deserialize<List<OrderDetailDTO>>(strTotalOrderDetail, optionsTotalOrderDetail);
+                List<OrderDetailDTO> totalOrderDetail = System.Text.Json.JsonSerializer.Deserialize<List<OrderDetailDTO>>(strTotalOrderDetail, optionsTotalOrderDetail);
 
-            ViewBag.userId = userId;
-            ViewBag.pageNumber = pageNumber;
-            ViewBag.pageSize = pageSize;
-            if (OrderDetails != null && OrderDetails.Count > 0)
-            {
-                ViewBag.ToTalPage = (int)Math.Ceiling((double)totalOrderDetail.Count / pageSize);
+                ViewBag.userId = userId;
+                ViewBag.pageNumber = pageNumber;
+                ViewBag.pageSize = pageSize;
+                if (OrderDetails != null && OrderDetails.Count > 0)
+                {
+                    ViewBag.ToTalPage = (int)Math.Ceiling((double)totalOrderDetail.Count / pageSize);
+                }
+                else
+                {
+
+                    ViewBag.TotalPage = 1;
+                }
+                return View();
             }
             else
             {
-
-                ViewBag.TotalPage = 1;
+                return View("Error");
             }
-            return View();
         }
     }
 }
