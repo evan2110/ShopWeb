@@ -171,7 +171,6 @@ public class UserController : ControllerBase
         return Ok(userDTO);
     }
 
-    [Authorize]
     [HttpPut("{User_id:int}", Name = "UpdateUser")]
     public async Task<ActionResult<UserDTO>> UpdateUser(int User_id, [FromBody] UserDTO userDTO)
     {
@@ -189,5 +188,19 @@ public class UserController : ControllerBase
         await repository.UpdateAsync(userCreate);
 
         return Ok();
+    }
+
+    [HttpGet("getAll")]
+    public async Task<ActionResult<UserDTO>> GetAllUsers([FromQuery(Name = "search")] string? search, int pageSize = 0, int pageNumber = 1)
+    {
+        IEnumerable<User> UserList;
+        UserList = await repository.GetAllAsync(e => e.Status == "Active", includeProperties: "Role", pageSize: pageSize, pageNumber: pageNumber);
+        if (search != null)
+        {
+            UserList = await repository.GetAllAsync(e => e.Status == "Active" && e.Email.Contains(search), includeProperties: "Role", pageSize: pageSize, pageNumber: pageNumber);
+        }
+        List<UserDTO> listDTO = _mapper.Map<List<UserDTO>>(UserList);
+
+        return Ok(listDTO);
     }
 }

@@ -128,3 +128,13 @@ D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\bin\Debug\net7.0\runtimes\unix\lib\net
 D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\bin\Debug\net7.0\System.Web.Mvc.dll
+D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\bin\Debug\net7.0\System.Web.Razor.dll
+D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\bin\Debug\net7.0\System.Web.Helpers.dll
+D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\bin\Debug\net7.0\System.Web.WebPages.Deployment.dll
+D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\bin\Debug\net7.0\System.Web.WebPages.Razor.dll
+D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\bin\Debug\net7.0\System.Web.WebPages.dll
+D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\bin\Debug\net7.0\Microsoft.Web.Infrastructure.dll
+D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\bin\Debug\net7.0\Twilio.dll
+D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\bin\Debug\net7.0\Twilio.AspNet.Common.dll
+D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\bin\Debug\net7.0\Twilio.AspNet.Mvc.dll
