@@ -36,4 +36,6 @@ public class MyDBContext:DbContext
     public DbSet<CartItem> CartItems { get; set; }
     public DbSet<Rate> Rates { get; set; }
     public DbSet<Coupon> Coupons { get; set; }
+    public DbSet<Room> Rooms { get; set; }
+    public DbSet<Support> Supports { get; set; }
 }

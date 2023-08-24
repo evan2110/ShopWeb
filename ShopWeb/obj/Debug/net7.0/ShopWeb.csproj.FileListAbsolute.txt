@@ -138,3 +138,4 @@ D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\bin\Debug\net7.0\Microsoft.Web.Infrast
 D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\bin\Debug\net7.0\Twilio.dll
 D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\bin\Debug\net7.0\Twilio.AspNet.Common.dll
 D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\bin\Debug\net7.0\Twilio.AspNet.Mvc.dll
+D:\C Sharp\PRN231_Trenlop\ShopWeb\ShopWeb\bin\Debug\net7.0\libman.json

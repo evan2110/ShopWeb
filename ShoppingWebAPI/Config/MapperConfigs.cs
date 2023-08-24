@@ -64,5 +64,12 @@ public class MapperConfigs: Profile
             .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.Role.RoleName))
             .ReverseMap();
 
+        CreateMap<Room, RoomDTO>()
+            .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.Email))
+            .ReverseMap();
+
+        CreateMap<Support, SupportDTO>()
+            .ReverseMap();
+
     }
 }

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "95pGD1FcEaKTr6zzh+mjSuuso5XWw5LDgs5/b5ZeEIc=",
+  "Hash": "jE7EFsvJC7lyVrpI1hntHQNC64Pre2NS+3+WzOp+Foo=",
   "Source": "ShopWeb",
   "BasePath": "_content/ShopWeb",
   "Mode": "Default",
@@ -1491,6 +1491,23 @@
       "OriginalItemSpec": "wwwroot\\img\\s-product\\product5.jpg"
     },
     {
+      "Identity": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\js\\chat.js",
+      "SourceId": "ShopWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\",
+      "BasePath": "_content/ShopWeb",
+      "RelativePath": "js/chat.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\chat.js"
+    },
+    {
       "Identity": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\js\\main.js",
       "SourceId": "ShopWeb",
       "SourceType": "Discovered",
@@ -2526,6 +2543,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\microsoft\\signalr\\dist\\browser\\signalr.js",
+      "SourceId": "ShopWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\",
+      "BasePath": "_content/ShopWeb",
+      "RelativePath": "lib/microsoft/signalr/dist/browser/signalr.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\lib\\microsoft\\signalr\\dist\\browser\\signalr.js"
     }
   ]
 }

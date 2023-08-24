@@ -341,6 +341,10 @@
       "PackagePath": "staticwebassets\\img\\slider\\slider6.jpg"
     },
     {
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\js\\chat.js",
+      "PackagePath": "staticwebassets\\js\\chat.js"
+    },
+    {
       "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\js\\main.js",
       "PackagePath": "staticwebassets\\js\\main.js"
     },
@@ -583,6 +587,10 @@
     {
       "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\lib\\microsoft\\signalr\\dist\\browser\\signalr.js",
+      "PackagePath": "staticwebassets\\lib\\microsoft\\signalr\\dist\\browser\\signalr.js"
     },
     {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.ShopWeb.Microsoft.AspNetCore.StaticWebAssets.props",
