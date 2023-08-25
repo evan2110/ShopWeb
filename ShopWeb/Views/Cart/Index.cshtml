@@ -17,9 +17,12 @@
             cartDTO = System.Text.Json.JsonSerializer.Deserialize<CartDTO>(cartJson);
 
             cartItem = ViewBag.CartItems;
-            foreach (var item in cartItem)
+            if(cartItem != null)
             {
-                total += item.TotalPrice;
+                foreach (var item in cartItem)
+                {
+                    total += item.TotalPrice;
+                }
             }
         }
     }

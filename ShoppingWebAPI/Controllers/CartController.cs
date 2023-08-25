@@ -97,8 +97,8 @@ namespace ShoppingWebAPI.Controllers
             var service = new PaymentIntentService();
             var paymentIntent = service.Create(options);
 
-            var successUrl = "http://localhost:5251/";
-            var cancelUrl = "http://localhost:5251/";
+            var successUrl = "http://localhost:5251/PaymentStatus?status=suss";
+            var cancelUrl = "http://localhost:5251/PaymentStatus?status=fail";
 
             var sessionOptions = new SessionCreateOptions
             {
@@ -113,7 +113,7 @@ namespace ShoppingWebAPI.Controllers
                         Quantity = 1,
                         PriceData = new SessionLineItemPriceDataOptions
                         {
-                            Currency = "eur",
+                            Currency = "usd",
                             UnitAmount = 100,
                             ProductData = new SessionLineItemPriceDataProductDataOptions
                             {
@@ -127,7 +127,7 @@ namespace ShoppingWebAPI.Controllers
             var sessionService = new SessionService();
             var session = sessionService.Create(sessionOptions);
             var sessionId = session.Id;
-            return new PaymentStripeResponse { SessionId = sessionId, Url = session.Url };
+            return new PaymentStripeResponse { SessionId = sessionId, Url = session.Url , Status = session.PaymentStatus };
         }
 
         [HttpGet("check-payment-status/{sessionId}")]
@@ -145,7 +145,7 @@ namespace ShoppingWebAPI.Controllers
                 return new PaymentStripeResponse { Status = "paid" };
             }
 
-            return new PaymentStripeResponse { Status = null };
+            return new PaymentStripeResponse { Status = "Chua" };
         }
 
     }

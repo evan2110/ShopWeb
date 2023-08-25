@@ -47,55 +47,20 @@ namespace ShopWeb.Controllers
         {
             if(HttpContext.Session.GetString("UserId") != null)
             {
-				//Tao Order
-				OrderDTO orderDTO = new OrderDTO();
-				orderDTO.UserId = addOrderRequest.UserId;
-				orderDTO.OrderDate = DateTime.Now;
-				orderDTO.RequiredDate = DateTime.Now.AddDays(7);
-				orderDTO.ShippedDate = DateTime.Now.AddDays(7);
-				orderDTO.ShipAddress = addOrderRequest.ShipAddress;
-				orderDTO.Status = "Active";
-				orderDTO.CreatedTime = DateTime.Now;
-				orderDTO.ShipPhone = addOrderRequest.ShipPhone;
-				orderDTO.TotalPrice = addOrderRequest.ToTalPrice;
+                // Serialize addOrderRequest thành chuỗi JSON
+                string addOrderRequestJson = JsonSerializer.Serialize(addOrderRequest);
 
-				string urlCreateOrder = $"{orderUrl}";
-				//Lay token tu session
-				string token = HttpContext.Session.GetString("Token");
-				httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-				HttpResponseMessage response = await httpClient.PostAsJsonAsync(urlCreateOrder, orderDTO);
-				orderDTO = await response.Content.ReadFromJsonAsync<OrderDTO>();
+                // Lưu vào session
+                HttpContext.Session.SetString("AddOrderRequest", addOrderRequestJson);
 
-				//Lay tat ca cartItem da order
-				CartDTO cartDTO = await GetCart();
-				List<CartItemDTO> cartItemDTOs = cartDTO.CartItemDTOs;
-				List<OrderDetailDTO> lstOrderDetailDTOs = new List<OrderDetailDTO>();
-				foreach (var item in cartItemDTOs)
-				{
-					OrderDetailDTO orderDetailDTO = new OrderDetailDTO();
-					orderDetailDTO.ProductId = item.ProductId;
-					orderDetailDTO.OrderId = orderDTO.OrderId;
-					orderDetailDTO.Price = item.TotalPrice;
-					orderDetailDTO.Quantity = item.Quantity;
-					orderDetailDTO.Status = "Active";
-					orderDetailDTO.CreatedTime = DateTime.Now;
-					lstOrderDetailDTOs.Add(orderDetailDTO);
-				}
-				//tao OrderDetail
-				string urlCreateOrderDetail = $"{orderDetailUrl}";
-				foreach (var item in lstOrderDetailDTOs)
-				{
-					HttpResponseMessage responseOrderDetail = await httpClient.PostAsJsonAsync(urlCreateOrderDetail, item);
-				}
+                //Tao Order
+                OrderDTO orderDTO = new OrderDTO();
 
-				var checkoutUrl = "https://localhost:7010/api/Cart/create-payment-intent";
+
+                var checkoutUrl = "https://localhost:7010/api/Cart/create-payment-intent";
 				HttpResponseMessage responseCreatePayment = await httpClient.PostAsJsonAsync(checkoutUrl, orderDTO);
 				var result = await responseCreatePayment.Content.ReadFromJsonAsync<PaymentStripeResponse>();
-
-				//xoa cartItem sau khi thanh toan xong
-				string urlDeleteCartItem = $"{deleteCartItemByCartIdUrl}/{cartDTO.CartId}";
-				HttpResponseMessage responseDeleteCartItem = await httpClient.DeleteAsync(urlDeleteCartItem);
-
+                
 				return Redirect(result.Url);
 			}
 			else
