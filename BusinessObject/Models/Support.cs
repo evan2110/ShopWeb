@@ -15,11 +15,11 @@ namespace BusinessObject.Models
         [Column("support_id")]
         public int SupportId { get; set; }
 
-        [Column("room_id")]
-        public int RoomId { get; set; }
+        [Column("user_id")]
+        public int UserId { get; set; }
 
-        [ForeignKey("RoomId")]
-        public Room Room { get; set; }
+        [ForeignKey("UserId")]
+        public User User { get; set; }
 
         [Column("message")]
         public string Message { get; set; }

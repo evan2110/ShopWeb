@@ -32,7 +32,6 @@ builder.Services.AddScoped<CategoryRepository>();
 builder.Services.AddScoped<ColorRepository>();
 builder.Services.AddScoped<RateRepository>();
 builder.Services.AddScoped<SupportRepository>();
-builder.Services.AddScoped<RoomRepository>();
 
 
 builder.Services.AddControllers();

@@ -13,7 +13,6 @@ public class User: BaseModel
         Blogs = new HashSet<Blog>();
         Carts = new HashSet<Cart>();
         Rates = new HashSet<Rate>();
-        Rooms = new HashSet<Room>();
     }
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Column("user_id")]
@@ -59,6 +58,5 @@ public class User: BaseModel
     public virtual ICollection<Blog> Blogs { get; set; }
     public virtual ICollection<Cart> Carts { get; set; }
     public virtual ICollection<Rate> Rates { get; set; }
-    public virtual ICollection<Room> Rooms { get; set; }
 
 }

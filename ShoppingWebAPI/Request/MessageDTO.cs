@@ -4,8 +4,6 @@
     {
         public string UserSupport { get; set; }
         public string Message { get; set; }
-
         public string TimeSend { get; set; }
-        public string RoomId { get; set; }
     }
 }

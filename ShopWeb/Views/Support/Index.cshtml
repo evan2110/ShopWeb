@@ -7,7 +7,6 @@
 @{
     HttpContext context = Context.Request.HttpContext;
     List<SupportDTO> supportDTOs = ViewBag.supports as List<SupportDTO>;
-    List<RoomDTO> rooms = ViewBag.lstRooms as List<RoomDTO>;
 }
 <!--breadcrumbs area start-->
 <div class="breadcrumbs_area other_bread">
@@ -30,86 +29,34 @@
 <div class="customer_login">
     <div class="container">
         <div class="row">
-            @if (context.Session.GetString("Role") == "3")
-            {
-                    @if (supportDTOs == null)
-                    {
-                        <div class="room-container">
-                        @foreach (var item in rooms)
-                        {
 
-                            <a asp-controller="Support"
-                               asp-action="Index"
-                               asp-route-roomId="@item.RoomId" style="text-decoration: none;">
-                                <div class="room-item">
-                                    <span>@item.RoomId - @item.UserName</span>
-                                </div>
-                            </a>
-                        }
-                        </div>
-                    }
-                    else
-                    {
-                        <h2>Connect with supporters</h2>
-                        <div style="border: 1px solid gray;" class="col-lg-12 col-md-12">
-                            <div class="account_form register">
-                                <input style="display:none;" value="@context.Session.GetString("Email")" id="userInput" type="text">
-                                <div style="height:500px;" class="login_submit">
-                                    <ul style="max-height: 500px; overflow:auto;" id="messageList">
-                                        @if (supportDTOs.Count != 0)
-                                        {
-                                            <input value="@supportDTOs[0].RoomId" id="roomId" type="text">
-                                            foreach (var item in supportDTOs)
-                                            {
-                                                <li class="message-item">@item.Message</li>
-                                            }
-                                        }
-                                    </ul>
-                                </div>
-                                <p>
-                                    <label>Message  <span>*</span></label>
-                                    <input id="messageInput" type="text">
-                                </p>
-                                <div style="display:flex;" class="login_submit">
-                                    <input style="color:white; background-color:gray;" type="button" id="sendButton" value="Send Message" />
-                                </div>
-
-                            </div>
-                        </div>
-                    }
-
-            }
-            else
-            {
-                <!--login area start-->
-                <h2>Connect with supporters</h2>
-                <div style="border: 1px solid gray;" class="col-lg-12 col-md-12">
-                    <div class="account_form register">
-                        <input style="display:none;" value="@context.Session.GetString("Email")" id="userInput" type="text">
-                        <div style="height:500px;" class="login_submit">
-                            <ul style="max-height: 500px; overflow:auto;" id="messageList">
-                                @if (supportDTOs.Count != 0)
+            <!--login area start-->
+            <h2>Connect with supporters</h2>
+            <div style="border: 1px solid gray;" class="col-lg-12 col-md-12">
+                <div class="account_form register">
+                    <input style="display:none;" value="@context.Session.GetString("Email")" id="userInput" type="text">
+                    <div style="height:500px;" class="login_submit">
+                        <ul style="max-height: 500px; overflow:auto;" id="messageList">
+                            @if (supportDTOs.Count != 0)
+                            {
+                                foreach (var item in supportDTOs)
                                 {
-                                    <input value="@supportDTOs[0].RoomId" id="roomId" type="text">
-                                    foreach (var item in supportDTOs)
-                                    {
-                                        <li class="message-item">@item.Message</li>
-                                    }
+                                    <li class="message-item">@item.Message</li>
                                 }
-                            </ul>
-                        </div>
-                        <p>
-                            <label>Message  <span>*</span></label>
-                            <input id="messageInput" type="text">
-                        </p>
-                        <div style="display:flex;" class="login_submit">
-                            <input style="color:white; background-color:gray;" type="button" id="sendButton" value="Send Message" />
-                        </div>
-
+                            }
+                        </ul>
                     </div>
+                    <p>
+                        <label>Message  <span>*</span></label>
+                        <input id="messageInput" type="text">
+                    </p>
+                    <div style="display:flex;" class="login_submit">
+                        <input style="color:white; background-color:gray;" type="button" id="sendButton" value="Send Message" />
+                    </div>
+
                 </div>
-                <!--register area end-->
-            }
+            </div>
+            <!--register area end-->
         </div>
     </div>
 </div>
@@ -120,22 +67,7 @@
         margin-bottom: 5px; /* Khoảng cách giữa các tin nhắn */
         padding: 0; /* Loại bỏ khoảng cách lề mặc định của <li> */
     }
-    .room-container {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr); /* Hiển thị 3 cột trên mỗi hàng */
-        gap: 10px; /* Khoảng cách giữa các phòng */
-    }
 
-    .room-item {
-        border: 1px solid gray;
-        padding: 10px;
-        background-color: #f0f0f0;
-        transition: background-color 0.3s ease; /* Hiệu ứng màu nền thay đổi trong 0.3 giây */
-    }
-
-    .room-item:hover {
-        background-color: #ddd; /* Màu nền khi hover */
-    }
 </style>
 <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/chat.js"></script>

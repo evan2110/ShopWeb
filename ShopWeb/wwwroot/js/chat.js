@@ -35,7 +35,6 @@ connection.start().then(function () {
 document.getElementById("sendButton").addEventListener("click", function (event) {
     var user = document.getElementById("userInput").value;
     var message = document.getElementById("messageInput").value;
-    var roomId = document.getElementById("roomId").value;
     connection.invoke("SendMessage", user, message).catch(function (err) {
         return console.error(err.toString());
     });
@@ -44,7 +43,6 @@ document.getElementById("sendButton").addEventListener("click", function (event)
         userSupport: user,
         message: message,
         timeSend: `${formattedDate} ${formattedTime}`,
-        roomId: `${roomId}`,
     };
     console.log(JSON.stringify(messageData));
 

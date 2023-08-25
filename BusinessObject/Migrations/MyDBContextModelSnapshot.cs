@@ -646,40 +646,6 @@ namespace BusinessObject.Migrations
                     b.ToTable("Role");
                 });
 
-            modelBuilder.Entity("BusinessObject.Models.Room", b =>
-                {
-                    b.Property<int>("RoomId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("room_id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoomId"));
-
-                    b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime")
-                        .HasColumnName("created_time");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnName("status");
-
-                    b.Property<DateTime?>("UpdatedTime")
-                        .HasColumnType("datetime")
-                        .HasColumnName("updated_time");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int")
-                        .HasColumnName("user_id");
-
-                    b.HasKey("RoomId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Room");
-                });
-
             modelBuilder.Entity("BusinessObject.Models.Size", b =>
                 {
                     b.Property<int>("SizeId")
@@ -732,10 +698,6 @@ namespace BusinessObject.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("message");
 
-                    b.Property<int>("RoomId")
-                        .HasColumnType("int")
-                        .HasColumnName("room_id");
-
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -746,9 +708,13 @@ namespace BusinessObject.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("updated_time");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
                     b.HasKey("SupportId");
 
-                    b.HasIndex("RoomId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Support");
                 });
@@ -985,26 +951,15 @@ namespace BusinessObject.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("BusinessObject.Models.Room", b =>
+            modelBuilder.Entity("BusinessObject.Models.Support", b =>
                 {
                     b.HasOne("BusinessObject.Models.User", "User")
-                        .WithMany("Rooms")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("BusinessObject.Models.Support", b =>
-                {
-                    b.HasOne("BusinessObject.Models.Room", "Room")
-                        .WithMany("Supports")
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Room");
                 });
 
             modelBuilder.Entity("BusinessObject.Models.User", b =>
@@ -1058,11 +1013,6 @@ namespace BusinessObject.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("BusinessObject.Models.Room", b =>
-                {
-                    b.Navigation("Supports");
-                });
-
             modelBuilder.Entity("BusinessObject.Models.Size", b =>
                 {
                     b.Navigation("ProductSizes");
@@ -1075,8 +1025,6 @@ namespace BusinessObject.Migrations
                     b.Navigation("Carts");
 
                     b.Navigation("Rates");
-
-                    b.Navigation("Rooms");
                 });
 #pragma warning restore 612, 618
         }

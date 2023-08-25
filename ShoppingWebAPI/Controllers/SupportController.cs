@@ -45,24 +45,14 @@ namespace ShoppingWebAPI.Controllers
             return Ok(resultDTIO);
         }
 
-        [HttpGet]
-        public async Task<ActionResult<SupportDTO>> GetSupportByRoomId([FromQuery] int room_id)
+        [HttpGet("getAll")]
+        public async Task<ActionResult<SupportDTO>> GetAllSupports()
         {
+            var SupportList = await repository.GetAllAsync(e => e.Status == "Active", includeProperties: "User");
+            
+            List<SupportDTO> listDTO = _mapper.Map<List<SupportDTO>>(SupportList);
 
-            if (room_id == 0)
-            {
-
-                return BadRequest();
-            }
-            var supports = await repository.GetAllAsync(x => x.RoomId == room_id, includeProperties: "Room");
-
-            if (supports == null)
-            {
-
-                return NotFound();
-            }
-            List<SupportDTO> supportDTO = _mapper.Map<List<SupportDTO>>(supports);
-            return Ok(supportDTO);
+            return Ok(listDTO);
         }
     }
 }
