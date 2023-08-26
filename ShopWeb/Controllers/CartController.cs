@@ -55,10 +55,37 @@ namespace ShopWeb.Controllers
 
                 //Tao Order
                 OrderDTO orderDTO = new OrderDTO();
+                orderDTO.UserId = addOrderRequest.UserId;
+                orderDTO.OrderDate = DateTime.Now;
+                orderDTO.RequiredDate = DateTime.Now.AddDays(7);
+                orderDTO.ShippedDate = DateTime.Now.AddDays(7);
+                orderDTO.ShipAddress = addOrderRequest.ShipAddress;
+                orderDTO.Status = "Active";
+                orderDTO.CreatedTime = DateTime.Now;
+                orderDTO.ShipPhone = addOrderRequest.ShipPhone;
+                orderDTO.TotalPrice = addOrderRequest.ToTalPrice;
 
+                //Lay tat ca cartItem da order
+                CartDTO cartDTO = await GetCart();
+                List<CartItemDTO> cartItemDTOs = cartDTO.CartItemDTOs;
+                List<OrderDetailDTO> lstOrderDetailDTOs = new List<OrderDetailDTO>();
+                foreach (var item in cartItemDTOs)
+                {
+                    OrderDetailDTO orderDetailDTO = new OrderDetailDTO();
+                    orderDetailDTO.ProductId = item.ProductId;
+                    orderDetailDTO.ProductName = item.ProductName;
+                    orderDetailDTO.Image = item.ImageFront;
+                    orderDetailDTO.OrderId = orderDTO.OrderId;
+                    //set Price la ToTalPrice tong de sang kia hien thi
+                    orderDetailDTO.Price = item.TotalPrice;
+                    orderDetailDTO.Quantity = item.Quantity;
+                    orderDetailDTO.Status = "Active";
+                    orderDetailDTO.CreatedTime = DateTime.Now;
+                    lstOrderDetailDTOs.Add(orderDetailDTO);
+                }
 
                 var checkoutUrl = "https://localhost:7010/api/Cart/create-payment-intent";
-				HttpResponseMessage responseCreatePayment = await httpClient.PostAsJsonAsync(checkoutUrl, orderDTO);
+				HttpResponseMessage responseCreatePayment = await httpClient.PostAsJsonAsync(checkoutUrl, lstOrderDetailDTOs);
 				var result = await responseCreatePayment.Content.ReadFromJsonAsync<PaymentStripeResponse>();
                 
 				return Redirect(result.Url);

@@ -82,20 +82,9 @@ namespace ShoppingWebAPI.Controllers
         }
 
         [HttpPost("create-payment-intent")]
-        public ActionResult<PaymentStripeResponse> CreatePaymentIntent()
+        public ActionResult<PaymentStripeResponse> CreatePaymentIntent([FromBody]List<OrderDetailDTO> lstOrderDetailDTOs)
         {
             StripeConfiguration.ApiKey = StripeSecretKey;
-
-            var options = new PaymentIntentCreateOptions
-            {
-                Amount = 100, // Amount in cents
-                Currency = "eur",
-                Description = "Thanh toán đơn hàng ",
-                PaymentMethodTypes = new List<string> { "card" },
-            };
-
-            var service = new PaymentIntentService();
-            var paymentIntent = service.Create(options);
 
             var successUrl = "http://localhost:5251/PaymentStatus?status=suss";
             var cancelUrl = "http://localhost:5251/PaymentStatus?status=fail";
@@ -106,28 +95,58 @@ namespace ShoppingWebAPI.Controllers
                 Mode = "payment",
                 SuccessUrl = successUrl,
                 CancelUrl = cancelUrl,
-                LineItems = new List<SessionLineItemOptions>
+                LineItems = new List<SessionLineItemOptions>(),
+            };
+
+            if (lstOrderDetailDTOs.Count > 0)
+            {
+                foreach (var item in lstOrderDetailDTOs)
                 {
-                    new SessionLineItemOptions
+                    var orderItem = new SessionLineItemOptions
                     {
-                        Quantity = 1,
                         PriceData = new SessionLineItemPriceDataOptions
                         {
-                            Currency = "usd",
-                            UnitAmount = 100,
+                            UnitAmount = (long?)item.Price * 100, 
+                            Currency = "USD",
                             ProductData = new SessionLineItemPriceDataProductDataOptions
                             {
-                                Name = "Thanh toán đơn hàng ",
+                                Name = item.ProductName,
+                                Images = new List<string>
+                                {
+                                    item.Image
+                                },
+                                Description = "This price has not been deducted after entering the coupon code",
                             },
                         },
+                        Quantity = item.Quantity, 
+                    };
+                    sessionOptions.LineItems.Add(orderItem);
+                }
+            }
+            else
+            {
+                var sessionListItem = new SessionLineItemOptions
+                {
+                    PriceData = new SessionLineItemPriceDataOptions
+                    {
+                        UnitAmount = 100,
+                        Currency = "USD",
+                        ProductData = new SessionLineItemPriceDataProductDataOptions
+                        {
+                            Name = "Ngu",
+                        }
                     },
-                },
-            };
+                    Quantity = 1,
+                };
+                sessionOptions.LineItems.Add(sessionListItem);
+            }
+
+
 
             var sessionService = new SessionService();
             var session = sessionService.Create(sessionOptions);
             var sessionId = session.Id;
-            return new PaymentStripeResponse { SessionId = sessionId, Url = session.Url , Status = session.PaymentStatus };
+            return new PaymentStripeResponse { SessionId = sessionId, Url = session.Url , Status = session.PaymentStatus};
         }
 
         [HttpGet("check-payment-status/{sessionId}")]
