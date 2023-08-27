@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\ShopWeb.bundle.scp.css"
     },
     {
+      "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\css\\admin.css",
+      "PackagePath": "staticwebassets\\css\\admin.css"
+    },
+    {
       "Id": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\css\\plugins.css",
       "PackagePath": "staticwebassets\\css\\plugins.css"
     },

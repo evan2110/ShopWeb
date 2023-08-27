@@ -26,7 +26,7 @@ namespace ShoppingWebAPI.Controllers
         public async Task<ActionResult<CategoryDTO>> GetAllCategorys()
         {
             IEnumerable<Category> CategoryList;
-            CategoryList = await repository.GetAllAsync(e => e.Status == "Active");
+            CategoryList = await repository.GetAllAsync(e => e.Status == "Active", includeProperties: "Products");
             List<CategoryDTO> listDTO = _mapper.Map<List<CategoryDTO>>(CategoryList);
 
             return Ok(listDTO);

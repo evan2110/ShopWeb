@@ -261,6 +261,10 @@
                                             <a href="#">@context.Session.GetString("Email") <i class="ion-chevron-down"></i></a>
                                             <ul class="dropdown_links">
                                                 <li><a href="/UserDetail?user_id=@Int32.Parse(context.Session.GetString("UserId"))">My Account </a></li>
+                                                @if (context.Session.GetString("Role") == "3")
+                                                {
+                                                <li><a href="/Dashboard">Dashboard </a></li>
+                                                }
                                                 <li><a href="/Order?userId=@Int32.Parse(context.Session.GetString("UserId"))">Order History  </a></li>
                                                 <li><a href="@Url.Action("Logout", "Login")">Log out</a></li>
                                             </ul>

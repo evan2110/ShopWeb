@@ -1,0 +1,310 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+    HttpContext context = Context.Request.HttpContext;
+    string Mode = ViewBag.Mode;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width,
+                   initial-scale=1.0">
+    <title>ShopWeb</title>
+    <link rel="stylesheet"
+          href="style.css">
+    <link rel="stylesheet"
+          href="~/css/admin.css">
+</head>
+
+<body>
+
+    <!-- for header part -->
+    <header>
+
+        <div class="logosec">
+            <div class="logo">ShopWeb</div>
+            <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
+                 class="icn menuicn"
+                 id="menuicn"
+                 alt="menu-icon">
+        </div>
+
+        <div class="searchbar">
+            <input type="text"
+                   placeholder="Search">
+            <div class="searchbtn">
+                <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180758/Untitled-design-(28).png"
+                     class="icn srchicn"
+                     alt="search-icon">
+            </div>
+        </div>
+
+        <div class="message">
+            <div class="circle"></div>
+            <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183322/8.png"
+                 class="icn"
+                 alt="">
+            <div class="dp">
+                <a href="/UserDetail?user_id=@Int32.Parse(context.Session.GetString("UserId"))">
+                    <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180014/profile-removebg-preview.png"
+                         class="dpicn"
+                         alt="dp">
+                </a>
+            </div>
+        </div>
+
+    </header>
+
+    <div class="main-container">
+        <div class="navcontainer">
+            <nav class="nav">
+                <div class="nav-upper-options">
+                    <a href="/Dashboard">
+                    <div class="nav-option option1">
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182148/Untitled-design-(29).png"
+                             class="nav-img"
+                             alt="dashboard">
+                        <h3> Dashboard</h3>
+                    </div>
+                    </a>
+
+                    <a href="/Dashboard?Mode=User">
+                    <div class="option2 nav-option">
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183322/9.png"
+                             class="nav-img"
+                             alt="articles">
+                        <h3> Users</h3>
+                    </div>
+                    </a>
+
+                    <div class="nav-option option3">
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183320/5.png"
+                             class="nav-img"
+                             alt="report">
+                        <h3> Report</h3>
+                    </div>
+
+                    <div class="nav-option option4">
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/6.png"
+                             class="nav-img"
+                             alt="institution">
+                        <h3> Institution</h3>
+                    </div>
+
+                    <div class="nav-option option5">
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
+                             class="nav-img"
+                             alt="blog">
+                        <h3> Profile</h3>
+                    </div>
+
+                    <div class="nav-option option6">
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183320/4.png"
+                             class="nav-img"
+                             alt="settings">
+                        <h3> Settings</h3>
+                    </div>
+
+                    <a href="@Url.Action("Logout", "Login")">
+                    <div class="nav-option logout">
+                            <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/7.png"
+                                 class="nav-img"
+                                 alt="logout">
+                            <h3>Logout</h3>
+                    </div>
+                    </a>
+
+                </div>
+            </nav>
+        </div>
+        <div class="main">
+            @if (Mode == "Dashboard")
+            {
+                <div class="searchbar2">
+                    <input type="text"
+                           name=""
+                           id=""
+                           placeholder="Search">
+                    <div class="searchbtn">
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180758/Untitled-design-(28).png"
+                             class="icn srchicn"
+                             alt="search-button">
+                    </div>
+                </div>
+
+                <div class="box-container" style="margin-bottom:60px;">
+
+                    <div class="box box1">
+                        <div class="text">
+                            <h2 class="topic-heading">60.5k</h2>
+                            <h2 class="topic">Article Views</h2>
+                        </div>
+
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210184645/Untitled-design-(31).png"
+                             alt="Views">
+                    </div>
+
+                    <div class="box box2">
+                        <div class="text">
+                            <h2 class="topic-heading">150</h2>
+                            <h2 class="topic">Likes</h2>
+                        </div>
+
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210185030/14.png"
+                             alt="likes">
+                    </div>
+
+                    <div class="box box3">
+                        <div class="text">
+                            <h2 class="topic-heading">320</h2>
+                            <h2 class="topic">Comments</h2>
+                        </div>
+
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210184645/Untitled-design-(32).png"
+                             alt="comments">
+                    </div>
+
+                    <div class="box box4">
+                        <div class="text">
+                            <h2 class="topic-heading">70</h2>
+                            <h2 class="topic">Published</h2>
+                        </div>
+
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210185029/13.png" alt="published">
+                    </div>
+                </div>
+                <div style="display:flex; justify-content:space-between;">
+                    <div id="chartContainer1" style="height: 500px; width: 45%;"></div>
+                    <div id="chartContainer2" style="height: 500px; width: 45%;"></div>
+                </div>
+                
+            }else if(Mode == "User")
+            {
+                <div class="report-container">
+                    <div class="report-header">
+                        <h1 class="recent-Articles">User</h1>
+                        <button class="view">View All</button>
+                    </div>
+
+                    <div class="report-body">
+                        <div class="report-topic-heading">
+                            <h3 class="t-op">User Id</h3>
+                            <h3 class="t-op">Full Name</h3>
+                            <h3 class="t-op">Email</h3>
+                            <h3 class="t-op">Image</h3>
+                            <h3 class="t-op">Phone</h3>
+                            <h3 class="t-op">Gender</h3>
+                            <h3 class="t-op">Status</h3>
+                            <h3 class="t-op">Created Time</h3>
+                            <h3 class="t-op">Updated Time</h3>
+                        </div>
+
+                        <div class="items">
+                            <div class="item1">
+                                <h3 class="t-op-nextlvl">Article 73</h3>
+                                <h3 class="t-op-nextlvl">2.9k</h3>
+                                <h3 class="t-op-nextlvl">210</h3>
+                                <h3 class="t-op-nextlvl">210</h3>
+                                <h3 class="t-op-nextlvl">210</h3>
+                                <h3 class="t-op-nextlvl">210</h3>
+                                <h3 class="t-op-nextlvl label-tag">Active</h3>
+                                <h3 class="t-op-nextlvl">210</h3>
+                                <h3 class="t-op-nextlvl">210</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            }
+        </div>
+    </div>
+
+    <script>
+        let menuicn = document.querySelector(".menuicn");
+        let nav = document.querySelector(".navcontainer");
+        const numberProductsEachCategory = @Html.Raw(Json.Serialize(ViewBag.NumberProductsEachCategory));
+        var dataPoints = [];
+        for (var key in numberProductsEachCategory) {
+            dataPoints.push({
+                y: numberProductsEachCategory[key],
+                label: key
+            });
+        }
+
+        const topProductSelled = @Html.Raw(Json.Serialize(ViewBag.topProductSelled));
+        var dataPoints2 = [];
+        for (var key in topProductSelled) {
+            dataPoints2.push({
+                y: topProductSelled[key],
+                label: key
+            });
+        }
+
+
+        menuicn.addEventListener("click", () => {
+            nav.classList.toggle("navclose");
+        })
+
+        window.onload = function () {
+            var chart1 = new CanvasJS.Chart("chartContainer1", {
+                theme: "light1",
+                exportEnabled: true,
+                animationEnabled: true,
+                title: {
+                    text: "Total Product Currently Available"
+                },
+                data: [{
+                    type: "pie",
+                    startAngle: 25,
+                    toolTipContent: "<b>{label}</b>: {y}%",
+                    showInLegend: "true",
+                    legendText: "{label}",
+                    indexLabelFontSize: 16,
+                    indexLabel: "{label} - {y}%",
+                    dataPoints: dataPoints
+                }]
+            });
+            chart1.render();
+
+            var chart2 = new CanvasJS.Chart("chartContainer2", {
+                theme: "light1", // "light1", "light2", "dark1"
+                animationEnabled: true,
+                exportEnabled: true,
+                title: {
+                    text: "Top 6 Most Selled Products"
+                },
+                axisX: {
+                    margin: 10,
+                    labelPlacement: "inside",
+                    tickPlacement: "inside"
+                },
+                axisY2: {
+                    title: "Views (in usd)",
+                    titleFontSize: 14,
+                    includeZero: true,
+                    suffix: "usd"
+                },
+                data: [{
+                    type: "bar",
+                    axisYType: "secondary",
+                    yValueFormatString: "#,###.##usd",
+                    indexLabel: "{y}",
+                    dataPoints: dataPoints2
+                }]
+            });
+            chart2.render();
+        }
+
+    </script>
+    <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+
+</body>
+</html>
+

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "jE7EFsvJC7lyVrpI1hntHQNC64Pre2NS+3+WzOp+Foo=",
+  "Hash": "Hmfe246EBwSAZjW7gqb2fERyjjgF3mtSPP1ierrxzxY=",
   "Source": "ShopWeb",
   "BasePath": "_content/ShopWeb",
   "Mode": "Default",
@@ -61,6 +61,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\ShopWeb.bundle.scp.css"
+    },
+    {
+      "Identity": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\css\\admin.css",
+      "SourceId": "ShopWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\",
+      "BasePath": "_content/ShopWeb",
+      "RelativePath": "css/admin.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\admin.css"
     },
     {
       "Identity": "D:\\C Sharp\\PRN231_Trenlop\\ShopWeb\\ShopWeb\\wwwroot\\css\\plugins.css",
