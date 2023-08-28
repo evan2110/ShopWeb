@@ -19,6 +19,8 @@ namespace ShopWeb.Controllers
         private static string supportUrl = "https://localhost:7010/api/Support";
         private static string orderUrl = "https://localhost:7010/api/Order";
         private static string blogUrl = "https://localhost:7010/api/Blog";
+        private static string productUrl = "https://localhost:7010/api/Product";
+
 
 
 
@@ -139,6 +141,110 @@ namespace ShopWeb.Controllers
                     ChangeSkateholdersWhenChangeUser(id, "Deactive");
 
                     Response.Redirect("Dashboard?Mode=User");
+                }else if(Mode == "Category")
+                {
+                    string urlGetAllCategory;
+                    urlGetAllCategory = $"{categoryUrl}/getAllForAdmin?pageSize={pageSize}&pageNumber={pageNumber}";
+                    HttpResponseMessage responseCategory = await httpClient.GetAsync(urlGetAllCategory);
+                    string strDataCategory = await responseCategory.Content.ReadAsStringAsync();
+                    var optionsCategory = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    List<CategoryDTO> categories = System.Text.Json.JsonSerializer.Deserialize<List<CategoryDTO>>(strDataCategory, optionsCategory);
+
+                    //Lay totalPage
+                    string urlGetTotalCategory = $"{categoryUrl}/getAllForAdmin?pageSize=0&pageNumber=1";
+                    HttpResponseMessage responseTotalCategory = await httpClient.GetAsync(urlGetTotalCategory);
+                    string strTotalCategory = await responseTotalCategory.Content.ReadAsStringAsync();
+                    var optionsTotalCategory = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    List<CategoryDTO> totalCategory = System.Text.Json.JsonSerializer.Deserialize<List<CategoryDTO>>(strTotalCategory, optionsTotalCategory);
+
+                    ViewBag.categories = categories;
+                    ViewBag.pageNumber = pageNumber;
+                    ViewBag.pageSize = pageSize;
+                    if (totalCategory != null && totalCategory.Count > 0)
+                    {
+                        ViewBag.ToTalPage = (int)Math.Ceiling((double)totalCategory.Count / pageSize);
+                    }
+                    else
+                    {
+                        ViewBag.TotalPage = 1;
+                    }
+                    ViewBag.Mode = "Category";
+                }
+                else if (Mode == "CreateCategory")
+                {
+                    ViewBag.Mode = "CreateCategory";
+                    if (id != 0)
+                    {
+                        CategoryDTO categoryDetail = await GetCategory(id);
+
+                        ViewBag.categoryDetail = categoryDetail;
+                    }
+                }
+                else if (Mode == "DeleteCategory")
+                {
+                    CategoryDTO categoryDetail = await GetCategory(id);
+
+                    categoryDetail.Status = "Deactive";
+                    categoryDetail.UpdatedTime = DateTime.Now;
+                    string url = $"{categoryUrl}/{id}";
+
+                    HttpResponseMessage response = await httpClient.PutAsJsonAsync(url, categoryDetail);
+                    ChangeSkateholdersWhenChangeCategory(id, "Deactive");
+
+                    Response.Redirect("Dashboard?Mode=Category");
+                }else if(Mode == "Product")
+                {
+                    string urlGetAllProduct;
+                    urlGetAllProduct = $"{productUrl}/getAllForAdmin?pageSize={pageSize}&pageNumber={pageNumber}";
+                    HttpResponseMessage responseProduct = await httpClient.GetAsync(urlGetAllProduct);
+                    string strDataProduct = await responseProduct.Content.ReadAsStringAsync();
+                    var optionsProduct = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    List<ProductDTO> products = System.Text.Json.JsonSerializer.Deserialize<List<ProductDTO>>(strDataProduct, optionsProduct);
+
+                    //Lay totalPage
+                    string urlGetTotalProduct = $"{productUrl}/getAllForAdmin?pageSize=0&pageNumber=1";
+                    HttpResponseMessage responseTotalProduct = await httpClient.GetAsync(urlGetTotalProduct);
+                    string strTotalProduct = await responseTotalProduct.Content.ReadAsStringAsync();
+                    var optionsTotalProduct = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    List<ProductDTO> totalProduct = System.Text.Json.JsonSerializer.Deserialize<List<ProductDTO>>(strTotalProduct, optionsTotalProduct);
+
+                    ViewBag.products = products;
+                    ViewBag.pageNumber = pageNumber;
+                    ViewBag.pageSize = pageSize;
+                    if (totalProduct != null && totalProduct.Count > 0)
+                    {
+                        ViewBag.ToTalPage = (int)Math.Ceiling((double)totalProduct.Count / pageSize);
+                    }
+                    else
+                    {
+                        ViewBag.TotalPage = 1;
+                    }
+                    ViewBag.Mode = "Product";
+                }else if (Mode == "CreateProduct")
+                {
+                    ViewBag.Mode = "CreateProduct";
+                    if (id != 0)
+                    {
+                        ProductDTO productDetail = await GetProduct(id);
+
+                        ViewBag.productDetail = productDetail;
+                    }
                 }
 
                 ViewBag.user = user;
@@ -152,11 +258,11 @@ namespace ShopWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAndUpdate(UserDTO? userDTO)
+        public async Task<IActionResult> CreateAndUpdate(UserDTO? userDTO, CategoryDTO? categoryDTO)
         {
-            if(userDTO.Email != null)
+            if (userDTO.Email != null)
             {
-                if(userDTO.UserId != 0)
+                if (userDTO.UserId != 0)
                 {
                     UserDTO userResult = await GetUser(userDTO.UserId);
                     Console.WriteLine(userDTO.UserId);
@@ -164,12 +270,12 @@ namespace ShopWeb.Controllers
                     {
                         userDTO.Password = BCrypt.Net.BCrypt.HashPassword(userDTO.Password);
                     }
-                    if(userDTO.Status == "Deactive")
+                    if (userDTO.Status == "Deactive")
                     {
                         Console.WriteLine("Deactive");
                         ChangeSkateholdersWhenChangeUser(userDTO.UserId, userDTO.Status);
                     }
-                    else if(userDTO.Status == "Active")
+                    else if (userDTO.Status == "Active")
                     {
                         Console.WriteLine("Active");
                         ChangeSkateholdersWhenChangeUser(userDTO.UserId, userDTO.Status);
@@ -179,9 +285,9 @@ namespace ShopWeb.Controllers
                     userDTO.CreatedTime = userResult.CreatedTime;
                     userDTO.UpdatedTime = DateTime.Now;
                     string url = $"{userUrl}/{userDTO.UserId}";
-              
+
                     HttpResponseMessage response = await httpClient.PutAsJsonAsync(url, userDTO);
-                    return RedirectToAction("Index", new { Mode = "CreateUser" , id = userDTO .UserId});
+                    return RedirectToAction("Index", new { Mode = "CreateUser", id = userDTO.UserId });
 
                 }
                 else
@@ -198,6 +304,28 @@ namespace ShopWeb.Controllers
 
                     HttpResponseMessage response = await httpClient.PostAsJsonAsync(url, userDTO);
                     return RedirectToAction("Index", new { Mode = "CreateUser" });
+                }
+            }
+            else if (categoryDTO.CategoryName != null)
+            {
+                if (categoryDTO.CategoryId != 0)
+                {
+                    CategoryDTO categoryResult = await GetCategory(categoryDTO.CategoryId);
+                    ChangeSkateholdersWhenChangeCategory(categoryDTO.CategoryId, categoryDTO.Status);
+                    categoryDTO.CreatedTime = categoryResult.CreatedTime;
+                    categoryDTO.UpdatedTime = DateTime.Now;
+                    string url = $"{categoryUrl}/{categoryDTO.CategoryId}";
+
+                    HttpResponseMessage response = await httpClient.PutAsJsonAsync(url, categoryDTO);
+                    return RedirectToAction("Index", new { Mode = "CreateCategory", id = categoryDTO.CategoryId });
+                }
+                else
+                {
+                    categoryDTO.CreatedTime = DateTime.Now;
+                    string url = $"{categoryUrl}";
+
+                    HttpResponseMessage response = await httpClient.PostAsJsonAsync(url, categoryDTO);
+                    return RedirectToAction("Index", new { Mode = "CreateCategory" });
                 }
             }
             else
@@ -223,6 +351,38 @@ namespace ShopWeb.Controllers
 
             UserDTO user = System.Text.Json.JsonSerializer.Deserialize<UserDTO>(strDataUser, optionsUser);
             return user;
+        }
+
+        private async Task<CategoryDTO> GetCategory(int categoryId)
+        {
+            string urlGetCategory;
+            urlGetCategory = $"{categoryUrl}/{categoryId}";
+
+            HttpResponseMessage responseCategory = await httpClient.GetAsync(urlGetCategory);
+            string strDataCategory = await responseCategory.Content.ReadAsStringAsync();
+            var optionsCategory = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            CategoryDTO category = System.Text.Json.JsonSerializer.Deserialize<CategoryDTO>(strDataCategory, optionsCategory);
+            return category;
+        }
+
+        private async Task<ProductDTO> GetProduct(int productId)
+        {
+            string urlGetProduct;
+            urlGetProduct = $"{productUrl}/{productId}";
+
+            HttpResponseMessage responseProduct = await httpClient.GetAsync(urlGetProduct);
+            string strDataProduct = await responseProduct.Content.ReadAsStringAsync();
+            var optionsProduct = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            ProductDTO product = System.Text.Json.JsonSerializer.Deserialize<ProductDTO>(strDataProduct, optionsProduct);
+            return product;
         }
 
         private async Task<IActionResult> ChangeSkateholdersWhenChangeUser(int id, string status)
@@ -343,6 +503,108 @@ namespace ShopWeb.Controllers
                     Console.WriteLine(responseTopBuyProduct);
                 }
             }
+            return null;
+        }
+
+        private async Task<IActionResult> ChangeSkateholdersWhenChangeCategory(int id, string status)
+        {
+            //GetAllOrderDetail
+            string urlGetOrderDetail;
+            urlGetOrderDetail = $"{orderDetailUrl}/getAllForAdmin";
+            HttpResponseMessage responseOrderDetail = await httpClient.GetAsync(urlGetOrderDetail);
+            string strDataOrderDetail = await responseOrderDetail.Content.ReadAsStringAsync();
+            var optionsOrderDetail = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            var orderDetails = System.Text.Json.JsonSerializer.Deserialize<List<OrderDetailDTO>>(strDataOrderDetail, optionsOrderDetail);
+
+            //GetAllRate
+            string urlGetRate;
+            urlGetRate = $"{rateUrl}/getAll";
+
+            HttpResponseMessage responseRate = await httpClient.GetAsync(urlGetRate);
+            string strDataRate = await responseRate.Content.ReadAsStringAsync();
+            var optionsRate = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            var rates = System.Text.Json.JsonSerializer.Deserialize<List<RateDTO>>(strDataRate, optionsRate);
+
+            //Deactive Product
+            string urlGetProduct;
+            urlGetProduct = $"{productUrl}/getAllForAdmin";
+
+            HttpResponseMessage responseProduct = await httpClient.GetAsync(urlGetProduct);
+            string strDataProduct = await responseProduct.Content.ReadAsStringAsync();
+            var optionsProduct = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            var products = System.Text.Json.JsonSerializer.Deserialize<List<ProductDTO>>(strDataProduct, optionsProduct);
+            foreach (var item in products)
+            {
+                if (item.CategoryId == id)
+                {
+                    item.Status = status;
+                    item.UpdatedTime = DateTime.Now;
+                    string urlProduct = $"{productUrl}/{item.ProductId}";
+                    await httpClient.PutAsJsonAsync(urlProduct, item);
+
+                    //Deactive OrderDetail
+                    foreach(var items in orderDetails)
+                    {
+                        if (items.ProductId == item.ProductId)
+                        {
+                            items.Status = status;
+                            items.UpdatedTime = DateTime.Now;
+                            string urlOrderDetail = $"{orderDetailUrl}/{items.OrderDetailId}";
+                            await httpClient.PutAsJsonAsync(urlOrderDetail, items);
+                        }
+                    }
+
+                    //Deactive Rate
+                    foreach (var items2 in rates)
+                    {
+                        if (items2.ProductId == item.ProductId)
+                        {
+                            items2.Status = status;
+                            items2.UpdatedTime = DateTime.Now;
+                            string urlRate = $"{rateUrl}/{items2.RateId}";
+                            await httpClient.PutAsJsonAsync(urlRate, items2);
+                        }
+                    }
+
+                }
+
+            }
+
+            //Deactive Blog
+            string urlGetBlog;
+            urlGetBlog = $"{blogUrl}/getAllForAdmin";
+
+            HttpResponseMessage responseBlog = await httpClient.GetAsync(urlGetBlog);
+            string strDataBlog = await responseBlog.Content.ReadAsStringAsync();
+            var optionsBlog = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            var blogs = System.Text.Json.JsonSerializer.Deserialize<List<BlogDTO>>(strDataBlog, optionsBlog);
+            foreach (var item in blogs)
+            {
+                if (item.CategoryId == id)
+                {
+                    item.Status = status;
+                    item.UpdatedTime = DateTime.Now;
+                    string urlBlog = $"{blogUrl}/{item.BlogId}";
+                    await httpClient.PutAsJsonAsync(urlBlog, item);
+                }
+            }
+
             return null;
         }
 

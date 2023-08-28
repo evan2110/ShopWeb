@@ -8,7 +8,7 @@
     int PageNumber = 0;
     int TotalPage = 0;
     int PageSize = 0;
-    if (Mode != "Dashboard" && Mode != null && Mode != "CreateUser")
+    if (Mode != "Dashboard" && Mode != null && Mode != "CreateUser" && Mode != "CreateCategory" && Mode != "CreateProduct")
     {
         PageNumber = int.Parse(ViewBag.pageNumber.ToString());
         TotalPage = int.Parse(ViewBag.TotalPage.ToString());
@@ -17,6 +17,9 @@
     HttpContext context = Context.Request.HttpContext;
     var user = ViewBag.user as UserDTO;
     var userDetail = ViewBag.userDetail as UserDTO;
+    var categoryDetail = ViewBag.categoryDetail as CategoryDTO;
+    var productDetail = ViewBag.productDetail as ProductDTO;
+
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -79,36 +82,40 @@
             <nav class="nav">
                 <div class="nav-upper-options">
                     <a href="/Dashboard">
-                    <div class="nav-option option1">
-                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182148/Untitled-design-(29).png"
-                             class="nav-img"
-                             alt="dashboard">
-                        <h3> Dashboard</h3>
-                    </div>
+                        <div class="nav-option option1">
+                            <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182148/Untitled-design-(29).png"
+                                 class="nav-img"
+                                 alt="dashboard">
+                            <h3> Dashboard</h3>
+                        </div>
                     </a>
 
                     <a href="/Dashboard?Mode=User">
-                    <div class="option2 nav-option">
+                        <div class="option2 nav-option">
                             <img src="https://static.vecteezy.com/system/resources/thumbnails/020/486/924/small/business-man-silhouette-icon-human-face-portrait-glyph-pictogram-male-personal-profile-icon-men-user-s-avatar-businessman-manager-office-people-sign-isolated-illustration-vector.jpg"
-                             class="nav-img"
-                             alt="articles">
-                        <h3> Users</h3>
-                    </div>
+                                 class="nav-img"
+                                 alt="articles">
+                            <h3> Users</h3>
+                        </div>
                     </a>
 
-                    <div class="nav-option option3">
-                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183320/5.png"
-                             class="nav-img"
-                             alt="report">
-                        <h3> Report</h3>
-                    </div>
+                    <a href="/Dashboard?Mode=Category">
+                        <div class="nav-option option3">
+                            <img src="data:image/png;base64,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"
+                                 class="nav-img"
+                                 alt="report">
+                            <h3> Categories</h3>
+                        </div>
+                    </a>
 
-                    <div class="nav-option option4">
-                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/6.png"
-                             class="nav-img"
-                             alt="institution">
-                        <h3> Institution</h3>
-                    </div>
+                    <a href="/Dashboard?Mode=Product">
+                        <div class="nav-option option4">
+                            <img src="data:image/png;base64,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"
+                                 class="nav-img"
+                                 alt="institution">
+                            <h3> Products</h3>
+                        </div>
+                    </a>
 
                     <div class="nav-option option5">
                         <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
@@ -125,12 +132,12 @@
                     </div>
 
                     <a href="@Url.Action("Logout", "Login")">
-                    <div class="nav-option logout">
+                        <div class="nav-option logout">
                             <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/7.png"
                                  class="nav-img"
                                  alt="logout">
                             <h3>Logout</h3>
-                    </div>
+                        </div>
                     </a>
 
                 </div>
@@ -197,17 +204,18 @@
                     <div id="chartContainer2" style="height: 500px; width: 45%;"></div>
                 </div>
                 <style>
-                    .main{
-                        background-color:white;
+                    .main {
+                        background-color: white;
                     }
                 </style>
-                
-            }else if(Mode == "User")
+
+            }
+            else if (Mode == "User")
             {
                 <div class="report-container">
                     <div class="report-header">
                         <h1 class="recent-Articles">User</h1>
-                        <button class="view" onclick="redirectToAdmin('CreateUser', null)">Create User</button>
+                        <button class="view" onclick="redirectToAdmin('CreateUser', null)">Create</button>
                     </div>
 
                     <div class="report-body">
@@ -241,12 +249,9 @@
                                                     <td style="padding:8px;" class="p-2">@item.CreatedTime</td>
                                                     <td style="padding:8px;" class="p-2">@item.UpdatedTime</td>
 
-                                                    <td class="p-2">
-                                                        @if (item.RoleName != "Admin")
-                                                        {
-                                                            <button type="button" data="@item.UserId" onclick="redirectToAdmin('CreateUser', this)"> Edit</button>
-                                                            <button type="button" data="@item.UserId" onclick="redirectToAdmin('DeleteUser', this)">Delete</button>
-                                                        }
+                                                    <td class="p-2" style="display:flex;">
+                                                        <button type="button" data="@item.UserId" class="action-button edit-button" onclick="redirectToAdmin('CreateUser', this)">Edit</button>
+                                                        <button type="button" data="@item.UserId" class="action-button delete-button" onclick="redirectToAdmin('DeleteUser', this)">Delete</button>
                                                     </td>
                                                 </tr>
                                             }
@@ -294,7 +299,8 @@
 
                 </div>
 
-            }else if(Mode == "CreateUser")
+            }
+            else if (Mode == "CreateUser")
             {
                 <div class="report-container">
                     <h2>User</h2>
@@ -357,14 +363,15 @@
                             </div>
                             <div class="col-75">
                                 <select id="status" name="Status">
-                                    @if(userDetail != null)
+                                    @if (userDetail != null)
                                     {
-                                        if(userDetail.Status == "Active")
+                                        if (userDetail.Status == "Active")
                                         {
                                             <option selected value="Active">Active</option>
                                             <option value="Deactive">Deactive</option>
                                         }
-                                        else{
+                                        else
+                                        {
                                             <option value="Active">Active</option>
                                             <option selected value="Deactive">Deactive</option>
                                         }
@@ -378,13 +385,13 @@
                             </div>
                         </div>
                         @*<div class="row">
-                            <div class="col-25">
-                                <label for="subject">Subject</label>
-                            </div>
-                            <div class="col-75">
-                                <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
-                            </div>
-                        </div>*@
+                    <div class="col-25">
+                    <label for="subject">Subject</label>
+                    </div>
+                    <div class="col-75">
+                    <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+                    </div>
+                    </div>*@
                         <div class="row">
                             <div class="col-25">
                                 <label for="password">Password</label>
@@ -394,13 +401,379 @@
                             </div>
                         </div>
                         <br>
-                        <div class="row">
+                        <div class="row" style="display:flex;">
+                            <input style="margin-right:5px;" type="submit" value="Back" onclick="goBack()">
                             <input type="submit" value="Submit">
                         </div>
                     </form>
                 </div>
 
-               
+
+            }
+            else if (Mode == "Category")
+            {
+                <div class="report-container">
+                    <div class="report-header">
+                        <h1 class="recent-Articles">Category</h1>
+                        <button class="view" onclick="redirectToAdmin('CreateCategory', null)">Create</button>
+                    </div>
+
+                    <div class="report-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table border-collapse">
+                                        <thead>
+                                            <tr>
+                                                <th style="padding:8px;" class="p-2">CategoryId</th>
+                                                <th style="padding:8px;" class="p-2">CategoryName</th>
+                                                <th style="padding:8px;" class="p-2">Image</th>
+                                                <th style="padding:8px;" class="p-2">Status</th>
+                                                <th style="padding:8px;" class="p-2">CreatedTime</th>
+                                                <th style="padding:8px;" class="p-2">UpdatedTime</th>
+                                                <th class="p-2">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.categories)
+                                            {
+                                                <tr class="tr-body">
+                                                    <td style="padding:8px;" class="p-2">@item.CategoryId</td>
+                                                    <td style="padding:8px;" class="p-2">@item.CategoryName</td>
+                                                    <td style="padding:8px;" class="p-2">@item.Image</td>
+                                                    <td style="padding:8px;" class="p-2">@item.Status</td>
+                                                    <td style="padding:8px;" class="p-2">@item.CreatedTime</td>
+                                                    <td style="padding:8px;" class="p-2">@item.UpdatedTime</td>
+
+                                                    <td class="p-2" style="display:flex;">
+                                                        <button type="button" data="@item.CategoryId" class="action-button edit-button" onclick="redirectToAdmin('CreateCategory', this)">Edit</button>
+                                                        <button type="button" data="@item.CategoryId" class="action-button delete-button" onclick="redirectToAdmin('DeleteCategory', this)">Delete</button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div style="float:right;" class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+                                <div class="flex flex-1 justify-between sm:hidden">
+                                    @if (PageNumber == 1)
+                                    {
+                                        <span class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0">
+                                            <span class="sr-only">Previous</span>
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="Dashboard" asp-action="Index" asp-route-pageSize="@PageSize" asp-route-pageNumber="@(PageNumber-1)" asp-route-mode="Category" class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Previous</a>
+                                    }
+                                    @for (int i = 1; i <= TotalPage; i++)
+                                    {
+                                        <a asp-controller="Dashboard"
+                                           asp-action="Index"
+                                           asp-route-pageSize="@PageSize"
+                                           asp-route-pageNumber="@i"
+                                           asp-route-mode="Category"
+                                           class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">@i</a>
+                                    }
+                                    @if (PageNumber == TotalPage)
+                                    {
+                                        <span class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0">
+                                            <span class="sr-only">Next</span>
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="Dashboard" asp-action="Index" asp-route-pageSize="@PageSize" asp-route-pageNumber="@(PageNumber+1)" asp-route-mode="Category" class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Next</a>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            }
+            else if (Mode == "CreateCategory")
+            {
+                <div class="report-container">
+                    <h2>Category</h2>
+                    <form method="POST" asp-action="CreateAndUpdate" asp-controller="Dashboard">
+                        <input style="display:none;" value="@(categoryDetail != null ? categoryDetail.CategoryId : "")" type="text" id="fname" name="CategoryId" placeholder="Your name..">
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="fname">Category Name</label>
+                            </div>
+                            <div class="col-75">
+                                <input required value="@(categoryDetail != null ? categoryDetail.CategoryName : "")" type="text" id="fname" name="CategoryName" placeholder="Category name..">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="lname">Description</label>
+                            </div>
+                            <div class="col-75">
+                                <input required value="@(categoryDetail != null ? categoryDetail.Description : "")" type="text" id="lname" name="Description" placeholder="Description..">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="image">Image</label>
+                            </div>
+                            <div class="col-75">
+                                <input required value="@(categoryDetail != null ? categoryDetail.Image : "")" type="text" id="image" name="Image" placeholder="Image..">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="status">Status</label>
+                            </div>
+                            <div class="col-75">
+                                <select id="status" name="Status">
+                                    @if (categoryDetail != null)
+                                    {
+                                        if (categoryDetail.Status == "Active")
+                                        {
+                                            <option selected value="Active">Active</option>
+                                            <option value="Deactive">Deactive</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="Active">Active</option>
+                                            <option selected value="Deactive">Deactive</option>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <option value="Active">Active</option>
+                                        <option value="Deactive">Deactive</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row" style="display:flex;">
+                            <input style="margin-right:5px;" type="submit" value="Back" onclick="goBack()">
+                            <input type="submit" value="Submit">
+                        </div>
+                    </form>
+                </div>
+            }
+            else if (Mode == "Product")
+            {
+                <div class="report-container">
+                    <div class="report-header">
+                        <h1 class="recent-Articles">Product</h1>
+                        <button class="view" onclick="redirectToAdmin('CreateProduct', null)">Create</button>
+                    </div>
+
+                    <div class="report-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table border-collapse">
+                                        <thead>
+                                            <tr>
+                                                <th style="padding:8px;" class="p-2">ProductId</th>
+                                                <th style="padding:8px;" class="p-2">ProductName</th>
+                                                <th style="padding:8px;" class="p-2">Price</th>
+                                                <th style="padding:8px;" class="p-2">Quantity</th>
+                                                <th style="padding:8px;" class="p-2">Discount</th>
+                                                <th style="padding:8px;" class="p-2">Status</th>
+                                                <th style="padding:8px;" class="p-2">CreatedTime</th>
+                                                <th style="padding:8px;" class="p-2">UpdatedTime</th>
+                                                <th class="p-2">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.products)
+                                            {
+                                                <tr class="tr-body">
+                                                    <td style="padding:8px;" class="p-2">@item.ProductId</td>
+                                                    <td style="padding:8px;" class="p-2">@item.ProductName</td>
+                                                    <td style="padding:8px;" class="p-2">@item.Price</td>
+                                                    <td style="padding:8px;" class="p-2">@item.Quantity</td>
+                                                    <td style="padding:8px;" class="p-2">@item.Discount</td>
+                                                    <td style="padding:8px;" class="p-2">@item.Status</td>
+                                                    <td style="padding:8px;" class="p-2">@item.CreatedTime</td>
+                                                    <td style="padding:8px;" class="p-2">@item.UpdatedTime</td>
+
+                                                    <td class="p-2" style="display:flex;">
+                                                        <button type="button" data="@item.ProductId" class="action-button edit-button" onclick="redirectToAdmin('CreateProduct', this)">Edit</button>
+                                                        <button type="button" data="@item.ProductId" class="action-button delete-button" onclick="redirectToAdmin('DeleteProduct', this)">Delete</button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div style="float:right;" class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+                                <div class="flex flex-1 justify-between sm:hidden">
+                                    @if (PageNumber == 1)
+                                    {
+                                        <span class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0">
+                                            <span class="sr-only">Previous</span>
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="Dashboard" asp-action="Index" asp-route-pageSize="@PageSize" asp-route-pageNumber="@(PageNumber-1)" asp-route-mode="Product" class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Previous</a>
+                                    }
+                                    @for (int i = 1; i <= TotalPage; i++)
+                                    {
+                                        <a asp-controller="Dashboard"
+                                           asp-action="Index"
+                                           asp-route-pageSize="@PageSize"
+                                           asp-route-pageNumber="@i"
+                                           asp-route-mode="Product"
+                                           class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">@i</a>
+                                    }
+                                    @if (PageNumber == TotalPage)
+                                    {
+                                        <span class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0">
+                                            <span class="sr-only">Next</span>
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="Dashboard" asp-action="Index" asp-route-pageSize="@PageSize" asp-route-pageNumber="@(PageNumber+1)" asp-route-mode="Product" class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Next</a>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            }
+            else if (Mode == "CreateProduct")
+            {
+                <div class="report-container">
+                    <h2>Product</h2>
+                    <form method="POST" asp-action="CreateAndUpdate" asp-controller="Dashboard">
+                        <input style="display:none;" value="@(productDetail != null ? productDetail.ProductId : "")" type="text" id="fname" name="ProductId" placeholder="Your name..">
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="fname">Product Name</label>
+                            </div>
+                            <div class="col-75">
+                                <input required value="@(productDetail != null ? productDetail.ProductName : "")" type="text" id="fname" name="ProductName" placeholder="Product name..">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="lname">Description</label>
+                            </div>
+                            <div class="col-75">
+                                <input required value="@(productDetail != null ? productDetail.Description : "")" type="text" id="lname" name="Description" placeholder="Description..">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="email">Image Front</label>
+                            </div>
+                            <div class="col-75">
+                                <input required value="@(productDetail != null ? productDetail.ImageFront : "")" type="text" id="email" name="ImageFront" placeholder="Image Front..">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="image">Image Behind</label>
+                            </div>
+                            <div class="col-75">
+                                <input required value="@(productDetail != null ? productDetail.ImageBehind : "")" type="text" id="image" name="ImageBehind" placeholder="Image Behind..">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="image">Image Left</label>
+                            </div>
+                            <div class="col-75">
+                                <input required value="@(productDetail != null ? productDetail.ImageLeft : "")" type="text" id="image" name="ImageLeft" placeholder="Image Left..">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="image">Image Right</label>
+                            </div>
+                            <div class="col-75">
+                                <input required value="@(productDetail != null ? productDetail.ImageRight : "")" type="text" id="image" name="ImageRight" placeholder="Image Right..">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="phone">Price</label>
+                            </div>
+                            <div class="col-75">
+                                <input required style="width: 100%;
+                                            padding: 12px;
+                                            border: 1px solid #ccc;
+                                            border-radius: 4px;
+                                            resize: vertical;" min="1" value="@(productDetail != null ? productDetail.Price : "")" type="number" id="phone" name="Price" placeholder="Price..">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="phone">Quantity</label>
+                            </div>
+                            <div class="col-75">
+                                <input required style="width: 100%;
+                                            padding: 12px;
+                                            border: 1px solid #ccc;
+                                            border-radius: 4px;
+                                            resize: vertical;" min="1" value="@(productDetail != null ? productDetail.Quantity : "")" type="number" id="phone" name="Quantity" placeholder="Quantity..">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="phone">Discount</label>
+                            </div>
+                            <div class="col-75">
+                                <input required style="width: 100%;
+                                            padding: 12px;
+                                            border: 1px solid #ccc;
+                                            border-radius: 4px;
+                                            resize: vertical;" min="1" value="@(productDetail != null ? productDetail.Discount : "")" type="number" id="phone" name="Discount" placeholder="Discount..">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="status">Status</label>
+                            </div>
+                            <div class="col-75">
+                                <select id="status" name="Status">
+                                    @if (userDetail != null)
+                                    {
+                                        if (userDetail.Status == "Active")
+                                        {
+                                            <option selected value="Active">Active</option>
+                                            <option value="Deactive">Deactive</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="Active">Active</option>
+                                            <option selected value="Deactive">Deactive</option>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <option value="Active">Active</option>
+                                        <option value="Deactive">Deactive</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="row" style="display:flex;">
+                            <input style="margin-right:5px;" type="submit" value="Back" onclick="goBack()">
+                            <input type="submit" value="Submit">
+                        </div>
+                    </form>
+                </div>
             }
         </div>
     </div>
@@ -490,8 +863,36 @@
             }
         }
 
+        function goBack() {
+            window.location.href = "/Dashboard?Mode=User";
+        }
+
     </script>
     <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+    <style>
+        /* CSS cho các nút hành động */
+        .action-button {
+            border: none;
+            padding: 8px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        /* CSS cho nút "Edit" */
+        .edit-button {
+            background-color: #3498db;
+            color: white;
+            margin-right: 5px;
+        }
+
+        /* CSS cho nút "Delete" */
+        .delete-button {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+    </style>
 
 </body>
 </html>

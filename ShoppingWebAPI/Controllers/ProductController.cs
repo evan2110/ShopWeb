@@ -298,5 +298,33 @@ namespace ShoppingWebAPI.Controllers
             return Ok(productDTO);
         }
 
+        [HttpPut("{Product_id:int}", Name = "UpdateProduct")]
+        public async Task<ActionResult<ProductDTO>> UpdateProduct(int Product_id, [FromBody] ProductDTO productDTO)
+        {
+
+            if (productDTO == null || Product_id != productDTO.ProductId)
+            {
+                return BadRequest();
+            }
+
+            // Map nguoc tu DTO -> Entity thi dung AutoMapperConfig
+            var mapper = AutoMapperConfig.InitializeAutomapper<ProductDTO, Product>();
+            var productCreate = mapper.Map<Product>(productDTO);
+
+            // Thực hiện tạo mới Movie
+            await repository.UpdateAsync(productCreate);
+
+            return Ok();
+        }
+
+        [HttpGet("getAllForAdmin")]
+        public async Task<ActionResult<ProductDTO>> getAllForAdmin(int pageSize = 0, int pageNumber = 1)
+        {
+            var ProductList = await repository.GetAllAsync(includeProperties: "Category", pageSize: pageSize, pageNumber: pageNumber);
+            List<ProductDTO> listDTO = _mapper.Map<List<ProductDTO>>(ProductList);
+            
+            return Ok(listDTO);
+        }
+
     }
 }

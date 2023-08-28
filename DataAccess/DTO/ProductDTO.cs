@@ -16,8 +16,8 @@ public class ProductDTO
     public int CategoryId { get; set; }
     public string CategoryName { get; set; }
     public int Discount { get; set; }
-    public List<ProductColorDTO> ProductColorDTOs { get; set; }
-    public List<ProductSizeDTO> ProductSizeDTOs { get; set; }
+    public List<ProductColorDTO>? ProductColorDTOs { get; set; }
+    public List<ProductSizeDTO>? ProductSizeDTOs { get; set; }
     public string Status { get; set; }
     public DateTime CreatedTime { get; set; }
     public DateTime? UpdatedTime { get; set; }
