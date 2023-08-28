@@ -11,9 +11,11 @@ namespace DataAccess.DTO
     {
         public int ProductSizeId { get; set; }
         public int ProductId { get; set; }
-        public string ProductName { get; set; }
+        public string? ProductName { get; set; }
         public int SizeId { get; set; }
-        public string SizeName { get; set; }
-
+        public string? SizeName { get; set; }
+        public string? Status { get; set; }
+        public DateTime? CreatedTime { get; set; }
+        public DateTime? UpdatedTime { get; set; }
     }
 }

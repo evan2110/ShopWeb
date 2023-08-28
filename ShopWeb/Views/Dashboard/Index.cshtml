@@ -514,7 +514,7 @@
                                 <label for="lname">Description</label>
                             </div>
                             <div class="col-75">
-                                <input required value="@(categoryDetail != null ? categoryDetail.Description : "")" type="text" id="lname" name="Description" placeholder="Description..">
+                                <textarea required type="text" id="lname" name="Description" placeholder="Description..">@(categoryDetail != null ? categoryDetail.Description : "") </textarea>
                             </div>
                         </div>
                         <div class="row">
@@ -741,13 +741,59 @@
                         </div>
                         <div class="row">
                             <div class="col-25">
+                                <label for="status">Category</label>
+                            </div>
+                            <div class="col-75">
+                                <select id="status" name="CategoryId">
+                                    @foreach (var item in ViewBag.categories as SelectList)
+                                    {
+                                        if (productDetail != null && productDetail.CategoryId == Int32.Parse(item.Value))
+                                        {
+                                            <option value="@item.Value" selected>@item.Text</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="status">Size</label>
+                            </div>
+                            <div class="col-75">
+                                <select id="status" name="SizeId" multiple>
+                                    @foreach (var item in ViewBag.sizes as SelectList)
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="status">Color</label>
+                            </div>
+                            <div class="col-75">
+                                <select id="status" name="ColorId" multiple>
+                                    @foreach (var item in ViewBag.colors as SelectList)
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
                                 <label for="status">Status</label>
                             </div>
                             <div class="col-75">
                                 <select id="status" name="Status">
-                                    @if (userDetail != null)
+                                    @if (productDetail != null)
                                     {
-                                        if (userDetail.Status == "Active")
+                                        if (productDetail.Status == "Active")
                                         {
                                             <option selected value="Active">Active</option>
                                             <option value="Deactive">Deactive</option>

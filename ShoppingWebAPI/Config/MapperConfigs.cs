@@ -56,6 +56,9 @@ public class MapperConfigs: Profile
         CreateMap<Color, ColorDTO>()
             .ReverseMap();
 
+        CreateMap<Size, SizeDTO>()
+            .ReverseMap();
+
         CreateMap<Rate, RateDTO>()
             .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.Email))
             .ReverseMap();

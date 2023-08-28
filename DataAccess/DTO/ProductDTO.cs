@@ -14,8 +14,13 @@ public class ProductDTO
     public decimal Price { get; set; }
     public int Quantity { get; set; }
     public int CategoryId { get; set; }
-    public string CategoryName { get; set; }
+    public string? CategoryName { get; set; }
     public int Discount { get; set; }
+
+    public List<int>? ColorId { get; set; }
+    
+    public List<int>? SizeId { get; set; }
+
     public List<ProductColorDTO>? ProductColorDTOs { get; set; }
     public List<ProductSizeDTO>? ProductSizeDTOs { get; set; }
     public string Status { get; set; }

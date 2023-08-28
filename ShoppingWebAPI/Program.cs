@@ -30,6 +30,7 @@ builder.Services.AddScoped<OrderRepository>();
 builder.Services.AddScoped<OrderDetailRepository>();
 builder.Services.AddScoped<CategoryRepository>();
 builder.Services.AddScoped<ColorRepository>();
+builder.Services.AddScoped<SizeRepository>();
 builder.Services.AddScoped<RateRepository>();
 builder.Services.AddScoped<SupportRepository>();
 

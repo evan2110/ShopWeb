@@ -317,6 +317,30 @@ namespace ShoppingWebAPI.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        public async Task<ActionResult<ProductDTO>> CreateProduct([FromBody] ProductDTO productDTO)
+        {
+
+            if (await repository.GetOneAsync(x => x.ProductId == productDTO.ProductId) != null)
+            {
+                return BadRequest();
+            }
+
+            // Tạo đối tượng Movie từ MovieCreate và gán Genre
+            // Map nguoc tu DTO -> Entity thi dung AutoMapperConfig
+            var mapper = AutoMapperConfig.InitializeAutomapper<ProductDTO, Product>();
+            var productCreate = mapper.Map<Product>(productDTO);
+
+            // Thực hiện tạo mới Movie
+            await repository.CreateAsync(productCreate);
+
+            // Ánh xạ lại đối tượng Movie sau khi tạo thành công
+            var resultDTIO = _mapper.Map<ProductDTO>(productCreate);
+
+
+            return Ok(resultDTIO);
+        }
+
         [HttpGet("getAllForAdmin")]
         public async Task<ActionResult<ProductDTO>> getAllForAdmin(int pageSize = 0, int pageNumber = 1)
         {
