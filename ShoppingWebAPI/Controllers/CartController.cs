@@ -4,6 +4,7 @@ using DataAccess.DTO;
 using DataAccess.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ShoppingWebAPI.Config;
 using ShoppingWebAPI.Response;
 using Stripe;
 using Stripe.Checkout;
@@ -165,6 +166,35 @@ namespace ShoppingWebAPI.Controllers
             }
 
             return new PaymentStripeResponse { Status = "Chua" };
+        }
+
+        [HttpGet("getAll")]
+        public async Task<ActionResult<CartDTO>> GetAllCarts(int pageSize = 0, int pageNumber = 1)
+        {
+            var CartList = await repository.GetAllAsync(e => e.Status == "Active", includeProperties: "User", pageSize: pageSize, pageNumber: pageNumber);
+
+            List<CartDTO> listDTO = _mapper.Map<List<CartDTO>>(CartList);
+
+            return Ok(listDTO);
+        }
+
+        [HttpPut("{Cart_id:int}", Name = "UpdateCart")]
+        public async Task<ActionResult<CartDTO>> UpdateCart(int Cart_id, [FromBody] CartDTO cartDTO)
+        {
+
+            if (cartDTO == null || Cart_id != cartDTO.CartId)
+            {
+                return BadRequest();
+            }
+
+            // Map nguoc tu DTO -> Entity thi dung AutoMapperConfig
+            var mapper = AutoMapperConfig.InitializeAutomapper<CartDTO, Cart>();
+            var cartCreate = mapper.Map<Cart>(cartDTO);
+
+            // Thực hiện tạo mới Movie
+            await repository.UpdateAsync(cartCreate);
+
+            return Ok();
         }
 
     }

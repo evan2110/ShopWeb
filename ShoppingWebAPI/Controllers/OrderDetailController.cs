@@ -101,5 +101,44 @@ namespace ShoppingWebAPI.Controllers
 
         }
 
+        [HttpPut("{OrderDetail_id:int}", Name = "UpdateOrderDetail")]
+        public async Task<ActionResult<OrderDetailDTO>> UpdateOrderDetail(int OrderDetail_id, [FromBody] OrderDetailDTO orderDetailDTO)
+        {
+
+            if (orderDetailDTO == null || OrderDetail_id != orderDetailDTO.OrderDetailId)
+            {
+                return BadRequest();
+            }
+
+            // Map nguoc tu DTO -> Entity thi dung AutoMapperConfig
+            var mapper = AutoMapperConfig.InitializeAutomapper<OrderDetailDTO, OrderDetail>();
+            var orderDetailCreate = mapper.Map<OrderDetail>(orderDetailDTO);
+
+            // Thực hiện tạo mới Movie
+            await repository.UpdateAsync(orderDetailCreate);
+
+            return Ok();
+        }
+
+        [HttpGet("getAll")]
+        public async Task<ActionResult<OrderDetailDTO>> GetAllOrderDetail(int pageSize = 0, int pageNumber = 1)
+        {
+            var OrderDetailList = await repository.GetAllAsync(e => e.Status == "Active", includeProperties: "Order,Product", pageSize: pageSize, pageNumber: pageNumber);
+
+            List<OrderDetailDTO> listDTO = _mapper.Map<List<OrderDetailDTO>>(OrderDetailList);
+
+            return Ok(listDTO);
+        }
+
+        [HttpGet("getAllForAdmin")]
+        public async Task<ActionResult<OrderDetailDTO>> GetAllOrderDetailgetAllForAdmin(int pageSize = 0, int pageNumber = 1)
+        {
+            var OrderDetailList = await repository.GetAllAsync(includeProperties: "Order,Product", pageSize: pageSize, pageNumber: pageNumber);
+
+            List<OrderDetailDTO> listDTO = _mapper.Map<List<OrderDetailDTO>>(OrderDetailList);
+
+            return Ok(listDTO);
+        }
+
     }
 }

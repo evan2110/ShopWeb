@@ -4,6 +4,8 @@ using DataAccess.DTO;
 using DataAccess.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ShoppingWebAPI.Config;
+using System.Drawing.Printing;
 
 namespace ShoppingWebAPI.Controllers
 {
@@ -44,6 +46,45 @@ namespace ShoppingWebAPI.Controllers
 
 
             return Ok(resultDTIO);
+        }
+
+        [HttpGet("getAll")]
+        public async Task<ActionResult<OrderDTO>> GetAllOrders(int pageSize = 0, int pageNumber = 1)
+        {
+            var OrderList = await repository.GetAllAsync(e => e.Status == "Active", includeProperties: "User", pageSize: pageSize, pageNumber: pageNumber);
+
+            List<OrderDTO> listDTO = _mapper.Map<List<OrderDTO>>(OrderList);
+
+            return Ok(listDTO);
+        }
+
+        [HttpGet("getAllForAdmin")]
+        public async Task<ActionResult<OrderDTO>> GetAllOrdersForAdmin(int pageSize = 0, int pageNumber = 1)
+        {
+            var OrderList = await repository.GetAllAsync(includeProperties: "User", pageSize: pageSize, pageNumber: pageNumber);
+
+            List<OrderDTO> listDTO = _mapper.Map<List<OrderDTO>>(OrderList);
+
+            return Ok(listDTO);
+        }
+
+        [HttpPut("{Order_id:int}", Name = "UpdateOrder")]
+        public async Task<ActionResult<OrderDTO>> UpdateOrder(int Order_id, [FromBody] OrderDTO orderDTO)
+        {
+
+            if (orderDTO == null || Order_id != orderDTO.OrderId)
+            {
+                return BadRequest();
+            }
+
+            // Map nguoc tu DTO -> Entity thi dung AutoMapperConfig
+            var mapper = AutoMapperConfig.InitializeAutomapper<OrderDTO, Order>();
+            var orderCreate = mapper.Map<Order>(orderDTO);
+
+            // Thực hiện tạo mới Movie
+            await repository.UpdateAsync(orderCreate);
+
+            return Ok();
         }
     }
 }

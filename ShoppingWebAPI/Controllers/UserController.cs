@@ -190,6 +190,27 @@ public class UserController : ControllerBase
         return Ok();
     }
 
+    [HttpPost]
+    [Authorize]
+    public async Task<ActionResult<UserDTO>> CreateUser([FromBody] UserDTO userDTO)
+    {
+
+        if (userDTO == null)
+        {
+            return BadRequest();
+        }
+
+        // Map nguoc tu DTO -> Entity thi dung AutoMapperConfig
+        var mapper = AutoMapperConfig.InitializeAutomapper<UserDTO, User>();
+        var userCreate = mapper.Map<User>(userDTO);
+
+        // Thực hiện tạo mới Movie
+        await repository.CreateAsync(userCreate);
+
+        return Ok();
+    }
+
+
     [HttpGet("getAll")]
     public async Task<ActionResult<UserDTO>> GetAllUsers([FromQuery(Name = "search")] string? search, int pageSize = 0, int pageNumber = 1)
     {
@@ -199,6 +220,16 @@ public class UserController : ControllerBase
         {
             UserList = await repository.GetAllAsync(e => e.Status == "Active" && e.Email.Contains(search), includeProperties: "Role", pageSize: pageSize, pageNumber: pageNumber);
         }
+        List<UserDTO> listDTO = _mapper.Map<List<UserDTO>>(UserList);
+
+        return Ok(listDTO);
+    }
+
+    [HttpGet("getAllForAdmin")]
+    public async Task<ActionResult<UserDTO>> getAllForAdmin(int pageSize = 0, int pageNumber = 1)
+    {
+        IEnumerable<User> UserList;
+        UserList = await repository.GetAllAsync(e => e.RoleId != 3, includeProperties: "Role", pageSize: pageSize, pageNumber: pageNumber);
         List<UserDTO> listDTO = _mapper.Map<List<UserDTO>>(UserList);
 
         return Ok(listDTO);

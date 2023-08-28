@@ -54,6 +54,17 @@ namespace ShoppingWebAPI.Controllers
             return Ok(listDTO);
         }
 
+        [HttpGet("getAllForAdmin")]
+        public async Task<ActionResult<BlogDTO>> GetAllBlogsForAdmin(int pageSize = 0, int pageNumber = 1)
+        {
+            IEnumerable<Blog> BlogList;
+            BlogList = await repository.GetAllAsync(includeProperties: "Category,User", pageSize: pageSize, pageNumber: pageNumber);
+            
+            List<BlogDTO> listDTO = _mapper.Map<List<BlogDTO>>(BlogList);
+
+            return Ok(listDTO);
+        }
+
         [HttpGet("{blog_id:int}", Name = "getBlog")]
         public async Task<ActionResult<BlogDTO>> GetOneBlog(int blog_id)
         {
@@ -108,6 +119,25 @@ namespace ShoppingWebAPI.Controllers
 
 
             return Ok(resultDTIO);
+        }
+
+        [HttpPut("{Blog_id:int}", Name = "UpdateBlog")]
+        public async Task<ActionResult<BlogDTO>> UpdateBlog(int Blog_id, [FromBody] BlogDTO blogDTO)
+        {
+
+            if (blogDTO == null || Blog_id != blogDTO.BlogId)
+            {
+                return BadRequest();
+            }
+
+            // Map nguoc tu DTO -> Entity thi dung AutoMapperConfig
+            var mapper = AutoMapperConfig.InitializeAutomapper<BlogDTO, Blog>();
+            var blogCreate = mapper.Map<Blog>(blogDTO);
+
+            // Thực hiện tạo mới Movie
+            await repository.UpdateAsync(blogCreate);
+
+            return Ok();
         }
 
     }

@@ -1,10 +1,22 @@
-﻿@*
+﻿@using DataAccess.DTO;
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
     Layout = null;
-    HttpContext context = Context.Request.HttpContext;
     string Mode = ViewBag.Mode;
+    int PageNumber = 0;
+    int TotalPage = 0;
+    int PageSize = 0;
+    if (Mode != "Dashboard" && Mode != null && Mode != "CreateUser")
+    {
+        PageNumber = int.Parse(ViewBag.pageNumber.ToString());
+        TotalPage = int.Parse(ViewBag.TotalPage.ToString());
+        PageSize = int.Parse(ViewBag.pageSize.ToString());
+    }
+    HttpContext context = Context.Request.HttpContext;
+    var user = ViewBag.user as UserDTO;
+    var userDetail = ViewBag.userDetail as UserDTO;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +65,7 @@
                  alt="">
             <div class="dp">
                 <a href="/UserDetail?user_id=@Int32.Parse(context.Session.GetString("UserId"))">
-                    <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180014/profile-removebg-preview.png"
+                    <img src="@(user.Image != null ? user.Image : "https://media.geeksforgeeks.org/wp-content/uploads/20221210180014/profile-removebg-preview.png")"
                          class="dpicn"
                          alt="dp">
                 </a>
@@ -77,7 +89,7 @@
 
                     <a href="/Dashboard?Mode=User">
                     <div class="option2 nav-option">
-                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183322/9.png"
+                            <img src="https://static.vecteezy.com/system/resources/thumbnails/020/486/924/small/business-man-silhouette-icon-human-face-portrait-glyph-pictogram-male-personal-profile-icon-men-user-s-avatar-businessman-manager-office-people-sign-isolated-illustration-vector.jpg"
                              class="nav-img"
                              alt="articles">
                         <h3> Users</h3>
@@ -184,44 +196,211 @@
                     <div id="chartContainer1" style="height: 500px; width: 45%;"></div>
                     <div id="chartContainer2" style="height: 500px; width: 45%;"></div>
                 </div>
+                <style>
+                    .main{
+                        background-color:white;
+                    }
+                </style>
                 
             }else if(Mode == "User")
             {
                 <div class="report-container">
                     <div class="report-header">
                         <h1 class="recent-Articles">User</h1>
-                        <button class="view">View All</button>
+                        <button class="view" onclick="redirectToAdmin('CreateUser', null)">Create User</button>
                     </div>
 
                     <div class="report-body">
-                        <div class="report-topic-heading">
-                            <h3 class="t-op">User Id</h3>
-                            <h3 class="t-op">Full Name</h3>
-                            <h3 class="t-op">Email</h3>
-                            <h3 class="t-op">Image</h3>
-                            <h3 class="t-op">Phone</h3>
-                            <h3 class="t-op">Gender</h3>
-                            <h3 class="t-op">Status</h3>
-                            <h3 class="t-op">Created Time</h3>
-                            <h3 class="t-op">Updated Time</h3>
-                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table border-collapse">
+                                        <thead>
+                                            <tr>
+                                                <th style="padding:8px;" class="p-2">UserId</th>
+                                                <th style="padding:8px;" class="p-2">FullName</th>
+                                                <th style="padding:8px;" class="p-2">Email</th>
+                                                <th style="padding:8px;" class="p-2">Phone</th>
+                                                <th style="padding:8px;" class="p-2">Gender</th>
+                                                <th style="padding:8px;" class="p-2">Status</th>
+                                                <th style="padding:8px;" class="p-2">CreatedTime</th>
+                                                <th style="padding:8px;" class="p-2">UpdatedTime</th>
+                                                <th class="p-2">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.users)
+                                            {
+                                                <tr class="tr-body">
+                                                    <td style="padding:8px;" class="p-2">@item.UserId</td>
+                                                    <td style="padding:8px;" class="p-2">@item.FirstName @item.LastName</td>
+                                                    <td style="padding:8px;" class="p-2">@item.Email</td>
+                                                    <td style="padding:8px;" class="p-2">@item.Phone</td>
+                                                    <td style="padding:8px;" class="p-2">@item.Gender</td>
+                                                    <td style="padding:8px;" class="p-2">@item.Status</td>
+                                                    <td style="padding:8px;" class="p-2">@item.CreatedTime</td>
+                                                    <td style="padding:8px;" class="p-2">@item.UpdatedTime</td>
 
-                        <div class="items">
-                            <div class="item1">
-                                <h3 class="t-op-nextlvl">Article 73</h3>
-                                <h3 class="t-op-nextlvl">2.9k</h3>
-                                <h3 class="t-op-nextlvl">210</h3>
-                                <h3 class="t-op-nextlvl">210</h3>
-                                <h3 class="t-op-nextlvl">210</h3>
-                                <h3 class="t-op-nextlvl">210</h3>
-                                <h3 class="t-op-nextlvl label-tag">Active</h3>
-                                <h3 class="t-op-nextlvl">210</h3>
-                                <h3 class="t-op-nextlvl">210</h3>
+                                                    <td class="p-2">
+                                                        @if (item.RoleName != "Admin")
+                                                        {
+                                                            <button type="button" data="@item.UserId" onclick="redirectToAdmin('CreateUser', this)"> Edit</button>
+                                                            <button type="button" data="@item.UserId" onclick="redirectToAdmin('DeleteUser', this)">Delete</button>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div style="float:right;" class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+                                <div class="flex flex-1 justify-between sm:hidden">
+                                    @if (PageNumber == 1)
+                                    {
+                                        <span class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0">
+                                            <span class="sr-only">Previous</span>
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="Dashboard" asp-action="Index" asp-route-pageSize="@PageSize" asp-route-pageNumber="@(PageNumber-1)" asp-route-mode="User" class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Previous</a>
+                                    }
+                                    @for (int i = 1; i <= TotalPage; i++)
+                                    {
+                                        <a asp-controller="Dashboard"
+                                           asp-action="Index"
+                                           asp-route-pageSize="@PageSize"
+                                           asp-route-pageNumber="@i"
+                                           asp-route-mode="User"
+                                           class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">@i</a>
+                                    }
+                                    @if (PageNumber == TotalPage)
+                                    {
+                                        <span class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0">
+                                            <span class="sr-only">Next</span>
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="Dashboard" asp-action="Index" asp-route-pageSize="@PageSize" asp-route-pageNumber="@(PageNumber+1)" asp-route-mode="User" class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Next</a>
+                                    }
+
+                                </div>
                             </div>
                         </div>
                     </div>
+
+
                 </div>
-                
+
+            }else if(Mode == "CreateUser")
+            {
+                <div class="report-container">
+                    <h2>User</h2>
+                    <form method="POST" asp-action="CreateAndUpdate" asp-controller="Dashboard">
+                        <input style="display:none;" value="@(userDetail != null ? userDetail.UserId : "")" type="text" id="fname" name="UserId" placeholder="Your name..">
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="fname">First Name</label>
+                            </div>
+                            <div class="col-75">
+                                <input value="@(userDetail != null ? userDetail.FirstName : "")" type="text" id="fname" name="FirstName" placeholder="Your name..">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="lname">Last Name</label>
+                            </div>
+                            <div class="col-75">
+                                <input value="@(userDetail != null ? userDetail.LastName : "")" type="text" id="lname" name="LastName" placeholder="Your last name..">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="col-75">
+                                <input value="@(userDetail != null ? userDetail.Email : "")" required type="email" id="email" name="Email" placeholder="Your email..">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="image">Image</label>
+                            </div>
+                            <div class="col-75">
+                                <input value="@(userDetail != null ? userDetail.Image : "")" type="text" id="image" name="Image" placeholder="Your image..">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="phone">Phone</label>
+                            </div>
+                            <div class="col-75">
+                                <input value="@(userDetail != null ? userDetail.Phone : "")" type="text" id="phone" name="Phone" placeholder="Your phone..">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="gender">Gender</label>
+                            </div>
+                            <div class="col-75">
+                                <input @(userDetail?.Gender == "Male" ? "checked" : "") checked type="radio" id="male" name="Gender" value="Male">
+                                <label for="male">Male</label>
+                                <input @(userDetail?.Gender == "Female" ? "checked" : "") type="radio" id="female" name="Gender" value="Female">
+                                <label for="female">Female</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="status">Status</label>
+                            </div>
+                            <div class="col-75">
+                                <select id="status" name="Status">
+                                    @if(userDetail != null)
+                                    {
+                                        if(userDetail.Status == "Active")
+                                        {
+                                            <option selected value="Active">Active</option>
+                                            <option value="Deactive">Deactive</option>
+                                        }
+                                        else{
+                                            <option value="Active">Active</option>
+                                            <option selected value="Deactive">Deactive</option>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <option value="Active">Active</option>
+                                        <option value="Deactive">Deactive</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        @*<div class="row">
+                            <div class="col-25">
+                                <label for="subject">Subject</label>
+                            </div>
+                            <div class="col-75">
+                                <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+                            </div>
+                        </div>*@
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="password">Password</label>
+                            </div>
+                            <div class="col-75">
+                                <input value="@(userDetail != null ? userDetail.Password : "")" required type="password" id="password" name="Password" placeholder="Your password..">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <input type="submit" value="Submit">
+                        </div>
+                    </form>
+                </div>
+
+               
             }
         </div>
     </div>
@@ -300,6 +479,15 @@
                 }]
             });
             chart2.render();
+        }
+
+        function redirectToAdmin(mode, button) {
+            if (button !== null) {
+                id = button.getAttribute("data");
+                window.location.href = "/Dashboard?Mode=" + mode + "&id=" + id;
+            } else {
+                window.location.href = "/Dashboard?Mode=" + mode;
+            }
         }
 
     </script>

@@ -46,13 +46,42 @@ namespace ShoppingWebAPI.Controllers
         }
 
         [HttpGet("getAll")]
-        public async Task<ActionResult<SupportDTO>> GetAllSupports()
+        public async Task<ActionResult<SupportDTO>> GetAllSupports(int pageSize = 0, int pageNumber = 1)
         {
-            var SupportList = await repository.GetAllAsync(e => e.Status == "Active", includeProperties: "User");
+            var SupportList = await repository.GetAllAsync(e => e.Status == "Active", includeProperties: "User",pageSize: pageSize, pageNumber: pageNumber);
             
             List<SupportDTO> listDTO = _mapper.Map<List<SupportDTO>>(SupportList);
 
             return Ok(listDTO);
+        }
+
+        [HttpGet("getAllForAdmin")]
+        public async Task<ActionResult<SupportDTO>> GetAllSupportsForAdmin(int pageSize = 0, int pageNumber = 1)
+        {
+            var SupportList = await repository.GetAllAsync(includeProperties: "User", pageSize: pageSize, pageNumber: pageNumber);
+
+            List<SupportDTO> listDTO = _mapper.Map<List<SupportDTO>>(SupportList);
+
+            return Ok(listDTO);
+        }
+
+        [HttpPut("{Support_id:int}", Name = "UpdateSupport")]
+        public async Task<ActionResult<SupportDTO>> UpdateSupport(int Support_id, [FromBody] SupportDTO supportDTO)
+        {
+
+            if (supportDTO == null || Support_id != supportDTO.SupportId)
+            {
+                return BadRequest();
+            }
+
+            // Map nguoc tu DTO -> Entity thi dung AutoMapperConfig
+            var mapper = AutoMapperConfig.InitializeAutomapper<SupportDTO, Support>();
+            var supportCreate = mapper.Map<Support>(supportDTO);
+
+            // Thực hiện tạo mới Movie
+            await repository.UpdateAsync(supportCreate);
+
+            return Ok();
         }
     }
 }

@@ -56,5 +56,34 @@ namespace ShoppingWebAPI.Controllers
 
             return Ok(listDTO);
         }
+
+        [HttpPut("{Rate_id:int}", Name = "UpdateRate")]
+        public async Task<ActionResult<RateDTO>> UpdateRate(int Rate_id, [FromBody] RateDTO rateDTO)
+        {
+
+            if (rateDTO == null || Rate_id != rateDTO.RateId)
+            {
+                return BadRequest();
+            }
+
+            // Map nguoc tu DTO -> Entity thi dung AutoMapperConfig
+            var mapper = AutoMapperConfig.InitializeAutomapper<RateDTO, Rate>();
+            var rateCreate = mapper.Map<Rate>(rateDTO);
+
+            // Thực hiện tạo mới Movie
+            await repository.UpdateAsync(rateCreate);
+
+            return Ok();
+        }
+
+        [HttpGet("getAll")]
+        public async Task<ActionResult<RateDTO>> GetAllRates(int pageSize = 0, int pageNumber = 1)
+        {
+            IEnumerable<Rate> RateList;
+            RateList = await repository.GetAllAsync(includeProperties: "User,Product", pageSize: pageSize, pageNumber: pageNumber);
+            List<RateDTO> listDTO = _mapper.Map<List<RateDTO>>(RateList);
+
+            return Ok(listDTO);
+        }
     }
 }
