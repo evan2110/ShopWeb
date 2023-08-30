@@ -23,7 +23,7 @@ namespace ShoppingWebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProductColorDTO>> CreateRate([FromBody] ProductColorDTO productColorDTO)
+        public async Task<ActionResult<ProductColorDTO>> CreateProductColor([FromBody] ProductColorDTO productColorDTO)
         {
 
             if (await repository.GetOneAsync(x => x.ProductColorId == productColorDTO.ProductColorId) != null)
@@ -44,6 +44,50 @@ namespace ShoppingWebAPI.Controllers
 
 
             return Ok(resultDTIO);
+        }
+
+        [HttpGet("getAll")]
+        public async Task<ActionResult<ProductColorDTO>> GetAllProductColors(int pageSize = 0, int pageNumber = 1)
+        {
+            var ProductColorList = await repository.GetAllAsync(includeProperties: "Color,Product", pageSize: pageSize, pageNumber: pageNumber);
+            List<ProductColorDTO> listDTO = _mapper.Map<List<ProductColorDTO>>(ProductColorList);
+
+            return Ok(listDTO);
+        }
+
+        [HttpPut("{ProductColor_id:int}", Name = "UpdateProductColor")]
+        public async Task<ActionResult<ProductColorDTO>> UpdateProductColor(int ProductColor_id, [FromBody] ProductColorDTO productColorDTO)
+        {
+
+            if (productColorDTO == null || ProductColor_id != productColorDTO.ProductColorId)
+            {
+                return BadRequest();
+            }
+
+            // Map nguoc tu DTO -> Entity thi dung AutoMapperConfig
+            var mapper = AutoMapperConfig.InitializeAutomapper<ProductColorDTO, ProductColor>();
+            var productColorCreate = mapper.Map<ProductColor>(productColorDTO);
+
+            // Thực hiện tạo mới Movie
+            await repository.UpdateAsync(productColorCreate);
+
+            return Ok();
+        }
+
+        [HttpDelete(Name = "DeleteProductColor")]
+        public async Task<ActionResult> DeleteProductColor(int id)
+        {
+            if (id == 0)
+            {
+                return BadRequest();
+            }
+            var productColor = await repository.GetOneAsync(x => x.ProductColorId == id);
+            if (productColor == null)
+            {
+                return NotFound();
+            }
+            await repository.RemoveAsync(productColor);
+            return NoContent();
         }
     }
 }

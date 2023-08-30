@@ -86,5 +86,27 @@ namespace ShoppingWebAPI.Controllers
 
             return Ok();
         }
+
+        [HttpGet("{order_id:int}", Name = "getOrder")]
+        public async Task<ActionResult<OrderDTO>> GetOneOrder(int order_id)
+        {
+
+            if (order_id == 0)
+            {
+
+                return BadRequest();
+            }
+            var order = await repository.GetOneAsync(x => x.OrderId == order_id);
+
+            if (order == null)
+            {
+
+                return NotFound();
+            }
+
+            OrderDTO orderDTO = _mapper.Map<OrderDTO>(order);
+
+            return Ok(orderDTO);
+        }
     }
 }

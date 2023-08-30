@@ -51,6 +51,12 @@ namespace ShopWeb.Controllers
             {
                 blogDTO.Status = "Active";
                 blogDTO.CreatedTime = DateTime.Now;
+                Console.WriteLine(blogDTO.BlogName);
+                Console.WriteLine(blogDTO.Content);
+                Console.WriteLine(blogDTO.Image);
+                Console.WriteLine(blogDTO.UserId);
+                Console.WriteLine(blogDTO.CategoryId);
+
 
                 string urlCreateBlog = $"{blogUrl}";
 
@@ -59,7 +65,6 @@ namespace ShopWeb.Controllers
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 HttpResponseMessage response = await httpClient.PostAsJsonAsync(urlCreateBlog, blogDTO);
                 Console.WriteLine(response);
-                blogDTO = await response.Content.ReadFromJsonAsync<BlogDTO>();
                 return RedirectToAction("Index", new { status = "success" });
             }
             else

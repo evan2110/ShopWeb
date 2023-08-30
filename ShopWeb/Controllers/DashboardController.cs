@@ -3,6 +3,8 @@ using DataAccess.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Stripe;
+using System;
 using System.Drawing;
 using System.Net.Http.Headers;
 using System.Reflection.Metadata;
@@ -32,7 +34,7 @@ namespace ShopWeb.Controllers
             httpClient = new HttpClient();
         }
 
-        public async Task<IActionResult> Index(string? Mode, int id, int pageNumber = 1, int pageSize = 10)
+        public async Task<IActionResult> Index(string? Mode, string? Mess, string? ColorMess, int id, int pageNumber = 1, int pageSize = 10)
         {
             if (HttpContext.Session.GetString("Role") == "3")
             {
@@ -83,10 +85,59 @@ namespace ShopWeb.Controllers
                         topProductSelled.Add(item.ProductName, Math.Round((double)(item.Quantity * item.Price), 2));
                     }
 
+                    //Lay tong so User(duoc active)
+                    string urlGetTotalUser = $"{userUrl}/getAll?pageSize=0&pageNumber=1";
+                    HttpResponseMessage responseTotalUser = await httpClient.GetAsync(urlGetTotalUser);
+                    string strTotalUser = await responseTotalUser.Content.ReadAsStringAsync();
+                    var optionsTotalUser = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    List<UserDTO> totalUsers = System.Text.Json.JsonSerializer.Deserialize<List<UserDTO>>(strTotalUser, optionsTotalUser);
+
+                    //Lay tong so Produc(duoc active)
+                    string urlGetTotalProduct = $"{productUrl}/getAll?pageSize=0&pageNumber=1";
+                    HttpResponseMessage responseTotalProduct = await httpClient.GetAsync(urlGetTotalProduct);
+                    string strTotalProduct = await responseTotalProduct.Content.ReadAsStringAsync();
+                    var optionsTotalProduct = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    List<ProductDTO> totalProducts = System.Text.Json.JsonSerializer.Deserialize<List<ProductDTO>>(strTotalProduct, optionsTotalProduct);
+
+                    //Lay tong so Blog(duoc active)
+                    string urlGetTotalBlog = $"{blogUrl}/getAll?pageSize=0&pageNumber=1";
+                    HttpResponseMessage responseTotalBlog = await httpClient.GetAsync(urlGetTotalBlog);
+                    string strTotalBlog = await responseTotalBlog.Content.ReadAsStringAsync();
+                    var optionsTotalBlog = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    List<BlogDTO> totalBlogs = System.Text.Json.JsonSerializer.Deserialize<List<BlogDTO>>(strTotalBlog, optionsTotalBlog);
+
+                    //Lay tong so Order(duoc active)
+                    string urlGetTotalOrder = $"{orderUrl}/getAll?pageSize=0&pageNumber=1";
+                    HttpResponseMessage responseTotalOrder = await httpClient.GetAsync(urlGetTotalOrder);
+                    string strTotalOrder = await responseTotalOrder.Content.ReadAsStringAsync();
+                    var optionsTotalOrder = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    List<OrderDTO> totalOrders = System.Text.Json.JsonSerializer.Deserialize<List<OrderDTO>>(strTotalOrder, optionsTotalOrder);
+
+                    ViewBag.totalOrders = totalOrders.Count;
+                    ViewBag.totalBlogs = totalBlogs.Count;
+                    ViewBag.totalProducts = totalProducts.Count;
+                    ViewBag.totalUsers = totalUsers.Count;
                     ViewBag.NumberProductsEachCategory = numberProductsEachCategory;
                     ViewBag.topProductSelled = topProductSelled;
                     ViewBag.Mode = "Dashboard";
-                }else if(Mode == "User")
+                }
+                else if(Mode == "User")
                 {
                     string urlGetAllUser;
                     urlGetAllUser = $"{userUrl}/getAllForAdmin?pageSize={pageSize}&pageNumber={pageNumber}";
@@ -122,7 +173,8 @@ namespace ShopWeb.Controllers
                         ViewBag.TotalPage = 1;
                     }
                     ViewBag.Mode = "User";
-                }else if(Mode == "CreateUser")
+                }
+                else if(Mode == "CreateUser")
                 {
                     ViewBag.Mode = "CreateUser";
                     if(id != 0)
@@ -131,7 +183,8 @@ namespace ShopWeb.Controllers
 
                         ViewBag.userDetail = userDetail;
                     }
-                }else if(Mode == "DeleteUser")
+                }
+                else if(Mode == "DeleteUser")
                 {
                     UserDTO userResult = await GetUser(id);
 
@@ -143,7 +196,8 @@ namespace ShopWeb.Controllers
                     ChangeSkateholdersWhenChangeUser(id, "Deactive");
 
                     Response.Redirect("Dashboard?Mode=User");
-                }else if(Mode == "Category")
+                }
+                else if(Mode == "Category")
                 {
                     string urlGetAllCategory;
                     urlGetAllCategory = $"{categoryUrl}/getAllForAdmin?pageSize={pageSize}&pageNumber={pageNumber}";
@@ -202,7 +256,8 @@ namespace ShopWeb.Controllers
                     ChangeSkateholdersWhenChangeCategory(id, "Deactive");
 
                     Response.Redirect("Dashboard?Mode=Category");
-                }else if(Mode == "Product")
+                }
+                else if(Mode == "Product")
                 {
                     string urlGetAllProduct;
                     urlGetAllProduct = $"{productUrl}/getAllForAdmin?pageSize={pageSize}&pageNumber={pageNumber}";
@@ -238,7 +293,8 @@ namespace ShopWeb.Controllers
                         ViewBag.TotalPage = 1;
                     }
                     ViewBag.Mode = "Product";
-                }else if (Mode == "CreateProduct")
+                }
+                else if (Mode == "CreateProduct")
                 {
                     //Lay Category
                     string urlGetCategory = $"{categoryUrl}/getAll";
@@ -280,10 +336,12 @@ namespace ShopWeb.Controllers
                     if (id != 0)
                     {
                         ProductDTO productDetail = await GetProduct(id);
-
+                        ViewBag.listColor = new SelectList(productDetail.ProductColorDTOs.ToList(), "ColorId", "ColorName");
+                        ViewBag.listSize = new SelectList(productDetail.ProductSizeDTOs.ToList(), "SizeId", "SizeName");
                         ViewBag.productDetail = productDetail;
                     }
-                }else if(Mode == "DeleteProduct")
+                }
+                else if(Mode == "DeleteProduct")
                 {
                     ProductDTO productDetail = await GetProduct(id);
 
@@ -292,12 +350,284 @@ namespace ShopWeb.Controllers
                     string url = $"{productUrl}/{id}";
 
                     HttpResponseMessage response = await httpClient.PutAsJsonAsync(url, productDetail);
-                    ChangeSkateholdersWhenChangeCategory(id, "Deactive");
+                    ChangeSkateholdersWhenChangeProduct(id, "Deactive");
 
                     Response.Redirect("Dashboard?Mode=Product");
                 }
+                else if(Mode == "Blog")
+                {
+                    string urlGetAllBlog;
+                    urlGetAllBlog = $"{blogUrl}/getAllForAdmin?pageSize={pageSize}&pageNumber={pageNumber}";
+                    HttpResponseMessage responseBlog = await httpClient.GetAsync(urlGetAllBlog);
+                    string strDataBlog = await responseBlog.Content.ReadAsStringAsync();
+                    var optionsBlog = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    List<BlogDTO> blogs = System.Text.Json.JsonSerializer.Deserialize<List<BlogDTO>>(strDataBlog, optionsBlog);
+
+                    //Lay totalPage
+                    string urlGetTotalBlog = $"{blogUrl}/getAllForAdmin?pageSize=0&pageNumber=1";
+                    HttpResponseMessage responseTotalBlog = await httpClient.GetAsync(urlGetTotalBlog);
+                    string strTotalBlog = await responseTotalBlog.Content.ReadAsStringAsync();
+                    var optionsTotalBlog = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    List<BlogDTO> totalBlog = System.Text.Json.JsonSerializer.Deserialize<List<BlogDTO>>(strTotalBlog, optionsTotalBlog);
+
+                    ViewBag.blogs = blogs;
+                    ViewBag.pageNumber = pageNumber;
+                    ViewBag.pageSize = pageSize;
+                    if (totalBlog != null && totalBlog.Count > 0)
+                    {
+                        ViewBag.ToTalPage = (int)Math.Ceiling((double)totalBlog.Count / pageSize);
+                    }
+                    else
+                    {
+                        ViewBag.TotalPage = 1;
+                    }
+                    ViewBag.Mode = "Blog";
+                }
+                else if(Mode == "CreateBlog")
+                {
+                    //Lay Category
+                    string urlGetCategory = $"{categoryUrl}/getAll";
+                    HttpResponseMessage responseCategory = await httpClient.GetAsync(urlGetCategory);
+                    string strCategory = await responseCategory.Content.ReadAsStringAsync();
+                    var optionsCategory = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    List<CategoryDTO> categories = System.Text.Json.JsonSerializer.Deserialize<List<CategoryDTO>>(strCategory, optionsCategory);
+                    ViewBag.categories = new SelectList(categories, "CategoryId", "CategoryName");
+
+                    //Lay User
+                    string urlGetUser = $"{userUrl}/getAll";
+                    HttpResponseMessage responseUser = await httpClient.GetAsync(urlGetUser);
+                    string strUser = await responseUser.Content.ReadAsStringAsync();
+                    var optionsUser = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    List<UserDTO> users = System.Text.Json.JsonSerializer.Deserialize<List<UserDTO>>(strUser, optionsUser);
+                    ViewBag.users = new SelectList(users, "UserId", "Email");
+
+                    ViewBag.Mode = "CreateBlog";
+                    if (id != 0)
+                    {
+                        BlogDTO blogDetail = await GetBlog(id);
+                        ViewBag.blogDetail = blogDetail;
+                    }
+                }
+                else if(Mode == "DeleteBlog")
+                {
+                    BlogDTO blogDetail = await GetBlog(id);
+
+                    blogDetail.Status = "Deactive";
+                    blogDetail.UpdatedTime = DateTime.Now;
+                    string url = $"{blogUrl}/{id}";
+
+                    HttpResponseMessage response = await httpClient.PutAsJsonAsync(url, blogDetail);
+
+                    Response.Redirect("Dashboard?Mode=Blog");
+                }
+                else if(Mode == "Color")
+                {
+                    string urlGetAllColor;
+                    urlGetAllColor = $"{colorUrl}/getAllForAdmin?pageSize={pageSize}&pageNumber={pageNumber}";
+                    HttpResponseMessage responseColor = await httpClient.GetAsync(urlGetAllColor);
+                    string strDataColor = await responseColor.Content.ReadAsStringAsync();
+                    var optionsColor = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    List<ColorDTO> colors = System.Text.Json.JsonSerializer.Deserialize<List<ColorDTO>>(strDataColor, optionsColor);
+
+                    //Lay totalPage
+                    string urlGetTotalColor = $"{colorUrl}/getAllForAdmin?pageSize=0&pageNumber=1";
+                    HttpResponseMessage responseTotalColor = await httpClient.GetAsync(urlGetTotalColor);
+                    string strTotalColor = await responseTotalColor.Content.ReadAsStringAsync();
+                    var optionsTotalColor = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    List<ColorDTO> totalColor = System.Text.Json.JsonSerializer.Deserialize<List<ColorDTO>>(strTotalColor, optionsTotalColor);
+
+                    ViewBag.colors = colors;
+                    ViewBag.pageNumber = pageNumber;
+                    ViewBag.pageSize = pageSize;
+                    if (totalColor != null && totalColor.Count > 0)
+                    {
+                        ViewBag.ToTalPage = (int)Math.Ceiling((double)totalColor.Count / pageSize);
+                    }
+                    else
+                    {
+                        ViewBag.TotalPage = 1;
+                    }
+                    ViewBag.Mode = "Color";
+                }
+                else if(Mode == "CreateColor")
+                {
+                    ViewBag.Mode = "CreateColor";
+                    if (id != 0)
+                    {
+                        ColorDTO colorDetail = await GetColor(id);
+                        ViewBag.colorDetail = colorDetail;
+                    }
+                }
+                else if(Mode == "DeleteColor")
+                {
+                    ColorDTO colorDetail = await GetColor(id);
+
+                    colorDetail.Status = "Deactive";
+                    colorDetail.UpdatedTime = DateTime.Now;
+                    string url = $"{colorUrl}/{id}";
+
+                    HttpResponseMessage response = await httpClient.PutAsJsonAsync(url, colorDetail);
+                    ChangeSkateholdersWhenChangeColor(id, "Deactive");
+
+                    Response.Redirect("Dashboard?Mode=Color");
+                }
+                else if (Mode == "Size")
+                {
+                    string urlGetAllSize;
+                    urlGetAllSize = $"{sizeUrl}/getAllForAdmin?pageSize={pageSize}&pageNumber={pageNumber}";
+                    HttpResponseMessage responseSize = await httpClient.GetAsync(urlGetAllSize);
+                    string strDataSize = await responseSize.Content.ReadAsStringAsync();
+                    var optionsSize = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    List<SizeDTO> sizes = System.Text.Json.JsonSerializer.Deserialize<List<SizeDTO>>(strDataSize, optionsSize);
+
+                    //Lay totalPage
+                    string urlGetTotalSize = $"{sizeUrl}/getAllForAdmin?pageSize=0&pageNumber=1";
+                    HttpResponseMessage responseTotalSize = await httpClient.GetAsync(urlGetTotalSize);
+                    string strTotalSize = await responseTotalSize.Content.ReadAsStringAsync();
+                    var optionsTotalSize = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    List<SizeDTO> totalSize = System.Text.Json.JsonSerializer.Deserialize<List<SizeDTO>>(strTotalSize, optionsTotalSize);
+
+                    ViewBag.sizes = sizes;
+                    ViewBag.pageNumber = pageNumber;
+                    ViewBag.pageSize = pageSize;
+                    if (totalSize != null && totalSize.Count > 0)
+                    {
+                        ViewBag.ToTalPage = (int)Math.Ceiling((double)totalSize.Count / pageSize);
+                    }
+                    else
+                    {
+                        ViewBag.TotalPage = 1;
+                    }
+                    ViewBag.Mode = "Size";
+                }
+                else if (Mode == "CreateSize")
+                {
+                    ViewBag.Mode = "CreateSize";
+                    if (id != 0)
+                    {
+                        SizeDTO sizeDetail = await GetSize(id);
+                        ViewBag.sizeDetail = sizeDetail;
+                    }
+                }
+                else if (Mode == "DeleteSize")
+                {
+                    SizeDTO sizeDetail = await GetSize(id);
+
+                    sizeDetail.Status = "Deactive";
+                    sizeDetail.UpdatedTime = DateTime.Now;
+                    string url = $"{sizeUrl}/{id}";
+
+                    HttpResponseMessage response = await httpClient.PutAsJsonAsync(url, sizeDetail);
+                    ChangeSkateholdersWhenChangeSize(id, "Deactive");
+
+                    Response.Redirect("Dashboard?Mode=Size");
+                }
+                else if(Mode == "Order")
+                {
+                    string urlGetAllOrder;
+                    urlGetAllOrder = $"{orderUrl}/getAllForAdmin?pageSize={pageSize}&pageNumber={pageNumber}";
+                    HttpResponseMessage responseOrder = await httpClient.GetAsync(urlGetAllOrder);
+                    string strDataOrder = await responseOrder.Content.ReadAsStringAsync();
+                    var optionsOrder = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    List<OrderDTO> orders = System.Text.Json.JsonSerializer.Deserialize<List<OrderDTO>>(strDataOrder, optionsOrder);
+
+                    //Lay totalPage
+                    string urlGetTotalOrder = $"{orderUrl}/getAllForAdmin?pageSize=0&pageNumber=1";
+                    HttpResponseMessage responseTotalOrder = await httpClient.GetAsync(urlGetTotalOrder);
+                    string strTotalOrder = await responseTotalOrder.Content.ReadAsStringAsync();
+                    var optionsTotalOrder = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    List<OrderDTO> totalOrder = System.Text.Json.JsonSerializer.Deserialize<List<OrderDTO>>(strTotalOrder, optionsTotalOrder);
+
+                    ViewBag.orders = orders;
+                    ViewBag.pageNumber = pageNumber;
+                    ViewBag.pageSize = pageSize;
+                    if (totalOrder != null && totalOrder.Count > 0)
+                    {
+                        ViewBag.ToTalPage = (int)Math.Ceiling((double)totalOrder.Count / pageSize);
+                    }
+                    else
+                    {
+                        ViewBag.TotalPage = 1;
+                    }
+                    ViewBag.Mode = "Order";
+                }
+                else if(Mode == "CreateOrder")
+                {
+                    //Lay User
+                    string urlGetUser = $"{userUrl}/getAllForAdmin";
+                    HttpResponseMessage responseUser = await httpClient.GetAsync(urlGetUser);
+                    string strUser = await responseUser.Content.ReadAsStringAsync();
+                    var optionsUser = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    List<UserDTO> users = System.Text.Json.JsonSerializer.Deserialize<List<UserDTO>>(strUser, optionsUser);
+                    ViewBag.users = new SelectList(users, "UserId", "Email");
+                    ViewBag.Mode = "CreateOrder";
+                    if (id != 0)
+                    {
+                        OrderDTO orderDetail = await GetOrder(id);
+                        ViewBag.orderDetail = orderDetail;
+                    }
+                }
+                else if(Mode == "DeleteOrder")
+                {
+                    OrderDTO orderDetail = await GetOrder(id);
+
+                    orderDetail.Status = "Deactive";
+                    orderDetail.UpdatedTime = DateTime.Now;
+                    string url = $"{orderUrl}/{id}";
+
+                    HttpResponseMessage response = await httpClient.PutAsJsonAsync(url, orderDetail);
+                    ChangeSkateholdersWhenChangeOrder(id, "Deactive");
+
+                    Response.Redirect("Dashboard?Mode=Order");
+                }
 
                 ViewBag.user = user;
+                ViewBag.Mess = Mess;
+                ViewBag.ColorMess = ColorMess;
                 return View();
 
             }
@@ -308,14 +638,37 @@ namespace ShopWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAndUpdate(UserDTO? userDTO, CategoryDTO? categoryDTO, ProductDTO? productDTO)
+        public async Task<IActionResult> CreateAndUpdate(UserDTO? userDTO, CategoryDTO? categoryDTO, ProductDTO? productDTO, BlogDTO? blogDTO,
+            ColorDTO? colorDTO, SizeDTO? sizeDTO, OrderDTO? orderDTO)
         {
             if (userDTO.Email != null)
             {
+                //Lay User
+                string urlGetUser = $"{userUrl}/getAll";
+                HttpResponseMessage responseUser = await httpClient.GetAsync(urlGetUser);
+                string strUser = await responseUser.Content.ReadAsStringAsync();
+                var optionsUser = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+
+                List<UserDTO> users = System.Text.Json.JsonSerializer.Deserialize<List<UserDTO>>(strUser, optionsUser);
+
                 if (userDTO.UserId != 0)
                 {
+                    bool isEmailDuplicate = users.Any(user => user.UserId != userDTO.UserId && user.Email == userDTO.Email);
+                    if (isEmailDuplicate)
+                    {
+                        return RedirectToAction("Index", new { Mode = "CreateUser", id = userDTO.UserId, Mess = "Email is exist", ColorMess = "Red" });
+                    }
+
+                    bool isPhoneDuplicate = users.Any(user => user.UserId != userDTO.UserId && user.Phone == userDTO.Phone);
+                    if (isPhoneDuplicate)
+                    {
+                        return RedirectToAction("Index", new { Mode = "CreateUser", id = userDTO.UserId, Mess = "Phone is exist", ColorMess = "Red" });
+                    }
+
                     UserDTO userResult = await GetUser(userDTO.UserId);
-                    Console.WriteLine(userDTO.UserId);
                     if (userDTO.Password != userResult.Password)
                     {
                         userDTO.Password = BCrypt.Net.BCrypt.HashPassword(userDTO.Password);
@@ -337,11 +690,22 @@ namespace ShopWeb.Controllers
                     string url = $"{userUrl}/{userDTO.UserId}";
 
                     HttpResponseMessage response = await httpClient.PutAsJsonAsync(url, userDTO);
-                    return RedirectToAction("Index", new { Mode = "CreateUser", id = userDTO.UserId });
+                    return RedirectToAction("Index", new { Mode = "CreateUser", id = userDTO.UserId, Mess = "Update user successful", ColorMess = "Green" });
 
                 }
                 else
                 {
+                    bool isEmailDuplicate = users.Any(user => user.Email == userDTO.Email);
+                    if (isEmailDuplicate)
+                    {
+                        return RedirectToAction("Index", new { Mode = "CreateUser", Mess = "Email is exist", ColorMess = "Red" });
+                    }
+                    bool isPhoneDuplicate = users.Any(user => user.Phone == userDTO.Phone);
+                    if (isPhoneDuplicate)
+                    {
+                        return RedirectToAction("Index", new { Mode = "CreateUser", Mess = "Phone is exist", ColorMess = "Red" });
+                    }
+
                     userDTO.RoleId = 6;
                     userDTO.RoleName = "NORMAL";
                     userDTO.Password = BCrypt.Net.BCrypt.HashPassword(userDTO.Password);
@@ -353,13 +717,28 @@ namespace ShopWeb.Controllers
                     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                     HttpResponseMessage response = await httpClient.PostAsJsonAsync(url, userDTO);
-                    return RedirectToAction("Index", new { Mode = "CreateUser" });
+                    return RedirectToAction("Index", new { Mode = "CreateUser", Mess = "Create user successful", ColorMess = "Green" });
                 }
             }
             else if (categoryDTO.CategoryName != null)
             {
+                // Lay Category
+                string urlGetCategory = $"{categoryUrl}/getAllForAdmin";
+                HttpResponseMessage responseCategory = await httpClient.GetAsync(urlGetCategory);
+                string strCategory = await responseCategory.Content.ReadAsStringAsync();
+                var optionsCategory = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+
+                List<CategoryDTO> categories = System.Text.Json.JsonSerializer.Deserialize<List<CategoryDTO>>(strCategory, optionsCategory);
                 if (categoryDTO.CategoryId != 0)
                 {
+                    bool isCategoryNameDuplicate = categories.Any(cate => cate.CategoryId != categoryDTO.CategoryId && cate.CategoryName == categoryDTO.CategoryName);
+                    if (isCategoryNameDuplicate)
+                    {
+                        return RedirectToAction("Index", new { Mode = "CreateCategory", id = categoryDTO.CategoryId, Mess = "Category name is exist", ColorMess = "Red" });
+                    }
                     CategoryDTO categoryResult = await GetCategory(categoryDTO.CategoryId);
                     ChangeSkateholdersWhenChangeCategory(categoryDTO.CategoryId, categoryDTO.Status);
                     categoryDTO.CreatedTime = categoryResult.CreatedTime;
@@ -367,20 +746,41 @@ namespace ShopWeb.Controllers
                     string url = $"{categoryUrl}/{categoryDTO.CategoryId}";
 
                     HttpResponseMessage response = await httpClient.PutAsJsonAsync(url, categoryDTO);
-                    return RedirectToAction("Index", new { Mode = "CreateCategory", id = categoryDTO.CategoryId });
+                    return RedirectToAction("Index", new { Mode = "CreateCategory", id = categoryDTO.CategoryId, Mess = "Update category successful", ColorMess = "Green" });
                 }
                 else
                 {
+                    bool isCategoryNameDuplicate = categories.Any(cate => cate.CategoryName == categoryDTO.CategoryName);
+                    if (isCategoryNameDuplicate)
+                    {
+                        return RedirectToAction("Index", new { Mode = "CreateCategory", Mess = "Category name is exist", ColorMess = "Red" });
+                    }
                     categoryDTO.CreatedTime = DateTime.Now;
                     string url = $"{categoryUrl}";
 
                     HttpResponseMessage response = await httpClient.PostAsJsonAsync(url, categoryDTO);
-                    return RedirectToAction("Index", new { Mode = "CreateCategory" });
+                    return RedirectToAction("Index", new { Mode = "CreateCategory", Mess = "Create category successful", ColorMess = "Green" });
                 }
-            }else if(productDTO.ProductName != null)
+            }
+            else if (productDTO.ProductName != null)
             {
+                // Lay Product
+                string urlGetProduct = $"{productUrl}/getAllForAdmin";
+                HttpResponseMessage responseProduct = await httpClient.GetAsync(urlGetProduct);
+                string strProduct = await responseProduct.Content.ReadAsStringAsync();
+                var optionsProduct = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+
+                List<ProductDTO> products = System.Text.Json.JsonSerializer.Deserialize<List<ProductDTO>>(strProduct, optionsProduct);
                 if (productDTO.ProductId != 0)
                 {
+                    bool isProductNameDuplicate = products.Any(pro => pro.ProductId != productDTO.ProductId && pro.ProductName == productDTO.ProductName);
+                    if (isProductNameDuplicate)
+                    {
+                        return RedirectToAction("Index", new { Mode = "CreateProduct", id = productDTO.ProductId, Mess = "Product name is exist", ColorMess = "Red" });
+                    }
                     ProductDTO productResult = await GetProduct(productDTO.ProductId);
                     ChangeSkateholdersWhenChangeProduct(productDTO.ProductId, productDTO.Status);
                     productDTO.CreatedTime = productResult.CreatedTime;
@@ -388,17 +788,67 @@ namespace ShopWeb.Controllers
                     string url = $"{productUrl}/{productDTO.ProductId}";
 
                     HttpResponseMessage response = await httpClient.PutAsJsonAsync(url, productDTO);
-                    return RedirectToAction("Index", new { Mode = "CreateProduct", id = productDTO.ProductId });
+
+                    //Xoa cac Color hien dang co
+                    foreach (var item in productResult.ProductColorDTOs)
+                    {
+                        string urlDelete = $"{productColorUrl}?id={item.ProductColorId}";
+
+                        await httpClient.DeleteAsync(urlDelete);
+                    }
+
+                    //Xoa cac Size hien dang co
+                    foreach (var item in productResult.ProductSizeDTOs)
+                    {
+                        string urlDelete = $"{productSizeUrl}?id={item.ProductSizeId}";
+
+                        await httpClient.DeleteAsync(urlDelete);
+                    }
+
+                    //Them moi cac color sau khi update
+                    if (productDTO.ColorId.Count > 0)
+                    {
+                        foreach (var item in productDTO.ColorId)
+                        {
+                            var productColor = new ProductColorDTO();
+                            productColor.ProductId = productDTO.ProductId;
+                            productColor.ColorId = item;
+                            productColor.Status = "Active";
+                            productColor.CreatedTime = DateTime.Now;
+                            string urlColor = $"{productColorUrl}";
+                            await httpClient.PostAsJsonAsync(urlColor, productColor);
+                        }
+
+                    }
+                    if (productDTO.SizeId.Count > 0)
+                    {
+                        foreach (var item in productDTO.SizeId)
+                        {
+                            var productSize = new ProductSizeDTO();
+                            productSize.ProductId = productDTO.ProductId;
+                            productSize.SizeId = item;
+                            productSize.Status = "Active";
+                            productSize.CreatedTime = DateTime.Now;
+                            string urlSize = $"{productSizeUrl}";
+                            await httpClient.PostAsJsonAsync(urlSize, productSize);
+                        }
+
+                    }
+                    return RedirectToAction("Index", new { Mode = "CreateProduct", id = productDTO.ProductId, Mess = "Update product successful", ColorMess = "Green" });
                 }
                 else
                 {
+                    bool isProductNameDuplicate = products.Any(pro => pro.ProductName == productDTO.ProductName);
+                    if (isProductNameDuplicate)
+                    {
+                        return RedirectToAction("Index", new { Mode = "CreateProduct",  Mess = "Product name is exist", ColorMess = "Red" });
+                    }
                     productDTO.CreatedTime = DateTime.Now;
                     string url = $"{productUrl}";
 
                     HttpResponseMessage response = await httpClient.PostAsJsonAsync(url, productDTO);
                     //Doc lai Product 
                     var responseData = await response.Content.ReadFromJsonAsync<ProductDTO>();
-                    Console.WriteLine(responseData.ProductId);
 
                     if (productDTO.ColorId.Count > 0)
                     {
@@ -428,7 +878,139 @@ namespace ShopWeb.Controllers
                         }
 
                     }
-                    return RedirectToAction("Index", new { Mode = "CreateProduct" });
+                    return RedirectToAction("Index", new { Mode = "CreateProduct", Mess = "Create product successful", ColorMess = "Green" });
+                }
+            }
+            else if (blogDTO.BlogName != null)
+            {
+                if (blogDTO.BlogId != 0)
+                {
+                    BlogDTO blogResult = await GetBlog(blogDTO.BlogId);
+                    blogDTO.CreatedTime = blogResult.CreatedTime;
+                    blogDTO.UpdatedTime = DateTime.Now;
+                    string url = $"{blogUrl}/{blogDTO.BlogId}";
+
+                    HttpResponseMessage response = await httpClient.PutAsJsonAsync(url, blogDTO);
+                    return RedirectToAction("Index", new { Mode = "CreateBlog", id = blogDTO.BlogId });
+                }
+                else
+                {
+                    blogDTO.CreatedTime = DateTime.Now;
+                    string url = $"{blogUrl}";
+                    //Lay token tu session
+                    string token = HttpContext.Session.GetString("Token");
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                    HttpResponseMessage response = await httpClient.PostAsJsonAsync(url, blogDTO);
+                    return RedirectToAction("Index", new { Mode = "CreateBlog" });
+                }
+            }
+            else if(colorDTO.ColorName != null)
+            {
+                // Lay Color
+                string urlGetColor = $"{colorUrl}/getAllForAdmin";
+                HttpResponseMessage responseColor = await httpClient.GetAsync(urlGetColor);
+                string strColor = await responseColor.Content.ReadAsStringAsync();
+                var optionsColor = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+
+                List<ColorDTO> colors = System.Text.Json.JsonSerializer.Deserialize<List<ColorDTO>>(strColor, optionsColor);
+                if (colorDTO.ColorId != 0)
+                {
+                    bool isColorNameDuplicate = colors.Any(col => col.ColorId != colorDTO.ColorId && col.ColorName == colorDTO.ColorName);
+                    if (isColorNameDuplicate)
+                    {
+                        return RedirectToAction("Index", new { Mode = "CreateColor", id = colorDTO.ColorId, Mess = "Color name is exist", ColorMess = "Red" });
+                    }
+                    ColorDTO colorResult = await GetColor(colorDTO.ColorId);
+                    ChangeSkateholdersWhenChangeColor(colorDTO.ColorId, colorDTO.Status);
+                    colorDTO.CreatedTime = colorResult.CreatedTime;
+                    colorDTO.UpdatedTime = DateTime.Now;
+
+                    string url = $"{colorUrl}/{colorDTO.ColorId}";
+
+                    HttpResponseMessage response = await httpClient.PutAsJsonAsync(url, colorDTO);
+                    return RedirectToAction("Index", new { Mode = "CreateColor", id = colorDTO.ColorId, Mess = "Update color successful", ColorMess = "Green" });
+                }
+                else
+                {
+                    bool isColorNameDuplicate = colors.Any(col => col.ColorName == colorDTO.ColorName);
+                    if (isColorNameDuplicate)
+                    {
+                        return RedirectToAction("Index", new { Mode = "CreateColor", Mess = "Color name is exist", ColorMess = "Red" });
+                    }
+                    colorDTO.CreatedTime = DateTime.Now;
+                    string url = $"{colorUrl}";
+                    HttpResponseMessage response = await httpClient.PostAsJsonAsync(url, colorDTO);
+                    return RedirectToAction("Index", new { Mode = "CreateColor", Mess = "Create color successful", ColorMess = "Green" });
+                }
+            }
+            else if(sizeDTO.SizeName != null)
+            {
+                // Lay Size
+                string urlGetSize = $"{sizeUrl}/getAllForAdmin";
+                HttpResponseMessage responseSize = await httpClient.GetAsync(urlGetSize);
+                string strSize = await responseSize.Content.ReadAsStringAsync();
+                var optionsSize = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+
+                List<SizeDTO> sizes = System.Text.Json.JsonSerializer.Deserialize<List<SizeDTO>>(strSize, optionsSize);
+                if (sizeDTO.SizeId != 0)
+                {
+                    bool isSizeNameDuplicate = sizes.Any(siz => siz.SizeId != sizeDTO.SizeId && siz.SizeName == sizeDTO.SizeName);
+                    if (isSizeNameDuplicate)
+                    {
+                        return RedirectToAction("Index", new { Mode = "CreateSize", id = sizeDTO.SizeId, Mess = "Size name is exist", ColorMess = "Red" });
+                    }
+                    SizeDTO sizeResult = await GetSize(sizeDTO.SizeId);
+                    ChangeSkateholdersWhenChangeSize(sizeDTO.SizeId, sizeDTO.Status);
+                    sizeDTO.CreatedTime = sizeResult.CreatedTime;
+                    sizeDTO.UpdatedTime = DateTime.Now;
+
+                    string url = $"{sizeUrl}/{sizeDTO.SizeId}";
+
+                    HttpResponseMessage response = await httpClient.PutAsJsonAsync(url, sizeDTO);
+                    return RedirectToAction("Index", new { Mode = "CreateSize", id = sizeDTO.SizeId, Mess = "Update size successful", ColorMess = "Green" });
+                }
+                else
+                {
+                    bool isSizeNameDuplicate = sizes.Any(siz => siz.SizeName == sizeDTO.SizeName);
+                    if (isSizeNameDuplicate)
+                    {
+                        return RedirectToAction("Index", new { Mode = "CreateSize", Mess = "Size name is exist", ColorMess = "Red" });
+                    }
+                    sizeDTO.CreatedTime = DateTime.Now;
+                    string url = $"{sizeUrl}";
+                    HttpResponseMessage response = await httpClient.PostAsJsonAsync(url, sizeDTO);
+                    return RedirectToAction("Index", new { Mode = "CreateSize", Mess = "Create size successful", ColorMess = "Green" });
+                }
+            }
+            else if(orderDTO.OrderDate != null)
+            {
+                if (orderDTO.OrderId != 0)
+                {
+                    OrderDTO orderResult = await GetOrder(orderDTO.OrderId);
+                    ChangeSkateholdersWhenChangeOrder(orderDTO.OrderId, orderDTO.Status);
+                    orderDTO.CreatedTime = orderResult.CreatedTime;
+                    orderDTO.UpdatedTime = DateTime.Now;
+
+                    string url = $"{orderUrl}/{orderDTO.OrderId}";
+
+                    HttpResponseMessage response = await httpClient.PutAsJsonAsync(url, orderDTO);
+                    return RedirectToAction("Index", new { Mode = "CreateOrder", id = orderDTO.OrderId });
+                }
+                else
+                {
+                    orderDTO.CreatedTime = DateTime.Now;
+                    string url = $"{orderUrl}";
+                    //Lay token tu session
+                    string token = HttpContext.Session.GetString("Token");
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                    HttpResponseMessage response = await httpClient.PostAsJsonAsync(url, orderDTO);
+                    return RedirectToAction("Index", new { Mode = "CreateOrder" });
                 }
             }
             else
@@ -486,6 +1068,69 @@ namespace ShopWeb.Controllers
 
             ProductDTO product = System.Text.Json.JsonSerializer.Deserialize<ProductDTO>(strDataProduct, optionsProduct);
             return product;
+        }
+
+        private async Task<BlogDTO> GetBlog(int blogId)
+        {
+            string urlGetBlog;
+            urlGetBlog = $"{blogUrl}/{blogId}";
+
+            HttpResponseMessage responseBlog = await httpClient.GetAsync(urlGetBlog);
+            string strDataBlog = await responseBlog.Content.ReadAsStringAsync();
+            var optionsBlog = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            BlogDTO blog = System.Text.Json.JsonSerializer.Deserialize<BlogDTO>(strDataBlog, optionsBlog);
+            return blog;
+        }
+        private async Task<ColorDTO> GetColor(int colorId)
+        {
+            string urlGetColor;
+            urlGetColor = $"{colorUrl}/{colorId}";
+
+            HttpResponseMessage responseColor = await httpClient.GetAsync(urlGetColor);
+            string strDataColor = await responseColor.Content.ReadAsStringAsync();
+            var optionsColor = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            ColorDTO color = System.Text.Json.JsonSerializer.Deserialize<ColorDTO>(strDataColor, optionsColor);
+            return color;
+        }
+
+        private async Task<SizeDTO> GetSize(int sizeId)
+        {
+            string urlGetSize;
+            urlGetSize = $"{sizeUrl}/{sizeId}";
+
+            HttpResponseMessage responseSize = await httpClient.GetAsync(urlGetSize);
+            string strDataSize = await responseSize.Content.ReadAsStringAsync();
+            var optionsSize = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            SizeDTO size = System.Text.Json.JsonSerializer.Deserialize<SizeDTO>(strDataSize, optionsSize);
+            return size;
+        }
+
+        private async Task<OrderDTO> GetOrder(int orderId)
+        {
+            string urlGetOrder;
+            urlGetOrder = $"{orderUrl}/{orderId}";
+
+            HttpResponseMessage responseOrder = await httpClient.GetAsync(urlGetOrder);
+            string strDataOrder = await responseOrder.Content.ReadAsStringAsync();
+            var optionsOrder = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            OrderDTO order = System.Text.Json.JsonSerializer.Deserialize<OrderDTO>(strDataOrder, optionsOrder);
+            return order;
         }
 
         private async Task<IActionResult> ChangeSkateholdersWhenChangeUser(int id, string status)
@@ -757,6 +1402,83 @@ namespace ShopWeb.Controllers
                 }
             }
             return null;
+        }
+        private async Task<IActionResult> ChangeSkateholdersWhenChangeColor(int id, string status)
+        {
+            //Deactive ProductColor
+            string urlGetProductColor;
+            urlGetProductColor = $"{productColorUrl}/getAll";
+
+            HttpResponseMessage responseProductColor = await httpClient.GetAsync(urlGetProductColor);
+            string strDataProductColor = await responseProductColor.Content.ReadAsStringAsync();
+            var optionsProductColor = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            var productColors = System.Text.Json.JsonSerializer.Deserialize<List<ProductColorDTO>>(strDataProductColor, optionsProductColor);
+            foreach (var item in productColors)
+            {
+                if (item.ColorId == id)
+                {
+                    item.Status = status;
+                    item.UpdatedTime = DateTime.Now;
+                    string urlProductColor = $"{productColorUrl}/{item.ProductColorId}";
+                    await httpClient.PutAsJsonAsync(urlProductColor, item);
+                }
+            }
+            return null;
+        }
+        private async Task<IActionResult> ChangeSkateholdersWhenChangeSize(int id, string status)
+        {
+            //Deactive ProductSize
+            string urlGetProductSize;
+            urlGetProductSize = $"{productSizeUrl}/getAll";
+
+            HttpResponseMessage responseProductSize = await httpClient.GetAsync(urlGetProductSize);
+            string strDataProductSize = await responseProductSize.Content.ReadAsStringAsync();
+            var optionsProductSize = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            var productSizes = System.Text.Json.JsonSerializer.Deserialize<List<ProductSizeDTO>>(strDataProductSize, optionsProductSize);
+            foreach (var item in productSizes)
+            {
+                if (item.SizeId == id)
+                {
+                    item.Status = status;
+                    item.UpdatedTime = DateTime.Now;
+                    string urlProductSize = $"{productSizeUrl}/{item.ProductSizeId}";
+                    await httpClient.PutAsJsonAsync(urlProductSize, item);
+                }
+            }
+            return null;
+        }
+        private async Task<IActionResult> ChangeSkateholdersWhenChangeOrder(int id, string status)
+        {
+            //Deactive OrderDetail
+            string urlGetOrderDetail;
+            urlGetOrderDetail = $"{orderDetailUrl}/getAllForAdmin";
+            HttpResponseMessage responseOrderDetail = await httpClient.GetAsync(urlGetOrderDetail);
+            string strDataOrderDetail = await responseOrderDetail.Content.ReadAsStringAsync();
+            var optionsOrderDetail = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            var orderDetails = System.Text.Json.JsonSerializer.Deserialize<List<OrderDetailDTO>>(strDataOrderDetail, optionsOrderDetail);
+            foreach (var item in orderDetails)
+            {
+                if (item.OrderId == id)
+                {
+                    item.Status = status;
+                    item.UpdatedTime = DateTime.Now;
+                    string urlOrderDetail = $"{orderDetailUrl}/{item.OrderDetailId}";
+                    await httpClient.PutAsJsonAsync(urlOrderDetail, item);
+                }
+            }
+            return null; 
         }
 
     }

@@ -23,7 +23,7 @@ namespace ShoppingWebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProductSizeDTO>> CreateRate([FromBody] ProductSizeDTO productSizeDTO)
+        public async Task<ActionResult<ProductSizeDTO>> CreateProductSize([FromBody] ProductSizeDTO productSizeDTO)
         {
 
             if (await repository.GetOneAsync(x => x.ProductSizeId == productSizeDTO.ProductSizeId) != null)
@@ -44,6 +44,50 @@ namespace ShoppingWebAPI.Controllers
 
 
             return Ok(resultDTIO);
+        }
+
+        [HttpGet("getAll")]
+        public async Task<ActionResult<ProductSizeDTO>> GetAllProductSizes(int pageSize = 0, int pageNumber = 1)
+        {
+            var ProductSizeList = await repository.GetAllAsync(includeProperties: "Size,Product", pageSize: pageSize, pageNumber: pageNumber);
+            List<ProductSizeDTO> listDTO = _mapper.Map<List<ProductSizeDTO>>(ProductSizeList);
+
+            return Ok(listDTO);
+        }
+
+        [HttpPut("{ProductSize_id:int}", Name = "UpdateProductSize")]
+        public async Task<ActionResult<ProductSizeDTO>> UpdateProductSize(int ProductSize_id, [FromBody] ProductSizeDTO productSizeDTO)
+        {
+
+            if (productSizeDTO == null || ProductSize_id != productSizeDTO.ProductSizeId)
+            {
+                return BadRequest();
+            }
+
+            // Map nguoc tu DTO -> Entity thi dung AutoMapperConfig
+            var mapper = AutoMapperConfig.InitializeAutomapper<ProductSizeDTO, ProductSize>();
+            var productSizeCreate = mapper.Map<ProductSize>(productSizeDTO);
+
+            // Thực hiện tạo mới Movie
+            await repository.UpdateAsync(productSizeCreate);
+
+            return Ok();
+        }
+
+        [HttpDelete(Name = "DeleteProductSize")]
+        public async Task<ActionResult> DeleteProductSize(int id)
+        {
+            if (id == 0)
+            {
+                return BadRequest();
+            }
+            var productSize = await repository.GetOneAsync(x => x.ProductSizeId == id);
+            if (productSize == null)
+            {
+                return NotFound();
+            }
+            await repository.RemoveAsync(productSize);
+            return NoContent();
         }
     }
 }

@@ -19,10 +19,12 @@ public class MapperConfigs: Profile
 
         CreateMap<ProductColor, ProductColorDTO>()
             .ForMember(dest => dest.ColorName, opt => opt.MapFrom(src => src.Color.ColorName))
+            .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.ProductName))
             .ReverseMap();
 
         CreateMap<ProductSize, ProductSizeDTO>()
             .ForMember(dest => dest.SizeName, opt => opt.MapFrom(src => src.Size.SizeName))
+            .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.ProductName))
             .ReverseMap();
 
         CreateMap<Cart, CartDTO>()

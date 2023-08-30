@@ -218,8 +218,8 @@ namespace ShoppingWebAPI.Controllers
             List<ProductDTO> listDTO = _mapper.Map<List<ProductDTO>>(ProductList);
             foreach (var item in listDTO)
             {
-                IEnumerable<ProductColor> ProductColorlist = await colorRepository.GetAllAsync(e => e.ProductId == item.ProductId, includeProperties: "Color");
-                IEnumerable<ProductSize> ProductSizelist = await sizeRepository.GetAllAsync(e => e.ProductId == item.ProductId, includeProperties: "Size");
+                IEnumerable<ProductColor> ProductColorlist = await colorRepository.GetAllAsync(e => e.ProductId == item.ProductId && e.Status == "Active", includeProperties: "Color");
+                IEnumerable<ProductSize> ProductSizelist = await sizeRepository.GetAllAsync(e => e.ProductId == item.ProductId && e.Status == "Active", includeProperties: "Size");
                 List<ProductColorDTO> productColorDTO = _mapper.Map<List<ProductColorDTO>>(ProductColorlist);
                 List<ProductSizeDTO> productSizeDTO = _mapper.Map<List<ProductSizeDTO>>(ProductSizelist);
                 item.ProductColorDTOs = productColorDTO;
@@ -249,8 +249,8 @@ namespace ShoppingWebAPI.Controllers
             List<ProductDTO> listDTO = _mapper.Map<List<ProductDTO>>(result);
             foreach (var item in listDTO)
             {
-                IEnumerable<ProductColor> ProductColorlist = await colorRepository.GetAllAsync(e => e.ProductId == item.ProductId, includeProperties: "Color");
-                IEnumerable<ProductSize> ProductSizelist = await sizeRepository.GetAllAsync(e => e.ProductId == item.ProductId, includeProperties: "Size");
+                IEnumerable<ProductColor> ProductColorlist = await colorRepository.GetAllAsync(e => e.ProductId == item.ProductId && e.Status == "Active", includeProperties: "Color");
+                IEnumerable<ProductSize> ProductSizelist = await sizeRepository.GetAllAsync(e => e.ProductId == item.ProductId && e.Status == "Active", includeProperties: "Size");
                 List<ProductColorDTO> productColorDTO = _mapper.Map<List<ProductColorDTO>>(ProductColorlist);
                 List<ProductSizeDTO> productSizeDTO = _mapper.Map<List<ProductSizeDTO>>(ProductSizelist);
                 item.ProductColorDTOs = productColorDTO;
@@ -270,8 +270,8 @@ namespace ShoppingWebAPI.Controllers
                 return BadRequest();
             }
             var Product = await repository.GetOneAsync(x => x.ProductId == product_id, includeProperties: "Category");
-            IEnumerable<ProductColor> ProductColorlist = await colorRepository.GetAllAsync(e => e.ProductId == product_id, includeProperties: "Color");
-            IEnumerable<ProductSize> ProductSizelist = await sizeRepository.GetAllAsync(e => e.ProductId == product_id, includeProperties: "Size");
+            IEnumerable<ProductColor> ProductColorlist = await colorRepository.GetAllAsync(e => e.ProductId == product_id && e.Status == "Active", includeProperties: "Color");
+            IEnumerable<ProductSize> ProductSizelist = await sizeRepository.GetAllAsync(e => e.ProductId == product_id && e.Status == "Active", includeProperties: "Size");
 
             if (Product == null)
             {
