@@ -60,13 +60,17 @@
 
         <div class="searchbar">
             <input type="text"
-                   placeholder="Search" name="search">
+                   id="searchInput"
+                   placeholder="Search"
+                   name="search">
             <div class="searchbtn">
                 <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180758/Untitled-design-(28).png"
                      class="icn srchicn"
-                     alt="search-icon">
+                     alt="search-icon"
+                     id="searchIcon">
             </div>
         </div>
+
 
         <div class="message">
             <div class="circle"></div>
@@ -1093,6 +1097,22 @@
                         </div>
                     </form>
                 </div>
+                <script>
+                    const textarea = document.getElementById('content');
+                    const charCount = document.getElementById('char-count');
+
+                    textarea.addEventListener('input', function () {
+                        const content = textarea.value;
+                        const count = content.length;
+                        charCount.textContent = count + '/200 characters';
+
+                        if (count >= 200) {
+                            textarea.setCustomValidity(''); // Clear any previous validation message
+                        } else {
+                            textarea.setCustomValidity('Please enter at least 200 characters.');
+                        }
+                    });
+                </script>
             }
             else if(Mode == "Color")
             {
@@ -1701,40 +1721,13 @@
             window.location.href = "/Dashboard?Mode=User";
         }
 
-        const textarea = document.getElementById('content');
-        const charCount = document.getElementById('char-count');
+        const searchInput = document.getElementById('searchInput');
+        const searchIcon = document.getElementById('searchIcon');
 
-        textarea.addEventListener('input', function () {
-            const content = textarea.value;
-            const count = content.length;
-            charCount.textContent = count + '/200 characters';
-
-            if (count >= 200) {
-                textarea.setCustomValidity(''); // Clear any previous validation message
-            } else {
-                textarea.setCustomValidity('Please enter at least 200 characters.');
-            }
-        });
-
-        flatpickr('.datetimepicker', {
-            enableTime: true,
-            dateFormat: "Y-m-d H:i",
-            // Các tùy chọn khác tùy theo nhu cầu của bạn
-        });
-
-        document.addEventListener("DOMContentLoaded", function () {
-            const form = document.getElementById("yourFormId");
-
-            form.addEventListener("submit", function (event) {
-                const orderDate = new Date(document.getElementById("orderDate").value);
-                const requiredDate = new Date(document.getElementById("requiredDate").value);
-                const shippedDate = new Date(document.getElementById("shippedDate").value);
-
-                if (requiredDate < orderDate || shippedDate < orderDate || shippedDate > requiredDate) {
-                    event.preventDefault(); // Ngăn form submit nếu điều kiện không đúng
-                    alert("Please make sure that Required Date is >= Order Date and Shipped Date is <= Required Date and >= Order Date.");
-                }
-            });
+        searchIcon.addEventListener('click', () => {
+            const searchTerm = searchInput.value;
+            const newUrl = `http://localhost:5251/Dashboard?Mode=${encodeURIComponent(searchTerm)}`;
+            window.location.href = newUrl;
         });
 
     </script>

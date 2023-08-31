@@ -83,5 +83,21 @@ namespace ShoppingWebAPI.Controllers
 
             return Ok();
         }
+
+        [HttpDelete(Name = "DeleteSupport")]
+        public async Task<ActionResult> DeleteSupport(int id)
+        {
+            if (id == 0)
+            {
+                return BadRequest();
+            }
+            var support = await repository.GetOneAsync(x => x.SupportId == id);
+            if (support == null)
+            {
+                return NotFound();
+            }
+            await repository.RemoveAsync(support);
+            return NoContent();
+        }
     }
 }

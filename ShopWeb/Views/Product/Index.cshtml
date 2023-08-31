@@ -211,7 +211,7 @@
                             </div>
                             @foreach(var item in ViewBag.rates)
                             {
-                            <div class="product_info_inner">
+                            <div id="messageList" class="product_info_inner">
                                     <div class="product_ratting mb-10">
                                         <ul>
                                             <li><a href="#"><i class="fa fa-star"></i></a></li>
@@ -225,7 +225,11 @@
                                     </div>
                                 
                                     <div class="product_demo">
-                                        <p>@item.Content</p>
+                                        @if(context.Session.GetString("Role") == "3"){
+                                            <p>@item.Content <span class="delete-icon" data-id="@item.RateId">🗑️</span></p>
+                                        }else{
+                                            <p>@item.Content</p>
+                                        }
                                         <img style="width:300px; height:300px;" src="@item.Image"/>
                                     </div>
                             </div>
@@ -514,6 +518,28 @@
     </div>
 </div>
 <script>
+    const messageList = document.getElementById('messageList');
+
+    messageList.addEventListener('click', async (event) => {
+        if (event.target.classList.contains('delete-icon')) {
+            const messageId = event.target.getAttribute('data-id');
+
+            try {
+                const response = await fetch(`https://localhost:7010/api/Rate?id=${messageId}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    messageList.remove(); // Xóa phần tử li chứa thông điệp
+                } else {
+                    console.error('Failed to delete message.');
+                }
+            } catch (error) {
+                console.error('An error occurred:', error);
+            }
+        }
+    });
+
     document.addEventListener("DOMContentLoaded", function () {
         var quickViewButtons = document.querySelectorAll('.quick_view_btn');
         quickViewButtons.forEach(function (button) {
@@ -590,6 +616,9 @@
     }
     .select_size{
         display: none;
+    }
+    .delete-icon {
+        cursor: pointer;
     }
 </style>
 

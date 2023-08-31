@@ -51,12 +51,6 @@ namespace ShopWeb.Controllers
             {
                 blogDTO.Status = "Active";
                 blogDTO.CreatedTime = DateTime.Now;
-                Console.WriteLine(blogDTO.BlogName);
-                Console.WriteLine(blogDTO.Content);
-                Console.WriteLine(blogDTO.Image);
-                Console.WriteLine(blogDTO.UserId);
-                Console.WriteLine(blogDTO.CategoryId);
-
 
                 string urlCreateBlog = $"{blogUrl}";
 

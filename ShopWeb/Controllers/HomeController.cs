@@ -27,7 +27,7 @@ public class HomeController : Controller
         httpClient = new HttpClient();
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(string? search)
     {
         if (HttpContext.Session.GetString("UserId") != null)
         {
@@ -60,6 +60,10 @@ public class HomeController : Controller
         }
         try
         {
+            if(search != null)
+            {
+                return Redirect($"{search}");
+            }
             string urlProduct = $"{productUrl}/list";
             string urlBlog = $"{blogUrl}/list";
 

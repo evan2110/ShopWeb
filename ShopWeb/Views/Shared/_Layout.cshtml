@@ -73,6 +73,10 @@
                                 <a href="#">@context.Session.GetString("Email") <i class="ion-chevron-down"></i></a>
                                 <ul class="dropdown_links">
                                     <li><a href="/UserDetail?user_id=@Int32.Parse(context.Session.GetString("UserId"))">My Account </a></li>
+                                    @if (context.Session.GetString("Role") == "3")
+                                    {
+                                        <li><a href="/Dashboard">Dashboard </a></li>
+                                    }
                                     <li><a href="/Order?userId=@Int32.Parse(context.Session.GetString("UserId"))">Order History  </a></li>
                                     <li><a href="@Url.Action("Logout", "Login")">Log Out</a></li>
                                 </ul>
@@ -84,38 +88,11 @@
                             <li>/</li>
                             <li><a href="/Login">Register</a></li>
                         }
-                        <li class="language">
-                            <a href="#"><img src="~/img/logo/language.png" alt=""> English <i class="ion-chevron-down"></i></a>
-                            <ul class="dropdown_language">
-                                <li><a href="#"><img src="~/img/logo/cigar.jpg" alt=""> French</a></li>
-                                <li><a href="#"><img src="~/img/logo/language2.png" alt="">German</a></li>
-                            </ul>
-                        </li>
-                        <li class="currency">
-                            <a href="#">USD <i class="ion-chevron-down"></i></a>
-                            <ul class="dropdown_currency">
-                                <li><a href="#">EUR</a></li>
-                                <li><a href="#">BRL</a></li>
-                            </ul>
-                        </li>
                     </ul>
                 </div>
                 <div class="search_bar">
-                    <form action="#">
-                        <select class="select_option" name="select" id="categori">
-                            <option selected value="1">All Categories</option>
-                            <option value="2">Accessories</option>
-                            <option value="3">Bridge</option>
-                            <option value="4">Hub</option>
-                            <option value="5">Repeater</option>
-                            <option value="6">Switch</option>
-                            <option value="7">Video Games</option>
-                            <option value="8">PlayStation 3</option>
-                            <option value="9">PlayStation 4</option>
-                            <option value="10">Xbox 360</option>
-                            <option value="11">Xbox One</option>
-                        </select>
-                        <input placeholder="Search entire store here..." type="text">
+                    <form method="GET" asp-action="Index" asp-controller="Home">
+                        <input name="search" placeholder="Search entire store here..." type="text">
                         <button type="submit"><i class="ion-ios-search-strong"></i></button>
                     </form>
                 </div>
@@ -294,8 +271,8 @@
                         <div class="row align-items-center">
                             <div class="col-lg-4">
                                 <div class="search_bar">
-                                    <form action="#">
-                                        <input placeholder="Search entire store here..." type="text">
+                                    <form method="GET" asp-action="Index" asp-controller="Home">
+                                        <input name="search" placeholder="Search entire store here..." type="text">
                                         <button type="submit"><i class="ion-ios-search-strong"></i></button>
                                     </form>
                                 </div>
@@ -516,8 +493,8 @@
                         <div class="widgets_container contact_us">
                             <h3>Contact Us</h3>
                             <div class="footer_contact">
-                                <p>Address: 6688 Princess Road, London, Greater London BAS 23JK, UK</p>
-                                <p>Phone: <a href="tel:+(+012)800456789-987">(+012) 800 456 789 - 987</a> </p>
+                                <p>Address: Phu Thuy, Le Thuy, Quang Binh</p>
+                                <p>Phone: <a href="tel:+(+012)800456789-987">(+84) 708908567</a> </p>
                                 <p>Email: ducdn21102001@gmail.com</p>
                                 <ul>
                                     <li><a href="#" onclick="shareOnFacebook('https://twitter.com/share?url=https://twitter.com/home'); return false;" title="Twitter"><i class="fa fa-twitter"></i></a></li>

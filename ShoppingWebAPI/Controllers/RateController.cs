@@ -85,5 +85,21 @@ namespace ShoppingWebAPI.Controllers
 
             return Ok(listDTO);
         }
+
+        [HttpDelete(Name = "DeleteRate")]
+        public async Task<ActionResult> DeleteRate(int id)
+        {
+            if (id == 0)
+            {
+                return BadRequest();
+            }
+            var rate = await repository.GetOneAsync(x => x.RateId == id);
+            if (rate == null)
+            {
+                return NotFound();
+            }
+            await repository.RemoveAsync(rate);
+            return NoContent();
+        }
     }
 }

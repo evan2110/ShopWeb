@@ -37,13 +37,26 @@
                     <input style="display:none;" value="@context.Session.GetString("Email")" id="userInput" type="text">
                     <div style="height:500px;" class="login_submit">
                         <ul style="max-height: 500px; overflow:auto;" id="messageList">
-                            @if (supportDTOs.Count != 0)
-                            {
-                                foreach (var item in supportDTOs)
+                            @if(context.Session.GetString("Role") == "3"){
+                                @if (supportDTOs.Count != 0)
                                 {
-                                    <li class="message-item">@item.Message</li>
+                                    foreach (var item in supportDTOs)
+                                    {
+                                        <li class="message-item">@item.Message <span class="delete-icon" data-id="@item.SupportId">🗑️</span></li>
+                                    }
                                 }
                             }
+                            else
+                            {
+                                @if (supportDTOs.Count != 0)
+                                {
+                                    foreach (var item in supportDTOs)
+                                    {
+                                        <li class="message-item">@item.Message</li>
+                                    }
+                                }
+                            }
+
                         </ul>
                     </div>
                     <p>
@@ -68,6 +81,34 @@
         padding: 0; /* Loại bỏ khoảng cách lề mặc định của <li> */
     }
 
+    .delete-icon {
+        cursor: pointer;
+    }
+
 </style>
+<script>
+    const messageList = document.getElementById('messageList');
+
+    messageList.addEventListener('click', async (event) => {
+        if (event.target.classList.contains('delete-icon')) {
+            const messageId = event.target.getAttribute('data-id');
+
+            try {
+                const response = await fetch(`https://localhost:7010/api/Support?id=${messageId}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    event.target.parentNode.remove(); // Xóa phần tử li chứa thông điệp
+                } else {
+                    console.error('Failed to delete message.');
+                }
+            } catch (error) {
+                console.error('An error occurred:', error);
+            }
+        }
+    });
+</script>
+
 <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/chat.js"></script>
